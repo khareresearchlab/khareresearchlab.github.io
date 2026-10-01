@@ -6,33 +6,6 @@
   <title>Publications | Khare Lab</title>
   <link rel="stylesheet" href="assets/style.css">
   <script defer src="assets/main.js"></script>
-  <style>
-    /* Publication-page styles: edit sizes here if needed. */
-    .publications-page .pub-list { max-width: 1120px; margin: 0 auto; }
-    .publications-page .pub-item {
-      display: grid; grid-template-columns: 70px minmax(0, 1fr) 28px;
-      gap: 20px; padding: 26px 0; border-bottom: 1px solid #d6dee3;
-    }
-    .publications-page .pub-item h3 {
-      font-size: 20px; line-height: 1.45; margin: 0 0 10px;
-      text-transform: none; letter-spacing: normal;
-    }
-    .publications-page .pub-item p { font-size: 15px; line-height: 1.65; margin: 0 0 8px; }
-    .publications-page .pub-item .eyebrow { font-size: 11px; letter-spacing: .09em; }
-    .publications-page .pub-year { font-size: 16px; font-weight: 600; }
-    .publications-page .pub-citation { font-style: italic; }
-    .publications-page .tag-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 10px; }
-    .publications-page .tag-row a { font-size: 13px; text-decoration: underline; }
-    .publications-page .pub-section-title { margin: 48px 0 12px; font-size: 26px; }
-    .publications-page .pub-section-note { font-size: 14px; line-height: 1.6; }
-    .publications-page .pub-open { align-self: start; }
-    @media (max-width: 600px) {
-      .publications-page .pub-item { grid-template-columns: minmax(0, 1fr); gap: 8px; }
-      .publications-page .pub-item h3 { font-size: 18px; }
-      .publications-page .pub-open { display: none; }
-      .publications-page .pub-section-title { font-size: 23px; }
-    }
-  </style>
 </head>
 <body>
   <header class="site-header">
@@ -51,15 +24,15 @@
     </nav>
   </header>
 
-  <main class="publications-page">
+  <main>
     <section class="page-hero">
       <p class="eyebrow">PUBLICATIONS / OUR WORK</p>
-      <h1>Research,<br>shared with the community.</h1>
+      <h1>Research, shared<br>with the community.</h1>
       <p class="lede">Journal articles, datasets and other writings by Peeyush Khare and collaborators.</p>
     </section>
     <section class="section pub-list" aria-label="Publication list">
 
-      <h2 class="pub-section-title">Journal publications</h2>
+      <div class="pub-tools"><span>JOURNAL PUBLICATIONS</span></div>
 
       <article class="pub-item">
         <span class="pub-year">2026</span>
@@ -67,7 +40,7 @@
           <h3>Multi-Stress Interaction Effects on BVOC emission Fingerprints in Oak and Beech: A Cross-Investigation Using Neural Networks and Positive Matrix Factorization</h3>
           <p class="pub-authors">Biplob Dey, Toke Due Sjøgren, <strong>Peeyush Khare</strong>, Yizhen Wu, Sindhu Vasireddy, Georgios Gkatzelis, Martin Schultz, Alexander Knohl, Riikka Rinnan, Thorsten Hohaus, Eva Y. Pfannerstill</p>
           <p class="pub-citation">Biogeosciences (European Geosciences Union) 23(4) 1423-1457 (2026)</p>
-          <div class="tag-row"><a href="https://doi.org/10.5194/bg-23-1423-2026" target="_blank" rel="noopener noreferrer">View publication</a></div>
+          <div class="tag-row"><a href="https://doi.org/10.5194/bg-23-1423-2026" target="_blank" rel="noopener noreferrer"><span>View publication</span></a></div>
         </div>
         <a class="pub-open" href="https://doi.org/10.5194/bg-23-1423-2026" target="_blank" rel="noopener noreferrer" aria-label="Open: Multi-Stress Interaction Effects on BVOC emission Fingerprints in Oak and Beech: A Cross-Investigation Using Neural Networks and Positive Matrix Factorization">↗</a>
       </article>
@@ -78,7 +51,7 @@
           <h3>Real-Time Source Apportionment Approaches in Six Chinese Cities Using the AXA (ACSM, Xact, Aethalometer) Instrumental Set-Up</h3>
           <p class="pub-authors">Manousos I. Manousakas, Tianqu Cui, Qiyuan Wang, Lu Qi, Cheung Ka Yuen, Lubna Dada, Yufang Hao, <strong>Peeyush Khare</strong>, Tian Jie, Yuemei Han, Jay G. Slowik, Junji Cao, Kaspar R. Daellenbach, André S. H. Prévôt</p>
           <p class="pub-citation">Scientific Reports (Springer Nature) 16 (9890) (2026)</p>
-          <div class="tag-row"><a href="https://doi.org/10.1038/s41598-026-38154-x" target="_blank" rel="noopener noreferrer">View publication</a></div>
+          <div class="tag-row"><a href="https://doi.org/10.1038/s41598-026-38154-x" target="_blank" rel="noopener noreferrer"><span>View publication</span></a></div>
         </div>
         <a class="pub-open" href="https://doi.org/10.1038/s41598-026-38154-x" target="_blank" rel="noopener noreferrer" aria-label="Open: Real-Time Source Apportionment Approaches in Six Chinese Cities Using the AXA (ACSM, Xact, Aethalometer) Instrumental Set-Up">↗</a>
       </article>
@@ -89,7 +62,7 @@
           <h3>Characterization of Coarse Particulate Matter in Urban &amp; Rural Switzerland using Advanced Offline Mass Spectrometry</h3>
           <p class="pub-authors">Ortiz Beltran K.S., Cui, T., Casotto, R., Lamkaddam, H., Tobler, A., Hao, Y., <strong>Khare, P.</strong>, Manousakas, M., Dada, L., Grange, S.K., Huglin, C., Uzu, G., Jaffrezo, J-L., Rausch, J., Jaramillo-Vogel, D., El-Haddad, I., Slowik, J.G., Prevot, A.S.H., Daellenbach, K.R.</p>
           <p class="pub-citation">Atmosphere (MDPI) 17 (199) (2026)</p>
-          <div class="tag-row"><a href="https://doi.org/10.3390/atmos17020199" target="_blank" rel="noopener noreferrer">View publication</a></div>
+          <div class="tag-row"><a href="https://doi.org/10.3390/atmos17020199" target="_blank" rel="noopener noreferrer"><span>View publication</span></a></div>
         </div>
         <a class="pub-open" href="https://doi.org/10.3390/atmos17020199" target="_blank" rel="noopener noreferrer" aria-label="Open: Characterization of Coarse Particulate Matter in Urban &amp; Rural Switzerland using Advanced Offline Mass Spectrometry">↗</a>
       </article>
@@ -100,7 +73,7 @@
           <h3>Assessing the Severe Urban Pollution Crisis in Sarajevo, Bosnia and Herzegovina: Mobile Measurements and Source Characterization</h3>
           <p class="pub-authors">Michael Bauer, Jay G. Slowik, Marta Via, <strong>Peeyush Khare</strong>, Benjamin Chazeaua, Kristina Glojek, Manousos Manousakas, Zachary C.J. Decker, Asta Gregorič, Almir Bijedić, Enis Krečinić, Griša Močnik, Katja Džepina, André S.H. Prévôt</p>
           <p class="pub-citation">Environment International (Elsevier) 207 (110009) (2026)</p>
-          <div class="tag-row"><a href="https://doi.org/10.1016/j.envint.2025.110009" target="_blank" rel="noopener noreferrer">View publication</a></div>
+          <div class="tag-row"><a href="https://doi.org/10.1016/j.envint.2025.110009" target="_blank" rel="noopener noreferrer"><span>View publication</span></a></div>
         </div>
         <a class="pub-open" href="https://doi.org/10.1016/j.envint.2025.110009" target="_blank" rel="noopener noreferrer" aria-label="Open: Assessing the Severe Urban Pollution Crisis in Sarajevo, Bosnia and Herzegovina: Mobile Measurements and Source Characterization">↗</a>
       </article>
@@ -111,7 +84,7 @@
           <h3>Organic Solvents-Based Offline Aerosol Mass Spectrometry (SOff-AMS) for Comprehensive Chemical Characterization of Ambient Organic Aerosol</h3>
           <p class="pub-authors"><strong>Khare, P.</strong>*, Ioannis, M.M., Dada, L., Kurdieh, A.A., Hao, Y., Diapouli, E., Voiron, C., Jaffrezo, J-L., Styszko, K., Skiba, A., Prevot, A.S.H., Daellenbach, K.R.</p>
           <p class="pub-citation">Environmental Science and Technology (American Chemical Society), 59, 34, 18236–18248 (2025)</p>
-          <div class="tag-row"><a href="https://doi.org/10.1021/acs.est.5c08949" target="_blank" rel="noopener noreferrer">View publication</a></div>
+          <div class="tag-row"><a href="https://doi.org/10.1021/acs.est.5c08949" target="_blank" rel="noopener noreferrer"><span>View publication</span></a></div>
         </div>
         <a class="pub-open" href="https://doi.org/10.1021/acs.est.5c08949" target="_blank" rel="noopener noreferrer" aria-label="Open: Organic Solvents-Based Offline Aerosol Mass Spectrometry (SOff-AMS) for Comprehensive Chemical Characterization of Ambient Organic Aerosol">↗</a>
       </article>
@@ -122,7 +95,7 @@
           <h3>Chemical Composition of Fresh and Aged Asphalt-Related Organic Aerosols: From Ambient Observations to Laboratory Experiments</h3>
           <p class="pub-authors"><strong>Khare, P.</strong>, Machesky, J., Williams, L., Humes, M., Canagaratna, M., Krechmer, J.E., Lambe, A.T., Presto, A.A., Gentner, D.R.</p>
           <p class="pub-citation">Environmental Science and Technology | Air (American Chemical Society), 2, 4, 446-455 (2025)</p>
-          <div class="tag-row"><a href="https://doi.org/10.1021/acsestair.4c00193" target="_blank" rel="noopener noreferrer">View publication</a></div>
+          <div class="tag-row"><a href="https://doi.org/10.1021/acsestair.4c00193" target="_blank" rel="noopener noreferrer"><span>View publication</span></a></div>
         </div>
         <a class="pub-open" href="https://doi.org/10.1021/acsestair.4c00193" target="_blank" rel="noopener noreferrer" aria-label="Open: Chemical Composition of Fresh and Aged Asphalt-Related Organic Aerosols: From Ambient Observations to Laboratory Experiments">↗</a>
       </article>
@@ -133,7 +106,7 @@
           <h3>Transported Smoke from Crop Residue Burning as the Major Source of Organic Aerosol and Health Risks in Northern Indian Cities During Post-Monsoon</h3>
           <p class="pub-authors">Hao, Y., Straehl, J., <strong>Khare, P.</strong>, Cui, T., Schneider-Beltran, K.S., Qi, L., Wang, D., Top, J., Surdu, M., Bhattu, D., Bhowmik, H.S., Vats, P., Rai, P., Kumar, V., Ganguly, D., Szidat, S., Uzu, G., Jaffrezo, J-L., Rastogi, N., Slowik, J., Haddad, I.E., Tripathi, S.N., Prevot, A.S.H., Daellenbach, K.R.</p>
           <p class="pub-citation">Environment International (Elsevier) 202 (109583) (2025)</p>
-          <div class="tag-row"><a href="https://doi.org/10.1016/j.envint.2025.109583" target="_blank" rel="noopener noreferrer">View publication</a></div>
+          <div class="tag-row"><a href="https://doi.org/10.1016/j.envint.2025.109583" target="_blank" rel="noopener noreferrer"><span>View publication</span></a></div>
         </div>
         <a class="pub-open" href="https://doi.org/10.1016/j.envint.2025.109583" target="_blank" rel="noopener noreferrer" aria-label="Open: Transported Smoke from Crop Residue Burning as the Major Source of Organic Aerosol and Health Risks in Northern Indian Cities During Post-Monsoon">↗</a>
       </article>
@@ -144,7 +117,7 @@
           <h3>Measurement Report: Sources and Meteorology Influencing Highly-Time Resolved PM2.5 Trace Elements at 3 Urban Sites in Extremely Polluted Indo-Gangetic Plain in India</h3>
           <p class="pub-authors">Shukla, A.K., Tripathi, S.N., Talukdar, S., Murari, V., Gaddamidi, S., Manousakas, M-I., Lalchandani, V., Dixit, K., Ruge, V.M., <strong>Khare, P.</strong>, Kumar, M., Singh, V., Rastogi, N., Tiwari, S., Srivastava, A.K., Ganguly, D., Daellenbach, K.R., Prevot, A.S.H.</p>
           <p class="pub-citation">Atmospheric Chemistry and Physics (European Geosciences Union) 25 (6), pp. 3765–3784 (2025)</p>
-          <div class="tag-row"><a href="https://doi.org/10.5194/acp-25-3765-2025" target="_blank" rel="noopener noreferrer">View publication</a></div>
+          <div class="tag-row"><a href="https://doi.org/10.5194/acp-25-3765-2025" target="_blank" rel="noopener noreferrer"><span>View publication</span></a></div>
         </div>
         <a class="pub-open" href="https://doi.org/10.5194/acp-25-3765-2025" target="_blank" rel="noopener noreferrer" aria-label="Open: Measurement Report: Sources and Meteorology Influencing Highly-Time Resolved PM2.5 Trace Elements at 3 Urban Sites in Extremely Polluted Indo-Gangetic Plain in India">↗</a>
       </article>
@@ -155,7 +128,7 @@
           <h3>Composition and Sources of Organic Aerosol in Two Megacities in Western China Using Multiple Mass Spectrometric and Statistical Techniques</h3>
           <p class="pub-authors">Cui, T., Manousakas, M.I., Wang, Q., Uzu, G., Hao, Y., Huang, X., <strong>Khare, P.</strong>, Qi, L., Han, Y., Slowik, J.G., Jaffrezo, J-L., Cao, J., Prevot, A.S.H., Daellenbach, K.R.</p>
           <p class="pub-citation">Environmental Science and Technology | Air (American Chemical Society), 1 (9), pp. 1053-1065 (2024)</p>
-          <div class="tag-row"><a href="https://doi.org/10.1021/acsestair.4c00051" target="_blank" rel="noopener noreferrer">View publication</a></div>
+          <div class="tag-row"><a href="https://doi.org/10.1021/acsestair.4c00051" target="_blank" rel="noopener noreferrer"><span>View publication</span></a></div>
         </div>
         <a class="pub-open" href="https://doi.org/10.1021/acsestair.4c00051" target="_blank" rel="noopener noreferrer" aria-label="Open: Composition and Sources of Organic Aerosol in Two Megacities in Western China Using Multiple Mass Spectrometric and Statistical Techniques">↗</a>
       </article>
@@ -166,7 +139,7 @@
           <h3>Local Incomplete Combustion Emissions Define the PM2.5 Oxidative Potential in Northern India</h3>
           <p class="pub-authors">Bhattu, D., Tripathi, S.N., Bhowmik, H.S., Moschos, V., Lee, C.P., Rauber, M., Salazar, G., Abbaszade, G., Cui, T., Slowik, J.G., Vats, P., Mishra, S., Lalchandani, V., Satish, R., Rai, P., Casotto, R., Tobler, A., Kumar, V., Hao, Y., Qi, L., <strong>Khare, P.</strong>, Manousakas, M.I., Wang, Q., Han, Y., Tian, J., Rastogi, N., Srivastava, A.K., Ganguly, D., Bjelic, S., Canonaco, F., Schnelle-Kreis, J., Dominutti, P.A., Jaffrezo, J-L., Szidat, S., Chen, Y., Cao, J., Baltensperger, U., Uzu, G., Daellenbach, K.R., El Haddad, I., Prévôt, A.S.H.</p>
           <p class="pub-citation">Nature Communications, 15, 3517 (2024)</p>
-          <div class="tag-row"><a href="https://doi.org/10.1038/s41467-024-47785-5" target="_blank" rel="noopener noreferrer">View publication</a></div>
+          <div class="tag-row"><a href="https://doi.org/10.1038/s41467-024-47785-5" target="_blank" rel="noopener noreferrer"><span>View publication</span></a></div>
         </div>
         <a class="pub-open" href="https://doi.org/10.1038/s41467-024-47785-5" target="_blank" rel="noopener noreferrer" aria-label="Open: Local Incomplete Combustion Emissions Define the PM2.5 Oxidative Potential in Northern India">↗</a>
       </article>
@@ -177,7 +150,7 @@
           <h3>Total Organic Carbon Measurements Reveal Major Gaps in Petrochemical Emissions Reporting</h3>
           <p class="pub-authors">He, M., Ditto, J., Gardner, L., Machesky, J., Hass-Mitchell, T.N., Chen, C., <strong>Khare, P.</strong>, Sahin, B., Fortner, J.D., Plata, D.L., Drollette, B.D., Hayden, K.L., Wentzell, J.J.B., Mittermeier, R.L., Leithead, A., Lee, P., Darlington, A., Wren, S.N., Zhang, J., Wolde, M., Moussa, S.G., Li, S-M., Liggio, J., Gentner, D.R.</p>
           <p class="pub-citation">Science (AAAS), 383(6681), pp. 426-432 (2024)</p>
-          <div class="tag-row"><a href="https://doi.org/10.1126/science.adj6233" target="_blank" rel="noopener noreferrer">View publication</a></div>
+          <div class="tag-row"><a href="https://doi.org/10.1126/science.adj6233" target="_blank" rel="noopener noreferrer"><span>View publication</span></a></div>
         </div>
         <a class="pub-open" href="https://doi.org/10.1126/science.adj6233" target="_blank" rel="noopener noreferrer" aria-label="Open: Total Organic Carbon Measurements Reveal Major Gaps in Petrochemical Emissions Reporting">↗</a>
       </article>
@@ -188,7 +161,7 @@
           <h3>Detailed Chemical Characterization and Source Apportionment of Coarse Airborne Particulate Matter in Urban and Rural Catalonia, Spain</h3>
           <p class="pub-authors">in ‘t Veld, M., <strong>Khare, P.</strong>, Hao, Y., Reche, C., Pérez, N., Alastuey, A., Yus-Díez, J., Marchand, N., Prevot, A.S.H., Querol, X., Daellenbach, K.R.</p>
           <p class="pub-citation">Science of the Total Environment (Elsevier), 902, 166440 (2023) · Joint first authors: M. in ’t Veld and P. Khare</p>
-          <div class="tag-row"><a href="https://doi.org/10.1016/j.scitotenv.2023.166440" target="_blank" rel="noopener noreferrer">View publication</a></div>
+          <div class="tag-row"><a href="https://doi.org/10.1016/j.scitotenv.2023.166440" target="_blank" rel="noopener noreferrer"><span>View publication</span></a></div>
         </div>
         <a class="pub-open" href="https://doi.org/10.1016/j.scitotenv.2023.166440" target="_blank" rel="noopener noreferrer" aria-label="Open: Detailed Chemical Characterization and Source Apportionment of Coarse Airborne Particulate Matter in Urban and Rural Catalonia, Spain">↗</a>
       </article>
@@ -199,7 +172,7 @@
           <h3>Anthropogenic Secondary Organic Aerosol and Ozone Production from Asphalt-Related Emissions</h3>
           <p class="pub-authors">Seltzer, K.M., Rao, V., Pye, H.O.T., Murphy, B.N., Place, B.K., <strong>Khare, P.</strong>, Gentner, D.R., Allen, C., Cooley, D., Mason, R., Houyoux M.</p>
           <p class="pub-citation">Environmental Science: Atmospheres, 3, 1221–1230 (2023)</p>
-          <div class="tag-row"><a href="https://doi.org/10.1039/D3EA00066D" target="_blank" rel="noopener noreferrer">View publication</a></div>
+          <div class="tag-row"><a href="https://doi.org/10.1039/D3EA00066D" target="_blank" rel="noopener noreferrer"><span>View publication</span></a></div>
         </div>
         <a class="pub-open" href="https://doi.org/10.1039/D3EA00066D" target="_blank" rel="noopener noreferrer" aria-label="Open: Anthropogenic Secondary Organic Aerosol and Ozone Production from Asphalt-Related Emissions">↗</a>
       </article>
@@ -210,7 +183,7 @@
           <h3>Ammonium-adduct Chemical Ionization to Investigate Anthropogenic Oxygenated Gas-Phase Organic Compounds in Urban Air</h3>
           <p class="pub-authors"><strong>Khare, P.</strong>, Krechmer, J.E., Machesky, J. E., Hass-Mitchell,T., Cao,C., Wang, J., Majluf, F., Lopez-Hilfiker, F., Seltzer, K., Pye, H.O.T., Commane, R., McDonald, B., Toledo-Crow, R., Mak, J.E., Gentner, D.R.</p>
           <p class="pub-citation">Atmospheric Chemistry and Physics (European Geosciences Union), 22, pp. 14377-14399 (2022)</p>
-          <div class="tag-row"><a href="https://doi.org/10.5194/acp-22-14377-2022" target="_blank" rel="noopener noreferrer">View publication</a></div>
+          <div class="tag-row"><a href="https://doi.org/10.5194/acp-22-14377-2022" target="_blank" rel="noopener noreferrer"><span>View publication</span></a></div>
         </div>
         <a class="pub-open" href="https://doi.org/10.5194/acp-22-14377-2022" target="_blank" rel="noopener noreferrer" aria-label="Open: Ammonium-adduct Chemical Ionization to Investigate Anthropogenic Oxygenated Gas-Phase Organic Compounds in Urban Air">↗</a>
       </article>
@@ -221,7 +194,7 @@
           <h3>Asphalt-related Emissions are a Major Missing Non-Traditional Source of Secondary Organic Aerosol Precursors</h3>
           <p class="pub-authors"><strong>Khare, P.</strong>, Machesky, J., Soto, R., He, M., Presto, A., Gentner, D.R.</p>
           <p class="pub-citation">Science Advances (Science/AAAS), 6(36), eabb9785 (2020)</p>
-          <div class="tag-row"><a href="https://doi.org/10.1126/sciadv.abb9785" target="_blank" rel="noopener noreferrer">View publication</a></div>
+          <div class="tag-row"><a href="https://doi.org/10.1126/sciadv.abb9785" target="_blank" rel="noopener noreferrer"><span>View publication</span></a></div>
         </div>
         <a class="pub-open" href="https://doi.org/10.1126/sciadv.abb9785" target="_blank" rel="noopener noreferrer" aria-label="Open: Asphalt-related Emissions are a Major Missing Non-Traditional Source of Secondary Organic Aerosol Precursors">↗</a>
       </article>
@@ -232,7 +205,7 @@
           <h3>Advances in Offline Approaches for Trace Measurements of Complex Organic Compound Mixtures via Soft Ionization and High-Resolution Tandem Mass Spectrometry</h3>
           <p class="pub-authors"><strong>Khare, P.</strong>, Marcotte, A., Sheu, R., Walsh, A., Ditto, J., Gentner, D.R.</p>
           <p class="pub-citation">Journal of Chromatography A (Elsevier), 1598, pp. 163-174 (2019)</p>
-          <div class="tag-row"><a href="https://doi.org/10.1016/j.chroma.2019.03.037" target="_blank" rel="noopener noreferrer">View publication</a></div>
+          <div class="tag-row"><a href="https://doi.org/10.1016/j.chroma.2019.03.037" target="_blank" rel="noopener noreferrer"><span>View publication</span></a></div>
         </div>
         <a class="pub-open" href="https://doi.org/10.1016/j.chroma.2019.03.037" target="_blank" rel="noopener noreferrer" aria-label="Open: Advances in Offline Approaches for Trace Measurements of Complex Organic Compound Mixtures via Soft Ionization and High-Resolution Tandem Mass Spectrometry">↗</a>
       </article>
@@ -243,7 +216,7 @@
           <h3>Effects of Molecular-Level Compositional Variability in Organic Aerosol on Phase State and Thermodynamic Mixing Behavior</h3>
           <p class="pub-authors">Ditto, J.C., Joo, T., <strong>Khare, P.</strong>, Bui, A.A.T., Griffin, R.J., Ng, N.L., Gentner, D.R.</p>
           <p class="pub-citation">Environmental Science &amp; Technology, 53(22), 13009–13018 (2019)</p>
-          <div class="tag-row"><a href="https://doi.org/10.1021/acs.est.9b02664" target="_blank" rel="noopener noreferrer">View publication</a></div>
+          <div class="tag-row"><a href="https://doi.org/10.1021/acs.est.9b02664" target="_blank" rel="noopener noreferrer"><span>View publication</span></a></div>
         </div>
         <a class="pub-open" href="https://doi.org/10.1021/acs.est.9b02664" target="_blank" rel="noopener noreferrer" aria-label="Open: Effects of Molecular-Level Compositional Variability in Organic Aerosol on Phase State and Thermodynamic Mixing Behavior">↗</a>
       </article>
@@ -254,7 +227,7 @@
           <h3>Considering the Future of Anthropogenic Gas-Phase Organic Compound Emissions and the Increasing Influence of Non-Combustion Sources on Urban Air Quality</h3>
           <p class="pub-authors"><strong>Khare, P.</strong>, Gentner, D.R.</p>
           <p class="pub-citation">Atmospheric Chemistry and Physics (European Geosciences Union), 18, pp. 5391-5413 (2018)</p>
-          <div class="tag-row"><a href="https://doi.org/10.5194/acp-18-5391-2018" target="_blank" rel="noopener noreferrer">View publication</a></div>
+          <div class="tag-row"><a href="https://doi.org/10.5194/acp-18-5391-2018" target="_blank" rel="noopener noreferrer"><span>View publication</span></a></div>
         </div>
         <a class="pub-open" href="https://doi.org/10.5194/acp-18-5391-2018" target="_blank" rel="noopener noreferrer" aria-label="Open: Considering the Future of Anthropogenic Gas-Phase Organic Compound Emissions and the Increasing Influence of Non-Combustion Sources on Urban Air Quality">↗</a>
       </article>
@@ -265,7 +238,7 @@
           <h3>Advances in Offline Approaches for Speciated Measurements of Trace Gas-Phase Organic Compounds via an Integrated Sampling-to-Analysis System</h3>
           <p class="pub-authors">Sheu, R., Marcotte, A., <strong>Khare, P.</strong>, Charan S., Ditto, J., Gentner, D.R.</p>
           <p class="pub-citation">Journal of Chromatography A (Elsevier), 1575, pp. 80-90 (2018)</p>
-          <div class="tag-row"><a href="https://doi.org/10.1016/j.chroma.2018.09.014" target="_blank" rel="noopener noreferrer">View publication</a></div>
+          <div class="tag-row"><a href="https://doi.org/10.1016/j.chroma.2018.09.014" target="_blank" rel="noopener noreferrer"><span>View publication</span></a></div>
         </div>
         <a class="pub-open" href="https://doi.org/10.1016/j.chroma.2018.09.014" target="_blank" rel="noopener noreferrer" aria-label="Open: Advances in Offline Approaches for Speciated Measurements of Trace Gas-Phase Organic Compounds via an Integrated Sampling-to-Analysis System">↗</a>
       </article>
@@ -276,7 +249,7 @@
           <h3>An Omnipresent Diversity and Variability in the Chemical Composition of Atmospheric Functionalized Organic Aerosol</h3>
           <p class="pub-authors">Ditto, J.C., Barnes, E., <strong>Khare, P.</strong>,Takeuchi, M., Joo, T., Bui, A.A.T., Lee-Taylor, J., Eris, G., Chen, Y., Aumont, B., Jimenez, J.L., Ng, N.L., Griffin, R.J., Gentner, D.R.</p>
           <p class="pub-citation">Communications Chemistry (Nature), 1:75 (2018)</p>
-          <div class="tag-row"><a href="https://doi.org/10.1038/s42004-018-0074-3" target="_blank" rel="noopener noreferrer">View publication</a></div>
+          <div class="tag-row"><a href="https://doi.org/10.1038/s42004-018-0074-3" target="_blank" rel="noopener noreferrer"><span>View publication</span></a></div>
         </div>
         <a class="pub-open" href="https://doi.org/10.1038/s42004-018-0074-3" target="_blank" rel="noopener noreferrer" aria-label="Open: An Omnipresent Diversity and Variability in the Chemical Composition of Atmospheric Functionalized Organic Aerosol">↗</a>
       </article>
@@ -287,7 +260,7 @@
           <h3>A Large Scale Investigation of the Quality of Groundwater in Six Major Districts of Central India during the 2010-2011 Sampling Campaign</h3>
           <p class="pub-authors"><strong>Khare, P.</strong>*</p>
           <p class="pub-citation">Environmental Monitoring and Assessment (Springer International), 189:429. (2017)</p>
-          <div class="tag-row"><a href="https://doi.org/10.1007/s10661-017-6130-0" target="_blank" rel="noopener noreferrer">View publication</a></div>
+          <div class="tag-row"><a href="https://doi.org/10.1007/s10661-017-6130-0" target="_blank" rel="noopener noreferrer"><span>View publication</span></a></div>
         </div>
         <a class="pub-open" href="https://doi.org/10.1007/s10661-017-6130-0" target="_blank" rel="noopener noreferrer" aria-label="Open: A Large Scale Investigation of the Quality of Groundwater in Six Major Districts of Central India during the 2010-2011 Sampling Campaign">↗</a>
       </article>
@@ -298,7 +271,7 @@
           <h3>Simulation of Vertical Concentration Gradient of Influenza Viruses in Dust Resuspended by Walking</h3>
           <p class="pub-authors"><strong>Khare, P.</strong>, Marr, L.C.</p>
           <p class="pub-citation">Indoor Air, 25(4), 428–440 (2015; first published online in 2014)</p>
-          <div class="tag-row"><a href="https://doi.org/10.1111/ina.12156" target="_blank" rel="noopener noreferrer">View publication</a></div>
+          <div class="tag-row"><a href="https://doi.org/10.1111/ina.12156" target="_blank" rel="noopener noreferrer"><span>View publication</span></a></div>
         </div>
         <a class="pub-open" href="https://doi.org/10.1111/ina.12156" target="_blank" rel="noopener noreferrer" aria-label="Open: Simulation of Vertical Concentration Gradient of Influenza Viruses in Dust Resuspended by Walking">↗</a>
       </article>
@@ -309,7 +282,7 @@
           <h3>Droplet Spectrum Analysis from Artificially Generated Rain Showers</h3>
           <p class="pub-authors"><strong>Khare, P.</strong>, Agarwal, T., Ghosh, S.</p>
           <p class="pub-citation">ASCE Journal of Irrigation and Drainage Engineering, Vol. 140(8), ISSN (online): 1943-4774. (2014)</p>
-          <div class="tag-row"><a href="https://doi.org/10.1061/(ASCE)IR.1943-4774.0000742" target="_blank" rel="noopener noreferrer">View publication</a></div>
+          <div class="tag-row"><a href="https://doi.org/10.1061/(ASCE)IR.1943-4774.0000742" target="_blank" rel="noopener noreferrer"><span>View publication</span></a></div>
         </div>
         <a class="pub-open" href="https://doi.org/10.1061/(ASCE)IR.1943-4774.0000742" target="_blank" rel="noopener noreferrer" aria-label="Open: Droplet Spectrum Analysis from Artificially Generated Rain Showers">↗</a>
       </article>
@@ -323,8 +296,8 @@
         </div>
       </article>
 
-      <h2 class="pub-section-title">Submitted manuscripts</h2>
-      <p class="pub-section-note">Submission status as recorded in the September 2026 CV; these manuscripts are not listed as published articles.</p>
+      <div class="pub-tools"><span>SUBMITTED MANUSCRIPTS</span></div>
+      <p class="small-note">Submission status as recorded in the September 2026 CV; these manuscripts are not listed as published articles.</p>
 
       <article class="pub-item">
         <span class="pub-year">—</span>
@@ -366,8 +339,8 @@
         </div>
       </article>
 
-      <h2 class="pub-section-title">Work in preparation</h2>
-      <p class="pub-section-note">These projects are in preparation or undergoing co-author review, as recorded in the September 2026 CV.</p>
+      <div class="pub-tools"><span>WORK IN PREPARATION</span></div>
+      <p class="small-note">These projects are in preparation or undergoing co-author review, as recorded in the September 2026 CV.</p>
 
       <article class="pub-item">
         <span class="pub-year">—</span>
@@ -409,7 +382,7 @@
         </div>
       </article>
 
-      <h2 class="pub-section-title">Published dataset</h2>
+      <div class="pub-tools"><span>PUBLISHED DATASET</span></div>
 
       <article class="pub-item">
         <span class="pub-year">—</span>
@@ -417,13 +390,13 @@
           <p class="eyebrow">Dataset</p>
           <h3>Ambient concentration time-series dataset for non-traditional emissions in New York City</h3>
           <p class="pub-citation">Associated paper: Ammonium-adduct Chemical Ionization to Investigate Anthropogenic Oxygenated Gas-Phase Organic Compounds in Urban Air.</p>
-          <div class="tag-row"><a href="https://doi.org/10.6084/m9.figshare.21507798" target="_blank" rel="noopener noreferrer">View dataset</a></div>
+          <div class="tag-row"><a href="https://doi.org/10.6084/m9.figshare.21507798" target="_blank" rel="noopener noreferrer"><span>View dataset</span></a></div>
         </div>
         <a class="pub-open" href="https://doi.org/10.6084/m9.figshare.21507798" target="_blank" rel="noopener noreferrer" aria-label="Open: Ambient concentration time-series dataset for non-traditional emissions in New York City">↗</a>
       </article>
 
-      <h2 class="pub-section-title">Other writings</h2>
-      <p class="pub-section-note">Non-peer-reviewed articles, an archive contribution and a featured book contribution.</p>
+      <div class="pub-tools"><span>OTHER WRITINGS</span></div>
+      <p class="small-note">Non-peer-reviewed articles, an archive contribution and a featured book contribution.</p>
 
       <article class="pub-item">
         <span class="pub-year">—</span>
@@ -431,7 +404,7 @@
           <h3>Smart Rain Simulators for Rain-Starved Districts of the Indian Subcontinent</h3>
           <p class="pub-authors"><strong>Khare, P.</strong>, Agarwal, T., Ghosh, S.</p>
           <p class="pub-citation">Earth and Space Science Open Archive (ESSOAr).</p>
-          <div class="tag-row"><a href="https://doi.org/10.1002/essoar.10507296.1" target="_blank" rel="noopener noreferrer">View publication</a></div>
+          <div class="tag-row"><a href="https://doi.org/10.1002/essoar.10507296.1" target="_blank" rel="noopener noreferrer"><span>View publication</span></a></div>
         </div>
         <a class="pub-open" href="https://doi.org/10.1002/essoar.10507296.1" target="_blank" rel="noopener noreferrer" aria-label="Open: Smart Rain Simulators for Rain-Starved Districts of the Indian Subcontinent">↗</a>
       </article>
@@ -441,7 +414,7 @@
         <div>
           <h3>Transcending Boundaries: My Journey from Engineering to Social Sciences and Back.</h3>
           <p class="pub-citation">New Delhi Times, 28 August 2019.</p>
-          <div class="tag-row"><a href="https://www.newdelhitimes.com/transcending-boundaries-my-journey-from-engineering-to-social-sciences-and-back/" target="_blank" rel="noopener noreferrer">View publication</a></div>
+          <div class="tag-row"><a href="https://www.newdelhitimes.com/transcending-boundaries-my-journey-from-engineering-to-social-sciences-and-back/" target="_blank" rel="noopener noreferrer"><span>View publication</span></a></div>
         </div>
         <a class="pub-open" href="https://www.newdelhitimes.com/transcending-boundaries-my-journey-from-engineering-to-social-sciences-and-back/" target="_blank" rel="noopener noreferrer" aria-label="Open: Transcending Boundaries: My Journey from Engineering to Social Sciences and Back.">↗</a>
       </article>
