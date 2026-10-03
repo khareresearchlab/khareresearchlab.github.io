@@ -155,3 +155,25 @@
 .tile-wide{grid-column:auto}
 .gallery-art,.tile-wide .gallery-art{height:230px}
 .contact-details{grid-template-columns:1fr}}
+
+.molecule-logo {
+  display: inline-block;
+  position: relative;
+  width: 60px;
+  height: 60px;
+  flex-shrink: 0;
+}
+
+.molecule-logo .viewer_3Dmoljs {
+  display: block;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .molecule-logo {
+    /* Rotation is controlled by JavaScript, not CSS. */
+  }
+}
