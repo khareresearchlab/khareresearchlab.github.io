@@ -70,6 +70,22 @@ def select(items):
         if item not in chosen: chosen.append(item)
     return sorted(chosen,key=lambda x:(x['region']=='India',x['published_at']),reverse=True)
 
+def retained_or_new(items, prior):
+    previous = prior.get('items', []) if isinstance(prior, dict) else []
+    if not isinstance(previous, list):
+        previous = []
+    recent = select(items)
+    # Keep the entire previous carousel until an unseen story is found.
+    def known(item):
+        title = re.sub(r'\W+', ' ', item['title'].lower()).strip()
+        return any(item['url'] == old.get('url') or
+                   SequenceMatcher(None, title, re.sub(r'\W+', ' ', old.get('title', '').lower()).strip()).ratio() > .78
+                   for old in previous)
+    if previous and not any(not known(item) for item in recent):
+        return previous[:5]
+    return recent
+
+
 def refresh(topic):
     OUTPUT = Path(f'assets/{topic}-news.json')
     QUERIES = TOPICS[topic]['queries']
@@ -99,10 +115,10 @@ def refresh(topic):
         OUTPUT.write_text(json.dumps({'updated_at':None,'items':[]})+'\n')
         print(f'{topic}: no previous feed; temporary empty state. Other topic can still refresh.')
         return
-    result={'updated_at':now.isoformat(),'method':'RSS headline filtering; India prioritized','items':select(items)}
+    result={'updated_at':now.isoformat(),'method':'RSS headline filtering; India prioritized','items':retained_or_new(items, prior)}
     OUTPUT.parent.mkdir(parents=True,exist_ok=True)
     OUTPUT.write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n')
-    print(f"{topic}: selected {len(result['items'])} recent headlines.")
+    print(f"{topic}: selected {len(result['items'])} headlines (including retained coverage when needed).")
 
 def main():
     with concurrent.futures.ThreadPoolExecutor(max_workers=2) as pool:
