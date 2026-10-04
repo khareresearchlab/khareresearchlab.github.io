@@ -1,0 +1,39 @@
+name: Update news and deploy website
+on:
+  schedule:
+    - cron: '17 2 * * *' # Approximately 07:47 India time, daily
+  workflow_dispatch:
+  push:
+    branches: [main]
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: pages
+  cancel-in-progress: false
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Refresh news
+        run: python scripts/update_news.py
+      - uses: actions/configure-pages@v5
+      - name: Stage existing static website
+        run: |
+          mkdir -p _site
+          rsync -a --exclude='.git' --exclude='.github' --exclude='_site' --exclude='scripts' --exclude='tests' --exclude='__pycache__' --exclude='SETUP.md' ./ _site/
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4
