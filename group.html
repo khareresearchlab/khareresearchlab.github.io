@@ -1,4 +1,12 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Group | Khare Lab</title><link rel="stylesheet" href="assets/style.css"><script defer src="assets/main.js"></script><script defer src="https://3Dmol.org/build/3Dmol-min.js"></script></head>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Group | Khare Lab</title><link rel="stylesheet" href="assets/style.css"><script defer src="assets/main.js"></script><script defer src="https://3Dmol.org/build/3Dmol-min.js"></script><style>
+/* Hero-only molecular atmosphere */
+.page-hero.group-atmosphere-hero{position:relative;isolation:isolate;overflow:hidden;}
+#group-atmosphere-canvas{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;background:radial-gradient(ellipse at 80% 20%,#dceee9 0,transparent 60%),transparent;}
+.group-atmosphere-hero > :not(#group-atmosphere-canvas):not(.group-atmosphere-toggle){position:relative;z-index:1;}
+.group-atmosphere-toggle{position:absolute;right:7vw;bottom:24px;z-index:3;border:1px solid #145c5840;border-radius:24px;padding:9px 14px;background:rgba(250,250,247,.9);color:#145c58;font:600 11px/1.3 system-ui,sans-serif;letter-spacing:.06em;cursor:pointer;}
+.group-atmosphere-toggle:focus-visible{outline:3px solid #268d89;outline-offset:3px;}
+@media(max-width:600px){.group-atmosphere-toggle{right:7vw;bottom:16px;}}
+</style></head>
 
   <body><header class="site-header"><a class="brand" href="index.html">
     <span class="molecule-logo" aria-label="Rotating limonene molecule">
@@ -14,7 +22,7 @@
 </span>
     <span>KHARE LAB<small>ATMOSPHERIC CHEMISTRY · IIT KANPUR</small></span></a><button class="menu-toggle" aria-label="Open navigation" aria-expanded="false">☰</button><nav class="nav"><a href="index.html">Home</a><a href="research.html">Research</a><a class="active" href="group.html">Group</a><a href="publications.html">Publications</a><a href="gallery.html">Gallery</a><a href="contact.html">Contact</a></nav></header><main>
   
-<section class="page-hero"><p class="eyebrow">PEOPLE / THE TEAM</p><h1>Our science<br>is a team effort.</h1><p class="lede">Our group integrates curiosity, innovative ideas and careful measurements to understand human influence on our atmosphere and the broader ecosystem.</p></section>
+<section class="page-hero group-atmosphere-hero"><canvas id="group-atmosphere-canvas" aria-hidden="true"></canvas><p class="eyebrow">PEOPLE / THE TEAM</p><h1>Our science<br>is a team effort.</h1><p class="lede">Our group integrates curiosity, innovative ideas and careful measurements to understand human influence on our atmosphere and the broader ecosystem.</p><button class="group-atmosphere-toggle" type="button" aria-pressed="false">Pause atmosphere</button></section>
   
 <section class="section group-lead">
   <div class="portrait-placeholder">
@@ -38,4 +46,122 @@
 
 </section>
 
-</main><footer class="footer"><a class="brand footer-brand" href="index.html"><span class="brand-mark">K</span><span>KHARE LAB<small>IIT KANPUR</small></span></a><span>Atmospheric chemistry for a changing world.</span><span>© <span data-year></span> Khare Lab</span></footer></body></html>
+</main><footer class="footer"><a class="brand footer-brand" href="index.html"><span class="brand-mark">K</span><span>KHARE LAB<small>IIT KANPUR</small></span></a><span>Atmospheric chemistry for a changing world.</span><span>© <span data-year></span> Khare Lab</span></footer><script>
+/* Decorative chemistry-inspired animation, not a chemical mechanism simulation. */
+(() => {
+  const canvas = document.getElementById('group-atmosphere-canvas');
+  const stage = canvas.parentElement;
+  const ctx = canvas.getContext('2d');
+  const button = document.querySelector('.group-atmosphere-toggle');
+  if (!ctx) { button.hidden = true; return; }
+  const preference = matchMedia('(prefers-reduced-motion: reduce)');
+  let paused = preference.matches, w=0, h=0, molecules=[], aerosols=[], flashes=[];
+  let frame=0, previous=0, elapsed=0, nextReaction=2;
+  const rand=(a,b)=>a+Math.random()*(b-a);
+  const oxygen='#c57a45', carbon='#207c78';
+  const shapes=[
+    [[-15,0],[0,-9],[15,0],[25,-10]],
+    [[-13,-8],[0,-16],[13,-8],[13,8],[0,16],[-13,8],[25,16]],
+    [[-17,5],[-3,-5],[12,5],[23,-5],[12,20]],
+    [[-8,0],[8,0]],
+    [[-28,0],[-14,-9],[0,0],[14,-9],[28,0],[39,-9]],
+    [[-16,0],[0,0],[10,-14],[0,0],[10,14]],
+    [[0,-18],[17,-5],[10,16],[-10,16],[-17,-5],[0,-18]],
+    [[-26,0],[-13,-12],[0,0],[13,-12],[26,0],[13,12],[0,0],[-13,12],[-26,0]],
+    [[-18,0],[0,0],[12,-12],[0,0],[12,12]],
+    [[-22,10],[-10,-2],[3,10],[16,-2],[3,-16]],
+    [[-12,8],[0,-8],[12,8]],
+    [[-22,-8],[-8,0],[6,-8],[20,0],[30,15]],
+    // naphthalene: two fused aromatic rings
+    [[-24,0],[-12,-12],[0,0],[-12,12],[-24,0],[0,0],[12,-12],[24,0],[12,12],[0,0]],
+    // alpha-pinene: bicyclic terpene-like structure
+    [[-22,8],[-12,-10],[2,-14],[16,-4],[20,12],[7,18],[-5,10],[-12,-10],[7,18],[25,25]],
+    // limonene: six-membered ring with isopropenyl branch
+    [[-18,0],[-9,-13],[7,-13],[18,0],[9,13],[-9,13],[-18,0],[18,0],[29,-12],[41,-12]],
+    // isoprene: branched C5 diene
+    [[-22,0],[-8,0],[5,-12],[18,0],[31,0],[5,-12],[5,-26]],
+    // C12 alkane: long straight-chain hydrocarbon
+    [[-55,0],[-45,-6],[-35,0],[-25,-6],[-15,0],[-5,-6],[5,0],[15,-6],[25,0],[35,-6],[45,0],[55,-6]]
+  ];
+  function molecule(x=rand(0,w),y=rand(0,h)) {
+    return {x,y,vx:rand(-9,9),vy:rand(-7,7),angle:rand(0,6.28),spin:rand(-.17,.17),shape:Math.floor(rand(0,shapes.length)),scale:rand(.65,1.45),cool:rand(0,5)};
+  }
+  function resize(){
+    w=stage.clientWidth; h=stage.clientHeight;
+    const dpr=Math.min(devicePixelRatio||1,2);
+    canvas.width=Math.round(w*dpr);canvas.height=Math.round(h*dpr);
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    molecules=Array.from({length:Math.max(36,Math.min(105,Math.floor(w*h/11500)))},(_,i)=>molecule(rand(0,w),i%2===0?rand(0,h*.48):rand(h*.48,h)));
+    aerosols=Array.from({length:w<600?12:24},(_,i)=>particle(rand(0,w),i%2===0?rand(0,h*.48):rand(h*.48,h),rand(7,25),true));
+    flashes=[]; draw(0);
+  }
+  function particle(x,y,r,established=false){
+    return {x,y,r,vx:rand(-5,5),vy:rand(-9,-3),age:established?20:0,life:rand(40,65),kind:Math.floor(rand(0,3)),phase:rand(0,6),beads:Array.from({length:24},()=>({a:rand(0,6.28),r:Math.sqrt(Math.random()),s:rand(1,2.8)}))};
+  }
+  function glow(x,y,r,color){
+    const g=ctx.createRadialGradient(x,y,0,x,y,r);g.addColorStop(0,color);g.addColorStop(1,'rgba(44,160,157,0)');ctx.fillStyle=g;ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);ctx.fill();
+  }
+  function draw(dt){
+    elapsed+=dt;
+    ctx.clearRect(0,0,w,h);
+    // A quiet technical grid adds depth without competing with the text.
+    ctx.lineWidth=.6;ctx.strokeStyle='rgba(31,117,113,.045)';
+    for(let x=0;x<w;x+=85){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,h);ctx.stroke();}
+    for(let y=0;y<h;y+=85){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(w,y);ctx.stroke();}
+    for(const m of molecules){
+      m.cool=Math.max(0,m.cool-dt);m.x+=m.vx*dt;m.y+=m.vy*dt;m.angle+=m.spin*dt;
+      if(m.x<-45)m.x=w+40;if(m.x>w+45)m.x=-40;if(m.y<-45)m.y=h+40;if(m.y>h+45)m.y=-40;
+    }
+    // Nearby reactants draw together, flash, then condense into a small aggregate.
+    nextReaction-=dt;
+    let reacted=false;
+    for(let i=0;i<molecules.length;i++)for(let j=i+1;j<molecules.length;j++){
+      const a=molecules[i],b=molecules[j],dx=b.x-a.x,dy=b.y-a.y,d=Math.hypot(dx,dy);
+      if(d<130 && a.cool===0 && b.cool===0){
+        ctx.strokeStyle=`rgba(29,151,148,${.16*(1-d/130)})`;ctx.setLineDash([3,7]);ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke();ctx.setLineDash([]);
+        if(!reacted && nextReaction<=0 && dt>0){
+          a.x+=dx*dt*.6;a.y+=dy*dt*.6;b.x-=dx*dt*.6;b.y-=dy*dt*.6;
+          if(d<58){
+            const x=(a.x+b.x)/2,y=(a.y+b.y)/2;
+            aerosols.push(particle(x,y,rand(11,20)));flashes.push({x,y,age:0});
+            Object.assign(a,molecule(-30,rand(0,h)));Object.assign(b,molecule(w+30,rand(0,h)));a.cool=b.cool=10;
+            nextReaction=rand(2.5,5);reacted=true;
+          }
+        }
+      }
+    }
+    for(const m of molecules){
+      ctx.save();ctx.translate(m.x,m.y);ctx.rotate(m.angle);ctx.scale(m.scale,m.scale);ctx.globalAlpha=.48;
+      const s=shapes[m.shape];ctx.lineWidth=1.2;ctx.strokeStyle=carbon;
+      ctx.beginPath();s.forEach(([x,y],i)=>i?ctx.lineTo(x,y):ctx.moveTo(x,y));
+      if(m.shape===1){ctx.moveTo(...s[5]);ctx.lineTo(...s[0]);}ctx.stroke();
+      s.forEach(([x,y],i)=>{ctx.fillStyle=i===s.length-1?oxygen:(m.shape>=8 && i===1?'#647dc0':carbon);ctx.beginPath();ctx.arc(x,y,i===s.length-1?3.4:2.7,0,6.283);ctx.fill();});ctx.restore();
+    }
+    aerosols=aerosols.filter(p=>p.age<p.life).slice(-40);
+    if(dt>0 && aerosols.length<(w<600?12:24)) aerosols.push(particle(rand(0,w),rand(0,h),rand(7,25),true));
+    for(const p of aerosols){
+      p.age+=dt;p.x+=(p.vx+Math.sin(elapsed*.4+p.phase)*3)*dt;p.y+=p.vy*dt;
+      if(p.y<-45)p.y=h+40;if(p.x<-45)p.x=w+40;if(p.x>w+45)p.x=-40;
+      const alpha=Math.min(1,p.age/2,(p.life-p.age)/6)*.65;
+      const radius=p.r*(.4+.6*Math.min(1,p.age/7));
+      ctx.save();ctx.globalAlpha=alpha;
+      glow(p.x,p.y,radius*3,'rgba(23,156,157,.20)');
+      const g=ctx.createRadialGradient(p.x-radius*.3,p.y-radius*.35,1,p.x,p.y,radius);
+      g.addColorStop(0,'rgba(165,232,222,.95)');g.addColorStop(.5,'rgba(48,151,145,.4)');g.addColorStop(1,'rgba(15,73,90,.1)');
+      ctx.fillStyle=g;ctx.beginPath();ctx.arc(p.x,p.y,radius,0,6.283);ctx.fill();
+      for(const bead of p.beads){const a=bead.a+elapsed*.08,x=p.x+Math.cos(a)*bead.r*radius*(p.kind===1?1.5:1),y=p.y+Math.sin(a)*bead.r*radius*(p.kind===1?.65:1);
+        ctx.fillStyle=bead.s>2?'rgba(204,149,85,.6)':'rgba(25,109,112,.65)';ctx.beginPath();ctx.arc(x,y,bead.s,0,6.283);ctx.fill();}
+      ctx.restore();
+    }
+    flashes=flashes.filter(f=>f.age<2.4);
+    for(const f of flashes){f.age+=dt;ctx.save();ctx.globalAlpha=Math.max(0,1-f.age/2.4);glow(f.x,f.y,45+f.age*20,'rgba(23,175,170,.35)');ctx.strokeStyle='#35aaa2';ctx.lineWidth=.8;ctx.beginPath();ctx.arc(f.x,f.y,8+f.age*25,0,6.283);ctx.stroke();ctx.restore();}
+  }
+  function tick(t){frame=0;if(paused||document.hidden)return;const dt=previous?Math.min((t-previous)/1000,.05):0;previous=t;draw(dt);frame=requestAnimationFrame(tick);}
+  function sync(){button.textContent=paused?'Play atmosphere':'Pause atmosphere';button.setAttribute('aria-pressed',String(paused));cancelAnimationFrame(frame);frame=0;previous=0;if(!paused&&!document.hidden)frame=requestAnimationFrame(tick);}
+  button.addEventListener('click',()=>{paused=!paused;sync();});
+  preference.addEventListener('change',e=>{paused=e.matches;sync();});
+  document.addEventListener('visibilitychange',sync);
+  let resizeTimer;addEventListener('resize',()=>{clearTimeout(resizeTimer);resizeTimer=setTimeout(resize,150);});
+  resize();sync();
+})();
+</script></body></html>
