@@ -175,6 +175,9 @@
   pointer-events: none;
 }
 
+.gallery-art {position: relative;overflow: hidden;}
+.gallery-art img {display: block;width: 100%;height: 100%;object-fit: cover;}
+
 @media (prefers-reduced-motion: reduce) {
   .molecule-logo {
     /* Rotation is controlled by JavaScript, not CSS. */
