@@ -82,6 +82,7 @@
 .portrait-placeholder small{font:9px 'DM Mono';letter-spacing:.12em}
 .group-lead h2{margin-bottom:10px}.role{font-size:14px;color:var(--teal);margin-bottom:22px}
 .group-lead p:not(.eyebrow){line-height:1.7;color:#5e706b;font-size:14px}
+.group-lead .role + p {margin-top: 0;}
 
 .small-note{font-size:11px!important;color:#89958f!important;line-height:1.6}
 .group-section{background:#f1f4ed}.people-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
