@@ -12,14 +12,14 @@ document.querySelectorAll('.burning-news').forEach(async root => {
     const items = (Array.isArray(data.items) ? data.items : []).filter(item => {
       try { return typeof item.title === 'string' && typeof item.source === 'string' &&
         new URL(item.url).protocol === 'https:' && Number.isFinite(Date.parse(item.published_at)) &&
-        Date.now()-Date.parse(item.published_at) < 14*86400000 && Date.parse(item.published_at) <= Date.now()+86400000;
+        Date.parse(item.published_at) <= Date.now()+86400000;
       } catch { return false; }
     }).slice(0,5);
     const updated = Date.parse(data.updated_at);
     q('.burning-news-updated').textContent = Number.isFinite(updated) ?
       `Last checked ${date(updated)}${Date.now()-updated > 3*86400000 ? ' · Update delayed' : ''}` : '';
     if (!items.length) {
-      status.textContent = data.updated_at ? 'No relevant coverage found in the past 14 days.' : 'News updates will appear after the first successful refresh.';
+      status.textContent = data.updated_at ? 'No relevant coverage found yet.' : 'News updates will appear after the first successful refresh.';
       return;
     }
     status.hidden = true;
