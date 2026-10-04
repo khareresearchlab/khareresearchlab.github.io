@@ -1,14 +1,12 @@
 const toggle=document.querySelector('.menu-toggle');const nav=document.querySelector('.nav');if(toggle&&nav){toggle.addEventListener('click',()=>{const open=nav.classList.toggle('is-open');toggle.setAttribute('aria-expanded',String(open));});}document.querySelectorAll('[data-year]').forEach(el=>el.textContent=new Date().getFullYear());
 
-// Open-burning news: all external text is inserted as text, never HTML.
-(async () => {
-  const root = document.querySelector('.burning-news');
-  if (!root) return;
+// Research news: all external text is inserted as text, never HTML.
+document.querySelectorAll('.burning-news').forEach(async root => {
   const q = s => root.querySelector(s);
   const status = q('.burning-news-status');
   const date = value => new Date(value).toLocaleDateString('en-IN', {day:'numeric',month:'short',year:'numeric'});
   try {
-    const response = await fetch('assets/open-burning-news.json', {cache:'no-cache'});
+    const response = await fetch(root.dataset.newsFeed || 'assets/open-burning-news.json', {cache:'no-cache'});
     if (!response.ok) throw new Error('Feed unavailable');
     const data = await response.json();
     const items = (Array.isArray(data.items) ? data.items : []).filter(item => {
@@ -21,7 +19,7 @@ const toggle=document.querySelector('.menu-toggle');const nav=document.querySele
     q('.burning-news-updated').textContent = Number.isFinite(updated) ?
       `Last checked ${date(updated)}${Date.now()-updated > 3*86400000 ? ' · Update delayed' : ''}` : '';
     if (!items.length) {
-      status.textContent = data.updated_at ? 'No recent relevant coverage available.' : 'News updates will appear after the first successful refresh.';
+      status.textContent = data.updated_at ? 'No relevant coverage found in the past 14 days.' : 'News updates will appear after the first successful refresh.';
       return;
     }
     status.hidden = true;
@@ -50,4 +48,4 @@ const toggle=document.querySelector('.menu-toggle');const nav=document.querySele
   } catch {
     status.textContent = 'News is temporarily unavailable. Please check again later.';
   }
-})();
+});
