@@ -49,7 +49,7 @@
   
 
   <figure class="gallery-tile">
-  <div class="gallery-art"
+  <div class="gallery-art2"
        src="images/UCCchamber.jpg"
        alt="">
   </div>
@@ -58,20 +58,6 @@
     <span>Cork, Ireland · 2025</span>
   </figcaption>
 </figure>
-  
-  
-  <figure class="gallery-tile">
-    <div class="gallery-art art-sky"><span>ADD ATMOSPHERE PHOTO</span></div>
-    <figcaption><b>Atmosphere in focus</b>
-      <span>Location · date</span></figcaption></figure>
-  
-  <figure class="gallery-tile">
-    <div class="gallery-art art-team"><span>ADD GROUP PHOTO</span></div>
-    <figcaption><b>People & projects</b><span>Event · date</span></figcaption></figure>
-  
-  <figure class="gallery-tile">
-    <div class="gallery-art art-particles"><span>ADD DATA IMAGE</span></div>
-    <figcaption><b>Signals and patterns</b><span>Dataset · date</span></figcaption></figure>
 
 </section>
   
@@ -186,7 +172,7 @@
     for(const f of flashes){f.age+=dt;ctx.save();ctx.globalAlpha=Math.max(0,1-f.age/2.4);glow(f.x,f.y,45+f.age*20,'rgba(23,175,170,.35)');ctx.strokeStyle='#35aaa2';ctx.lineWidth=.8;ctx.beginPath();ctx.arc(f.x,f.y,8+f.age*25,0,6.283);ctx.stroke();ctx.restore();}
   }
   function tick(t){frame=0;if(paused||document.hidden)return;const dt=previous?Math.min((t-previous)/1000,.05):0;previous=t;draw(dt);frame=requestAnimationFrame(tick);}
-  function sync(){button.textContent=paused?'Play atmosphere':'Pause atmosphere';button.setAttribute('aria-pressed',String(paused));cancelAnimationFrame(frame);frame=0;previous=0;if(!paused&&!document.hidden)frame=requestAnimationFrame(tick);}
+  function sync(){button.textContent=paused?'Play ':'Pause ';button.setAttribute('aria-pressed',String(paused));cancelAnimationFrame(frame);frame=0;previous=0;if(!paused&&!document.hidden)frame=requestAnimationFrame(tick);}
   button.addEventListener('click',()=>{paused=!paused;sync();});
   preference.addEventListener('change',e=>{paused=e.matches;sync();});
   document.addEventListener('visibilitychange',sync);
