@@ -52,6 +52,23 @@ section.ap-burden > .ap-grid {
   section.ap-burden { grid-template-columns:1fr !important; }
   section.ap-burden > .ap-grid { grid-column:1 !important; grid-row:3 !important; }
 }
+/* Blend the hero illustration into the page */
+.atmosphere-home .hero-art {
+  background: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+
+  -webkit-mask-image: radial-gradient(
+    ellipse at center, black 55%, transparent 100%
+  );
+  mask-image: radial-gradient(
+    ellipse at center, black 55%, transparent 100%
+  );
+}
+
+.atmosphere-home .hero-art img {
+  opacity: 0.8;
+}
 </style>
 </head>
   
