@@ -187,46 +187,43 @@
   background: #e8ece7;
 }
 
-.ap-burden {
-  display:grid;
-  grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);
-  column-gap:32px;
+/* Air-pollution section only: heading left, compact cards right. */
+section.ap-burden {
+  display:grid !important;
+  grid-template-columns:minmax(0,1fr) minmax(0,1.3fr) !important;
+  gap:16px 32px;
   align-items:center;
 }
-
-.ap-burden .ap-heading {
-  grid-column:1;
-  grid-row:1;
+section.ap-burden > .ap-heading {
+  grid-column:1 !important;
+  grid-row:1 !important;
+  min-width:0;
 }
-
-.ap-burden .ap-grid {
-  grid-column:2;
-  grid-row:1;
+section.ap-burden > .ap-grid {
+  grid-column:2 !important;
+  grid-row:1 !important;
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:16px;
   width:100%;
-  max-width:none;
-  margin:0;
+  max-width:none !important;
+  margin:0 !important;
+  min-width:0;
 }
-
-.ap-burden > .ap-note,
-.ap-burden > details,
-.ap-burden > noscript {
-  grid-column:1 / -1;
+section.ap-burden .ap-card { padding:18px; min-width:0; }
+section.ap-burden .ap-region { font-size:16px; }
+section.ap-burden .ap-number { font-size:clamp(22px,2.5vw,34px); }
+section.ap-burden > .ap-note,
+section.ap-burden > details,
+section.ap-burden > noscript { grid-column:1 / -1; }
+@media(max-width:700px) {
+  section.ap-burden { grid-template-columns:1fr !important; }
+  section.ap-burden > .ap-heading { grid-column:1 !important; grid-row:1 !important; }
+  section.ap-burden > .ap-grid { grid-column:1 !important; grid-row:2 !important; }
+  section.ap-burden .ap-card { padding:16px; }
 }
-
-@media(max-width:900px) {
-  .ap-burden {
-    grid-template-columns:1fr;
-  }
-
-  .ap-burden .ap-heading,
-  .ap-burden .ap-grid {
-    grid-column:1;
-    grid-row:auto;
-  }
-
-  .ap-burden .ap-grid {
-    margin:16px 0;
-  }
+@media(max-width:420px) {
+  section.ap-burden > .ap-grid { grid-template-columns:1fr; }
 }
 
 @media (prefers-reduced-motion: reduce) {
