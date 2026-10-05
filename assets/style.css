@@ -234,3 +234,24 @@ section.ap-burden > noscript { grid-column:1 / -1; }
     /* Rotation is controlled by JavaScript, not CSS. */
   }
 }
+
+/* Let the container follow the image's height */
+.hero-art {
+  height: auto !important;
+}
+
+.hero-art img {
+  position: relative !important;
+  inset: auto !important;
+  width: 100% !important;
+  height: auto !important;
+  display: block;
+}
+
+/* Enlarge the artwork on desktop */
+@media (min-width: 851px) {
+  .hero {
+    grid-template-columns: 1fr 1.2fr;
+    gap: 3vw;
+  }
+}
