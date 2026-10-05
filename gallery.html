@@ -22,42 +22,36 @@
 </span>
 <span>KHARE RESEARCH LAB<small>KOTAK SCHOOL OF SUSTAINABILITY · IIT KANPUR</small></span></a><button class="menu-toggle" aria-label="Open navigation" aria-expanded="false">☰</button><nav class="nav"><a href="index.html">Home</a><a href="research.html">Research</a><a href="group.html">Group</a><a href="publications.html">Publications</a><a href="software.html">Software</a><a class="active" href="gallery.html">Gallery</a><a href="contact.html">Contact</a></nav></header><main><section class="page-hero gallery-atmosphere-hero"><canvas id="gallery-atmosphere-canvas" aria-hidden="true"></canvas><p class="eyebrow">GALLERY / IN THE FIELD & LAB</p><h1>Science happens<br>in many places.</h1><p class="lede">Field campaigns, instruments, lab life and the landscapes that make us curious.</p><button class="gallery-atmosphere-toggle" type="button" aria-pressed="false">Pause atmosphere</button></section>
   
-<section class="section gallery-grid">
+<style>
+/* Full-width gallery rows: image left, caption right. */
+.gallery-list { padding-top: 10px; }
+.gallery-row { display:grid; grid-template-columns:minmax(0,1.45fr) minmax(260px,.75fr); gap:clamp(28px,5vw,72px); align-items:center; padding:42px 0; border-bottom:1px solid var(--line); }
+.gallery-row:first-child { padding-top:0; }
+.gallery-row img { display:block; width:100%; max-height:560px; object-fit:cover; border-radius:3px; }
+.gallery-row-copy { max-width:430px; }
+.gallery-row-copy h2 { margin:0 0 12px; font-size:clamp(22px,2.5vw,32px); }
+.gallery-row-copy p { margin:0; color:#63736e; line-height:1.75; font-size:14px; }
+.gallery-row-copy .gallery-place { display:block; margin-top:18px; color:#89958f; font:10px 'DM Mono'; letter-spacing:.08em; text-transform:uppercase; }
+@media(max-width:700px) { .gallery-row { grid-template-columns:1fr; gap:20px; padding:30px 0; } .gallery-row-copy { max-width:none; } }
+</style>
+<section class="section gallery-list">
     
-<figure class="gallery-tile tile-wide">
-  <div class="gallery-art">
-    <img class="van-photo" src="images/PSIvan.jpg"
-         alt="">
-  </div>
-  <figcaption>
-    <b>PSI mobile van during field observations.</b>
-    <span>Sarajevo, Bosnia & Herzegovina · 2023</span>
-  </figcaption>
-</figure>
+<article class="gallery-row">
+  <img src="images/PSIvan.jpg" alt="PSI mobile van during field observations">
+  <div class="gallery-row-copy"><h2>PSI mobile van during field observations.</h2><p>Mobile measurements bring atmospheric chemistry into the environments where people live and work.</p><span class="gallery-place">Sarajevo, Bosnia &amp; Herzegovina · 2023</span></div>
+</article>
 
 
-<figure class="gallery-tile">
-  <div class="gallery-art"
-       src="images/FZJchamber.jpg"
-       alt="">
-  </div>
-  <figcaption>
-    <b>The CHANEL campaign team at the SAPHIR environmental chamber at Forschungszentrum Jülich.</b>
-    <span>Jülich, Germany · 2024</span>
-  </figcaption>
-</figure>
+<article class="gallery-row">
+  <img src="images/FZJchamber.jpg" alt="CHANEL campaign team at the SAPHIR environmental chamber">
+  <div class="gallery-row-copy"><h2>Inside the SAPHIR environmental chamber.</h2><p>The CHANEL campaign team at Forschungszentrum Jülich studying atmospheric transformations under controlled conditions.</p><span class="gallery-place">Jülich, Germany · 2024</span></div>
+</article>
   
 
-  <figure class="gallery-tile">
-  <div class="gallery-art"
-       src="images/UCCchamber.jpg"
-       alt="">
-  </div>
-  <figcaption>
-    <b>The FZJ-UCC campaign team at the IASC University College Cork chamber.</b>
-    <span>Cork, Ireland · 2025</span>
-  </figcaption>
-</figure>
+<article class="gallery-row">
+  <img src="images/UCCchamber.jpg" alt="FZJ-UCC campaign team at the University College Cork chamber">
+  <div class="gallery-row-copy"><h2>Campaign work at University College Cork.</h2><p>The FZJ–UCC campaign team at the IASC chamber, connecting laboratory experiments with field questions.</p><span class="gallery-place">Cork, Ireland · 2025</span></div>
+</article>
 
 </section>
   
