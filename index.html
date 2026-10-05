@@ -12,7 +12,7 @@ body.atmosphere-home { isolation:isolate; }
 @media(max-width:600px) { .atmosphere-toggle { bottom:10px; right:10px; padding:9px 12px; } }
 
 /* Air-pollution burden: styles confined to this section. */
-.ap-burden { background:rgba(238,246,242,.94); color:#143e41; }
+.ap-burden { background:transparent; color:#143e41; }
 .ap-burden .ap-heading { max-width:780px; }
 .ap-burden h2 { margin:8px 0 16px; }
 .ap-burden .ap-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px; margin:28px 0 20px; max-width:800px; }
@@ -25,6 +25,28 @@ body.atmosphere-home { isolation:isolate; }
 .ap-burden a { color:#145c58; text-decoration:underline; text-underline-offset:3px; }
 .ap-burden summary { cursor:pointer; font-weight:600; }
 @media(max-width:640px) { .ap-burden .ap-grid { grid-template-columns:1fr; gap:16px; } .ap-burden .ap-card { padding:22px; } }
+
+/* Refined alignment and compact source notes, scoped to this section. */
+section.ap-burden {
+  align-items:start;
+  row-gap:6px;
+}
+section.ap-burden > .ap-heading { align-self:start; }
+section.ap-burden > .ap-grid {
+  align-self:start;
+  margin:60px 0 10px !important;
+}
+section.ap-burden > .ap-note {
+  margin:0;
+  line-height:1.5;
+  max-width:none;
+}
+section.ap-burden > #ap-period { margin:10px 0 0; }
+section.ap-burden > details.ap-note { margin:2px 0 0; }
+section.ap-burden > details.ap-note p { margin:8px 0; line-height:1.5; }
+@media(max-width:700px) {
+  section.ap-burden > .ap-grid { margin:12px 0 10px !important; }
+}
 </style>
 </head>
   
