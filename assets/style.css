@@ -293,3 +293,21 @@ section.ap-burden > noscript { grid-column:1 / -1; }
 .focus-card .molecule {
   display: none;
 }
+
+/* Fit complete research images */
+.focus-grid > .focus-card {
+  height: auto !important;
+  aspect-ratio: 3 / 2;
+  box-sizing: border-box;
+
+  background-size: 100% 100% !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+}
+
+/* Remove original decorative shapes */
+.focus-card .rings,
+.focus-card .wave,
+.focus-card .molecule {
+  display: none !important;
+}
