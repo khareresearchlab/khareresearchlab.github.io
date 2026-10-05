@@ -17,6 +17,7 @@
 .hero-note{margin-top:58px;font:10px 'DM Mono',monospace;color:#6d817a;letter-spacing:.04em}
 .pulse{display:inline-block;width:7px;height:7px;border-radius:50%;background:#8fc846;margin-right:8px;box-shadow:0 0 0 4px #dfeccd}.hero-art{height:405px;border-radius:48% 48% 45% 45%;position:relative;overflow:hidden;background:radial-gradient(ellipse at 52% 42%,#3e8170 0,#245c59 35%,#143e41 69%,#102d32 100%);box-shadow:inset 0 0 60px #092326}
 .hero-art:before{content:'';position:absolute;inset:0;background:linear-gradient(130deg,transparent 20%,#ffffff13 45%,transparent 65%)}
+.hero-art img {object-fit: contain !important;}
 .orbit{position:absolute;border:1px solid #c2e7c568;border-radius:50%;left:50%;top:48%;transform:translate(-50%,-50%) rotate(-28deg)}
 .orbit-one{width:230px;height:330px}
 .orbit-two{width:330px;height:260px;transform:translate(-50%,-50%) rotate(44deg)}
