@@ -255,3 +255,41 @@ section.ap-burden > noscript { grid-column:1 / -1; }
     gap: 3vw;
   }
 }
+
+/* Research cards with image backgrounds */
+.focus-card {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  isolation: isolate;
+}
+
+/* Dark overlay for readable titles */
+.focus-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(4, 24, 30, 0.65),
+    rgba(4, 24, 30, 0.1)
+  );
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* Keep text and arrows above the images */
+.focus-card .card-index,
+.focus-card h3,
+.focus-card .card-arrow {
+  position: relative;
+  z-index: 1;
+  color: #fff;
+}
+
+/* Hide the old decorative graphics */
+.focus-card .rings,
+.focus-card .wave,
+.focus-card .molecule {
+  display: none;
+}
