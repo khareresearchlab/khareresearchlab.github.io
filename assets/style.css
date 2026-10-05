@@ -186,6 +186,49 @@
   object-fit: contain;
   background: #e8ece7;
 }
+
+.ap-burden {
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);
+  column-gap:32px;
+  align-items:center;
+}
+
+.ap-burden .ap-heading {
+  grid-column:1;
+  grid-row:1;
+}
+
+.ap-burden .ap-grid {
+  grid-column:2;
+  grid-row:1;
+  width:100%;
+  max-width:none;
+  margin:0;
+}
+
+.ap-burden > .ap-note,
+.ap-burden > details,
+.ap-burden > noscript {
+  grid-column:1 / -1;
+}
+
+@media(max-width:900px) {
+  .ap-burden {
+    grid-template-columns:1fr;
+  }
+
+  .ap-burden .ap-heading,
+  .ap-burden .ap-grid {
+    grid-column:1;
+    grid-row:auto;
+  }
+
+  .ap-burden .ap-grid {
+    margin:16px 0;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .molecule-logo {
     /* Rotation is controlled by JavaScript, not CSS. */
