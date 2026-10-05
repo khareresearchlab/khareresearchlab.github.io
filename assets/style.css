@@ -251,7 +251,7 @@ section.ap-burden > noscript { grid-column:1 / -1; }
 /* Enlarge the artwork on desktop */
 @media (min-width: 851px) {
   .hero {
-    grid-template-columns: 1fr 1.4fr;
+    grid-template-columns: 1fr 1.2fr;
     gap: 3vw;
   }
 }
