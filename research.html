@@ -6,6 +6,27 @@
 .research-atmosphere-toggle{position:absolute;right:7vw;bottom:24px;z-index:3;border:1px solid #145c5840;border-radius:24px;padding:9px 14px;background:rgba(250,250,247,.9);color:#145c58;font:600 11px/1.3 system-ui,sans-serif;letter-spacing:.06em;cursor:pointer;}
 .research-atmosphere-toggle:focus-visible{outline:3px solid #268d89;outline-offset:3px;}
 @media(max-width:600px){.research-atmosphere-toggle{right:7vw;bottom:16px;}}
+
+/* Methodological workflow — scoped to this section. */
+.research-methods{--method-ink:#145c58;--method-accent:#b7794f;padding:40px 7vw 46px;background:linear-gradient(110deg,#f1f6f2,#fafaf7 65%);border-block:1px solid #145c581c;color:var(--method-ink);}
+.research-methods *{box-sizing:border-box;}
+.research-methods .methods-heading{display:flex;justify-content:space-between;align-items:end;gap:24px;margin-bottom:28px;}
+.research-methods .methods-kicker{font:600 10px/1.5 system-ui,sans-serif;letter-spacing:.16em;margin:0 0 9px;color:#537974;}
+.research-methods h2{font-family:inherit;font-size:clamp(23px,2.4vw,34px);font-weight:500;line-height:1.18;letter-spacing:-.025em;margin:0;color:var(--method-ink);}
+.research-methods .methods-intro{max-width:360px;font-size:14px;line-height:1.6;margin:0;color:#55726d;}
+.research-methods .methods-flow{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:38px;list-style:none;padding:0;margin:0;}
+.research-methods .method-step{position:relative;min-width:0;padding:18px 0 0;border-top:1px solid #145c5838;}
+.research-methods .method-step:not(:last-child)::after{content:'→';position:absolute;right:-29px;top:49px;font:400 24px/1 system-ui,sans-serif;color:#65958a;}
+.research-methods .method-top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:15px;}
+.research-methods .method-icon{display:block;width:46px;height:46px;padding:9px;background:#e3eeE7;border-radius:12px;color:var(--method-ink);}
+.research-methods .method-icon svg{display:block;width:100%;height:100%;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;}
+.research-methods .method-number{font:500 11px/1 system-ui,sans-serif;letter-spacing:.1em;color:var(--method-accent);}
+.research-methods h3{font:600 clamp(15px,1.3vw,18px)/1.35 system-ui,sans-serif;margin:0 0 9px;color:var(--method-ink);}
+.research-methods .method-step p{font:400 13px/1.65 system-ui,sans-serif;margin:0;color:#55726d;}
+.research-methods .method-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px;}
+.research-methods .method-tags span{display:inline-block;border:1px solid #145c5826;border-radius:20px;padding:4px 9px;font:500 10px/1.3 system-ui,sans-serif;color:#396d65;background:#ffffff60;}
+@media(max-width:900px){.research-methods .methods-heading{display:block;}.research-methods .methods-intro{max-width:none;margin-top:12px;}.research-methods .methods-flow{gap:26px;}.research-methods .method-step:not(:last-child)::after{right:-22px;}}
+@media(max-width:650px){.research-methods{padding:30px 7vw;}.research-methods .methods-flow{grid-template-columns:1fr;gap:28px;}.research-methods .method-step{padding:16px 0 0 62px;min-height:110px;}.research-methods .method-top{margin:0;}.research-methods .method-icon{position:absolute;left:0;top:16px;}.research-methods .method-number{position:absolute;left:14px;top:72px;}.research-methods .method-step:not(:last-child)::after{content:'↓';left:16px;right:auto;top:auto;bottom:-26px;font-size:20px;}.research-methods .method-tags{margin-top:10px;}}
 </style></head>
   
 <body><header class="site-header"><a class="brand" href="index.html">
@@ -22,6 +43,35 @@
 </span>
   
   <span>KHARE RESEARCH LAB<small>KOTAK SCHOOL OF SUSTAINABILITY · IIT KANPUR</small></span></a><button class="menu-toggle" aria-label="Open navigation" aria-expanded="false">☰</button><nav class="nav"><a href="index.html">Home</a><a class="active" href="research.html">Research</a><a href="group.html">Group</a><a href="publications.html">Publications</a><a href="software.html">Software</a><a href="gallery.html">Gallery</a><a href="contact.html">Contact</a></nav></header><main><section class="page-hero research-atmosphere-hero"><canvas id="research-atmosphere-canvas" aria-hidden="true"></canvas><p class="eyebrow">RESEARCH / WHAT WE ASK</p><h1>Following carbon<br>through the atmosphere.</h1><p class="lede">We study the sources, transformations and impacts of organic compounds in air—linking molecular chemistry to environmental outcomes.</p><button class="research-atmosphere-toggle" type="button" aria-pressed="false">Pause atmosphere</button></section>
+
+<section class="research-methods" aria-labelledby="methods-title">
+  <div class="methods-heading">
+    <div><p class="methods-kicker">OUR METHODOLOGICAL APPROACH</p><h2 id="methods-title">From air samples to atmospheric insights.</h2></div>
+    <p class="methods-intro">Connecting field and laboratory observations with chemical measurements and data-driven understanding.</p>
+  </div>
+  <ol class="methods-flow">
+    <li class="method-step">
+      <div class="method-top"><span class="method-icon" aria-hidden="true"><svg viewBox="0 0 28 28"><path d="M3 21h22M6 17V9l5-3v11M11 12h6v5M20 17V4h4v13"/><circle cx="5" cy="4" r="1"/><circle cx="14" cy="4" r="1.5"/><path d="M3 25h22"/></svg></span><span class="method-number" aria-hidden="true">01</span></div>
+      <h3>Field & laboratory sampling</h3><p>Collect gas-phase compounds and particle-phase material in real-world environments and controlled experiments.</p>
+      <div class="method-tags"><span>Gas phase</span><span>Particle phase</span></div>
+    </li>
+    <li class="method-step">
+      <div class="method-top"><span class="method-icon" aria-hidden="true"><svg viewBox="0 0 28 28"><path d="M10 3h8M12 3v8L5 22q-1 3 3 3h12q4 0 3-3l-7-11V3M9 17h10"/><circle cx="13" cy="21" r=".6"/><circle cx="17" cy="19" r=".6"/></svg></span><span class="method-number" aria-hidden="true">02</span></div>
+      <h3>Sample treatment</h3><p>Prepare collected samples using analytical protocols tailored to the compounds and sample matrix.</p>
+      <div class="method-tags"><span>Preparation</span><span>Quality control</span></div>
+    </li>
+    <li class="method-step">
+      <div class="method-top"><span class="method-icon" aria-hidden="true"><svg viewBox="0 0 28 28"><rect x="3" y="5" width="22" height="19" rx="2"/><path d="M7 19h14M9 19v-4M12 19v-8M16 19v-5M20 19v-10M7 8h3"/></svg></span><span class="method-number" aria-hidden="true">03</span></div>
+      <h3>Mass spectrometry</h3><p>Measure chemical signatures to characterize the composition of atmospheric gases and particles.</p>
+      <div class="method-tags"><span>Chemical characterization</span><span>Molecular insights</span></div>
+    </li>
+    <li class="method-step">
+      <div class="method-top"><span class="method-icon" aria-hidden="true"><svg viewBox="0 0 28 28"><path d="M4 3v21h21M8 19l5-7 5 3 6-9"/><circle cx="8" cy="19" r="1"/><circle cx="13" cy="12" r="1"/><circle cx="18" cy="15" r="1"/><circle cx="24" cy="6" r="1"/></svg></span><span class="method-number" aria-hidden="true">04</span></div>
+      <h3>Data processing & analysis</h3><p>Process and visualize measurements to interpret sources, transformations and environmental implications.</p>
+      <div class="method-tags"><span>Processing & visualization</span><span>Analysis & interpretation</span></div>
+    </li>
+  </ol>
+</section>
 <script>
 /* Decorative chemistry-inspired animation, not a chemical mechanism simulation. */
 (() => {
