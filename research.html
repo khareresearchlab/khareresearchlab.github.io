@@ -57,7 +57,7 @@
     </li>
     <li class="method-step">
       <div class="method-top"><span class="method-icon" aria-hidden="true"><svg viewBox="0 0 28 28"><path d="M10 3h8M12 3v8L5 22q-1 3 3 3h12q4 0 3-3l-7-11V3M9 17h10"/><circle cx="13" cy="21" r=".6"/><circle cx="17" cy="19" r=".6"/></svg></span><span class="method-number" aria-hidden="true">02</span></div>
-      <h3>Sample treatment</h3><p>Prepare collected samples using analytical protocols tailored to the compounds and sample matrix.</p>
+      <h3>Sample treatment</h3><p class="ms-hint"><button type="button" id="treatment-open" aria-haspopup="dialog">See how it works!</button></p><p>Prepare collected samples using analytical protocols tailored to the compounds and sample matrix.</p>
       <div class="method-tags"><span>Preparation</span><span>Quality control</span></div>
     </li>
     <li class="method-step">
@@ -379,7 +379,7 @@ for(let row=0;row<2;row++){
  el('rect',{x:250,y:y-35,width:180,height:70,rx:row?28:10,fill:'#163746',stroke:'#90bdc7','stroke-width':2},hardware);
  if(row){el('rect',{x:328,y:y-33,width:12,height:66,fill:'#e1e5d9',stroke:'#aac2b4'},hardware);for(let k=0;k<10;k++)el('path',{d:`M329 ${y-29+k*6}h10`,stroke:'#91aaa4'},hardware)}
  el('rect',{x:550,y:y-40,width:130,height:80,rx:9,fill:'#204550',stroke:'#90bdc7'},hardware);
- el('rect',{x:562,y:y-26,width:106,height:28,rx:4,fill:'#08242a'},hardware);label('X.X SLPM',575,y-7,14,'#8de0ce');label('FLOW CONTROL',565,y+25,10);
+ el('rect',{x:562,y:y-26,width:106,height:28,rx:4,fill:'#08242a'},hardware);label('1.00 SLPM',575,y-7,14,'#8de0ce');label('FLOW CONTROL',565,y+25,10);
  el('circle',{cx:823,cy:y,r:40,fill:'#204550',stroke:'#90bdc7','stroke-width':2},hardware);
  const rotor=el('g',{},hardware);for(let k=0;k<3;k++)el('path',{d:`M823 ${y}q-28 -34 3 -29q25 7 -3 29`,fill:'#75b5bc',transform:`rotate(${k*120} 823 ${y})`},rotor);rotors.push([rotor,y]);
  label(row?'Particles retained on the filter':'Compounds retained on sorbent surfaces',250,y+67,12,'#bdd3d8');
@@ -417,6 +417,86 @@ function sync(){cancelAnimationFrame(raf);last=0;draw();if(dialog.open&&!paused&
 opener.addEventListener('click',()=>{dialog.showModal();sync()});byId('sampling-close').onclick=()=>dialog.close();dialog.addEventListener('close',()=>{cancelAnimationFrame(raf);last=0;opener.focus()});
 dialog.addEventListener('click',e=>{if(e.target===dialog){const r=dialog.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)dialog.close()}});
 play.onclick=()=>{paused=!paused;sync()};byId('sampling-reset').onclick=()=>{t=0;sync()};document.addEventListener('visibilitychange',sync);draw();
+})();
+</script>
+
+<style>
+#treatment-open{font:inherit;color:inherit;background:none;border:0;padding:2px 0;cursor:pointer;font-weight:600;text-align:left}#treatment-open:hover{color:#b7794f}#treatment-dialog{box-sizing:border-box;width:min(1100px,96vw);max-height:94dvh;padding:24px;border:1px solid #b4cec4;border-radius:18px;background:#fafaf7;color:#145c58;box-shadow:0 24px 100px #001e2860;overflow:auto}#treatment-dialog::backdrop{background:#062b32b5;backdrop-filter:blur(5px)}#treatment-dialog .treatment-head{display:flex;justify-content:space-between;gap:18px;align-items:start}#treatment-dialog h2{font:500 clamp(24px,4vw,34px)/1.2 Georgia,serif;margin:5px 0 12px}#treatment-dialog p{font:14px/1.65 system-ui}#treatment-dialog button{font:600 13px system-ui;border:1px solid #abc9be;border-radius:8px;padding:10px 14px;background:white;color:#145c58;cursor:pointer}#treatment-dialog button:focus-visible,#treatment-open:focus-visible{outline:3px solid #b7794f;outline-offset:3px}#treatment-dialog .treatment-tabs,#treatment-dialog .treatment-controls{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0}#treatment-dialog .treatment-tabs button[aria-pressed=true]{background:#145c58;color:white}#treatment-dialog .treatment-stage{overflow-x:auto;background:#0b2330;border-radius:12px}#treatment-svg{display:block;width:100%;min-width:760px;height:auto}#treatment-svg text{font-family:system-ui,sans-serif}#treatment-dialog .treatment-note{font-size:12px;color:#56736c}@media(max-width:650px){#treatment-dialog{padding:16px}}
+</style>
+<dialog id="treatment-dialog" aria-labelledby="treatment-title" aria-describedby="treatment-description">
+<div class="treatment-head"><div><span style="font:600 10px system-ui;letter-spacing:.17em">PREPARING THE MOLECULAR MIXTURE</span><h2 id="treatment-title">From collected sample to separated ions.</h2></div><button id="treatment-close" type="button" aria-label="Close sample treatment animation">Close ×</button></div>
+<div class="treatment-tabs" role="group" aria-label="Sample treatment pathway"><button id="treatment-gas" type="button" aria-pressed="true">01 · Sorbent tube / GC–MS</button><button id="treatment-filter" type="button" aria-pressed="false">02 · Filter extract / LC–MS</button></div>
+<p id="treatment-description"></p>
+<div class="treatment-stage"><svg id="treatment-svg" viewBox="0 0 1040 440" role="img" aria-labelledby="treatment-svg-title treatment-svg-description"><title id="treatment-svg-title">Animated sample preparation, chromatography and ionization</title><desc id="treatment-svg-description">Choose thermal desorption into GC–MS or filter extraction into LC–MS. Colored neutral analytes leave the sample, separate in the column, acquire positive charge inside the ionization region, and enter the mass spectrometer.</desc><g id="treatment-hardware"></g><g id="treatment-motion"></g></svg></div>
+<div class="treatment-controls"><button id="treatment-play" type="button">Pause</button><button id="treatment-reset" type="button">Restart</button></div>
+<p class="treatment-note">Conceptual sequence; timing, sizes and retention order are illustrative. Colors distinguish analyte families. Separation reflects different interactions with the stationary phase, not molecular mass alone. Charge appears inside the ionization region before ions enter the mass analyzer. GC–MS shows simplified electron ionization; fragmentation is omitted. The filter example uses LC–MS with positive electrospray ionization; droplet formation and desolvation are simplified. Actual extraction, cleanup and ionization methods depend on the analytical protocol.</p>
+</dialog>
+<script>
+(() => {
+'use strict';
+const get=id=>document.getElementById('treatment-'+id),d=get('dialog'),open=get('open'),play=get('play'),hw=get('hardware'),motion=get('motion'),ns='http://www.w3.org/2000/svg';
+const colors=['#58dbc2','#ffcb71','#f782a9','#8caeff','#c699ef','#fa9e75'];
+function el(tag,a,parent=hw){const n=document.createElementNS(ns,tag);for(const [k,v] of Object.entries(a))n.setAttribute(k,v);parent.appendChild(n);return n}
+function text(s,x,y,size=13,color='#deeaec',parent=hw){const n=el('text',{x,y,'font-size':size,fill:color},parent);n.textContent=s;return n}
+function rect(x,y,w,h,fill='#204550',stroke='#90bdc7'){return el('rect',{x,y,width:w,height:h,rx:9,fill,stroke})}
+function line(path,stroke='#75b5bc',width=3){return el('path',{d:path,fill:'none',stroke,'stroke-width':width})}
+let mode='gas',t=0,last=0,raf=0,paused=window.matchMedia('(prefers-reduced-motion: reduce)').matches,particles=[],waves=[],status,heater,plunger;
+const gc=[[430,205],[453,205],[453,135],[482,135],[482,275],[511,275],[511,135],[540,135],[540,275],[569,275],[569,135],[598,135],[598,205],[650,205]],lc=[[430,205],[650,205]];
+function along(points,p){const lens=points.slice(1).map((a,i)=>Math.hypot(a[0]-points[i][0],a[1]-points[i][1]));let dist=p*lens.reduce((a,b)=>a+b,0);for(let i=0;i<lens.length;i++){if(dist<=lens[i]){const q=dist/lens[i];return [points[i][0]+q*(points[i+1][0]-points[i][0]),points[i][1]+q*(points[i+1][1]-points[i][1])]}dist-=lens[i]}return points[points.length-1]}
+function build(){
+ hw.replaceChildren();motion.replaceChildren();particles=[];waves=[];heater=null;plunger=null;
+ get('gas').setAttribute('aria-pressed',mode==='gas');get('filter').setAttribute('aria-pressed',mode==='filter');
+ get('description').textContent=mode==='gas'?'Clean carrier gas flows through a heated sorbent tube, releasing retained organic compounds. A focused sample pulse enters the GC column, where analytes separate before ionization and transfer into the mass spectrometer.':'A collected filter is sonicated in solvent to extract organic compounds. An aliquot of the extract is injected into an LC column. Separated analytes reach an electrospray ionization region, and the resulting ions enter the mass spectrometer.';
+ text(mode==='gas'?'THERMAL DESORPTION → GC–MS':'SOLVENT EXTRACTION → LC–MS',28,35,16,'#8de0ce');
+ text(mode==='gas'?'Heat & desorb':'Sonicate in solvent',30,78,15);text('Inject sample',280,78,15);text(mode==='gas'?'GC separation':'LC separation',465,78,15);text('Ionization',706,78,15);text('Mass spectrometer',881,78,14);
+ line('M205 205H970','#385865',15);
+ if(mode==='gas'){
+  text('Clean carrier gas',26,120,12);line('M28 205H220');text('→',34,191,22,'#8de0ce');
+  heater=rect(70,145,152,120,'#703d2c','#fa9e75');rect(80,186,132,38,'#163746');
+  for(let i=0;i<32;i++)el('circle',{cx:88+i%16*7.6,cy:198+Math.floor(i/16)*14,r:3,fill:'#8aa497'});
+  for(let i=0;i<3;i++)waves.push(line(`M${93+i*40} 173q-10 -12 0 -22q10 -12 0 -22`,'#fa9e75',2));
+  text('Heated sorbent tube',77,291,12);rect(290,178,70,54);text('Focus /',302,199,11);text('inject',309,217,11);
+ }else{
+  rect(30,241,186,52,'#204550');text('Ultrasonic bath',65,318,12);rect(68,134,112,135,'#163746');rect(73,175,102,88,'#245f70','#245f70');
+  el('ellipse',{cx:125,cy:235,rx:37,ry:10,fill:'#dce3d4',stroke:'#90aaa0'});text('Filter + solvent',70,119,12);
+  for(let i=0;i<3;i++)waves.push(line(`M${45+i*68} 281q-13 -14 0 -28q13 -14 0 -28`,'#65cde8',2));
+  line('M182 205H280','#75b5bc',2);text('Extract aliquot →',189,161,11);rect(306,122,30,66,'#b5cfd4');plunger=line('M321 109V151M307 109H335','#e3eded',3);line('M321 188V205','#e3eded',2);text('Injection',292,253,12);text('Mobile phase →',263,291,12,'#8de0ce');
+ }
+ rect(419,110,244,192,'#12333f');
+ if(mode==='filter'){
+  rect(430,181,220,48,'#284b55');for(let i=0;i<56;i++)el('circle',{cx:439+i%28*7.5,cy:191+Math.floor(i/28)*27,r:2.5,fill:'#68867e'});
+ }
+ line('M'+(mode==='gas'?gc:lc).map(p=>p.join(' ')).join('L'),'#90bdc7',9);line('M'+(mode==='gas'?gc:lc).map(p=>p.join(' ')).join('L'),'#193c48',5);
+ text('Different retention times',441,329,12,'#bdd3d8');
+ rect(695,143,139,124,'#3e354f','#c699ef');text(mode==='gas'?'Electron':'Electrospray',711,166,12);text('ionization',717,182,12);text(mode==='gas'?'e⁻ ↓':'spray → ions',723,241,12,'#c699ef');
+ rect(882,143,130,124,'#204550');text('MASS',928,181,13);text('ANALYZER',910,198,13);for(let i=0;i<4;i++)line(`M${901+i*27} 252v-${13+(i*17)%44}`,'#8de0ce',4);
+ text('Neutral analytes',474,360,12,'#bdd3d8');text('Positive ions →',788,303,12,'#bdd3d8');
+ status=text('',28,410,14,'#8de0ce');
+ for(let k=0;k<6;k++)for(let j=0;j<5;j++){
+  const n=el('g',{},motion);el('circle',{r:3.7,fill:colors[k]},n);el('circle',{cx:5,cy:-3,r:2,fill:colors[k]},n);const charge=text('+',5,-6,14,'#ffffff',n);particles.push({n,charge,k,j});
+ }
+ draw();
+}
+function draw(){
+ const phase=t%24;
+ if(heater)heater.setAttribute('fill',phase<5?`rgb(${105+Math.round(20*Math.sin(t*3))},58,42)`:'#703d2c');
+ for(let i=0;i<waves.length;i++)waves[i].setAttribute('opacity',phase<5?.35+.65*(.5+.5*Math.sin(t*5+i)):'.15');
+ if(plunger)plunger.setAttribute('transform',`translate(0 ${phase>=5&&phase<7?(phase-5)*12:0})`);
+ status.textContent=phase<5?(mode==='gas'?'01 · Heating releases analytes into clean carrier gas':'01 · Sonication extracts analytes from the filter into solvent'):phase<7?'02 · Injecting a mixed sample pulse':phase<20?'03 · Separation, ionization and transfer to the mass analyzer':'04 · Run complete — next sample cycle';
+ for(const {n,charge,k,j} of particles){
+  const offset=j*.09,entry=7+offset,duration=3+k*.95,exit=entry+duration;let x,y,show=true;
+  if(phase<5){x=mode==='gas'?89+j*22:88+j*17+Math.sin(t*2+k)*6;y=mode==='gas'?199+(k%2)*12:186+k*9+Math.cos(t*3+j)*7;}
+  else if(phase<entry){const q=Math.min(1,(phase-5)/(entry-5));x=(mode==='gas'?110:125)+(430-(mode==='gas'?110:125))*q;y=205+Math.sin(k*7+j)*5;}
+  else if(phase<exit){[x,y]=along(mode==='gas'?gc:lc,(phase-entry)/duration);y+=Math.sin(k*7+j)*2;}
+  else {x=650+(phase-exit)*145;y=205+Math.sin(k*7+j)*7;if(x>977)show=false;}
+  n.setAttribute('transform',`translate(${x} ${y})`);n.setAttribute('opacity',show?'1':'0');charge.setAttribute('visibility',x>=775?'visible':'hidden');
+ }
+ play.textContent=paused?'Play':'Pause';
+}
+function frame(now){raf=0;if(!d.open||paused||document.hidden){last=0;return}if(last)t+=Math.min((now-last)/1000,.05);last=now;draw();raf=requestAnimationFrame(frame)}
+function sync(){cancelAnimationFrame(raf);last=0;draw();if(d.open&&!paused&&!document.hidden)raf=requestAnimationFrame(frame)}
+open.addEventListener('click',()=>{d.showModal();sync()});get('close').onclick=()=>d.close();d.addEventListener('close',()=>{cancelAnimationFrame(raf);last=0;open.focus()});d.addEventListener('click',e=>{if(e.target===d){const r=d.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)d.close()}});
+for(const m of ['gas','filter'])get(m).onclick=()=>{mode=m;t=0;build();sync()};play.onclick=()=>{paused=!paused;sync()};get('reset').onclick=()=>{t=0;sync()};document.addEventListener('visibilitychange',sync);build();
 })();
 </script>
 
