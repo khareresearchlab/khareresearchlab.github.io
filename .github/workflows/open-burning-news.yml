@@ -26,6 +26,40 @@ jobs:
           python-version: '3.12'
       - name: Refresh news
         run: python scripts/update_news.py
+      - name: Install headline screening
+        run: |
+          python -m pip install "spacy>=3.8,<3.9"
+          python -m spacy download en_core_web_sm
+      - name: Remove political and person-focused headlines
+        run: |
+          python - <<'PYSCREEN'
+          import json, re
+          from pathlib import Path
+          import spacy
+
+          nlp = spacy.load("en_core_web_sm")
+          political = re.compile(r"\b(?:politic\w*|government\w*|minister\w*|chief\s+minister|prime\s+minister|cm|pm|mp|mla|president|governor|mayor|senator|congress\w*|parliament\w*|legislat\w*|election\w*|electoral|ballot|vote\w*|party|parties|opposition|coalition|bjp|aap|inc|nda|upa|democrat\w*|republican\w*|labour|tory|tories|modi|kejriwal|gupta|mann|slams?|blames?|critic\w*|accus\w*|lashes|hits\s+out|row|spat|protest\w*|activist\w*|scandal\w*|corrupt\w*|resign\w*)\b", re.I)
+          science = re.compile(r"\b(?:stud\w*|research\w*|scien\w*|measure\w*|monitor\w*|emission\w*|pollut\w*|air\s+quality|aerosol\w*|chem\w*|particle\w*|particulate\w*|voc\w*|smoke|smog|ozone|exposure|concentration\w*|satellite\w*|experiment\w*|health|climate|atmospher\w*|pm2(?:\.5)?)\b", re.I)
+
+          def keep(item):
+              title = str(item.get("title", ""))
+              content = " ".join(str(item.get(k, "")) for k in ("title", "source", "summary", "description"))
+              if not title.strip() or political.search(content) or not science.search(title):
+                  return False
+              return not any(ent.label_ == "PERSON" for ent in nlp(content.title()).ents)
+
+          for topic in ("open-burning", "vcp"):
+              path = Path(f"assets/{topic}-news.json")
+              try:
+                  data = json.loads(path.read_text())
+              except Exception:
+                  data = {"updated_at": None, "items": []}
+              items = data.get("items", []) if isinstance(data, dict) else []
+              data["items"] = [x for x in items if isinstance(x, dict) and keep(x)]
+              data["method"] = "RSS topic filtering plus political-language and personal-name exclusion"
+              path.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\\n")
+              print(f"{topic}: retained {len(data['items'])} of {len(items)}")
+          PYSCREEN
       - uses: actions/configure-pages@v5
       - name: Stage existing static website
         run: |
