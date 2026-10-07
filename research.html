@@ -52,7 +52,7 @@
   <ol class="methods-flow">
     <li class="method-step">
       <div class="method-top"><span class="method-icon" aria-hidden="true"><svg viewBox="0 0 28 28"><path d="M3 21h22M6 17V9l5-3v11M11 12h6v5M20 17V4h4v13"/><circle cx="5" cy="4" r="1"/><circle cx="14" cy="4" r="1.5"/><path d="M3 25h22"/></svg></span><span class="method-number" aria-hidden="true">01</span></div>
-      <h3>Field & laboratory sampling</h3><p>Collect gas-phase compounds and particle-phase material in real-world environments and controlled experiments.</p>
+      <h3>Field & laboratory sampling</h3><p class="ms-hint"><button type="button" id="sampling-open" aria-haspopup="dialog">See how it works!</button></p><p>Collect gas-phase compounds and particle-phase material in real-world environments and controlled experiments.</p>
       <div class="method-tags"><span>Gas phase</span><span>Particle phase</span></div>
     </li>
     <li class="method-step">
@@ -337,4 +337,72 @@ document.getElementById('ms-open').addEventListener('click',()=>{d.showModal();s
 for(const m of ['quad','tof'])document.getElementById('ms-'+m).onclick=()=>{mode=m;t=0;sync()};play.onclick=()=>{paused=!paused;sync()};document.getElementById('ms-reset').onclick=()=>{t=0;sync()};document.getElementById('ms-mass').onchange=()=>{t=0;draw()};document.addEventListener('visibilitychange',sync);labels();
 })();
 </script>
+
+<style>
+#sampling-open{font:inherit;color:inherit;background:none;border:0;padding:2px 0;cursor:pointer;font-weight:600;text-align:left}#sampling-open:hover{color:#b7794f}#sampling-open:focus-visible,#sampling-dialog button:focus-visible{outline:3px solid #b7794f;outline-offset:3px}
+#sampling-dialog{box-sizing:border-box;width:min(1100px,96vw);max-height:94dvh;padding:24px;border:1px solid #b4cec4;border-radius:18px;background:#fafaf7;color:#145c58;box-shadow:0 24px 100px #001e2860;overflow:auto}#sampling-dialog::backdrop{background:#062b32b5;backdrop-filter:blur(5px)}#sampling-dialog .sampling-head{display:flex;justify-content:space-between;gap:18px;align-items:start}#sampling-dialog h2{font:500 clamp(24px,4vw,34px)/1.2 Georgia,serif;margin:5px 0 12px}#sampling-dialog p{font:14px/1.65 system-ui}#sampling-dialog button{font:600 13px system-ui;border:1px solid #abc9be;border-radius:8px;padding:10px 14px;background:white;color:#145c58;cursor:pointer}#sampling-dialog .sampling-stage{overflow-x:auto;background:#0b2330;border-radius:12px}#sampling-svg{display:block;width:100%;min-width:720px;height:auto}#sampling-dialog .sampling-controls{display:flex;gap:10px;margin-top:16px}#sampling-dialog .sampling-note{font-size:12px;color:#56736c}#sampling-svg text{font-family:system-ui,sans-serif} @media(max-width:650px){#sampling-dialog{padding:16px}}
+</style>
+<dialog id="sampling-dialog" aria-labelledby="sampling-title" aria-describedby="sampling-description">
+<div class="sampling-head"><div><span style="font:600 10px system-ui;letter-spacing:.17em">FROM AIR TO SAMPLE</span><h2 id="sampling-title">How we collect gases and particles.</h2></div><button id="sampling-close" type="button" aria-label="Close sampling animation">Close ×</button></div>
+<p id="sampling-description">A downstream vacuum pump draws air through each sampling train. Gas-phase organic compounds adsorb onto sorbent grains; aerosol particles collect on a filter. A mass flow controller (MFC) regulates the flow in each line.</p>
+<div class="sampling-stage"><svg id="sampling-svg" viewBox="0 0 1000 540" role="img" aria-labelledby="sampling-svg-title sampling-svg-desc"><title id="sampling-svg-title">Gas and aerosol sampling with downstream flow control and vacuum pumps</title><desc id="sampling-svg-desc">Two independent sampling lines run left to right: sample air, sorbent tube or filter, mass flow controller, vacuum pump, and exhaust. Colored molecules and particles accumulate in the collection media while air continues downstream.</desc>
+<defs><marker id="sampling-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10" fill="#75b5bc"/></marker></defs>
+<g id="sampling-hardware"></g><g id="sampling-grains"></g><g id="sampling-air"></g><g id="sampling-deposits"></g><g id="sampling-targets"></g>
+<g font-size="12" fill="#bdd3d8"><circle cx="35" cy="504" r="4" fill="#ffcb71"/><text x="47" y="509">Organic molecules</text><circle cx="235" cy="504" r="6" fill="#c699ef"/><text x="249" y="509">Aerosol particles</text><path d="M420 504h19" stroke="#75b5bc" stroke-width="2"/><text x="450" y="509">Air continues downstream</text></g>
+</svg></div>
+<div class="sampling-controls"><button id="sampling-play" type="button">Pause</button><button id="sampling-reset" type="button">Restart collection</button></div>
+<p class="sampling-note">Two separate sampling arrangements are shown. Colors illustrate a mixture of compounds and particles. Collection is schematic: real retention depends on the sorbent, filter, analyte and operating conditions. The displayed flow is illustrative, not a recommended setting. Collection resets periodically; captured material does not move on to the pump.</p>
+</dialog>
+<script>
+(() => {
+'use strict';
+const byId=id=>document.getElementById(id), dialog=byId('sampling-dialog'), opener=byId('sampling-open'), play=byId('sampling-play');
+const ns='http://www.w3.org/2000/svg', colors=['#ffcb71','#58dbc2','#fa9e75','#f782a9','#c699ef','#8caeff'];
+function el(tag,attrs,parent){const n=document.createElementNS(ns,tag);for(const [k,v] of Object.entries(attrs))n.setAttribute(k,v);parent.appendChild(n);return n}
+const hardware=byId('sampling-hardware');
+function label(text,x,y,size=13,color='#e0eeef'){const n=el('text',{x,y,'font-size':size,fill:color},hardware);n.textContent=text;return n}
+const rotors=[];
+for(let row=0;row<2;row++){
+ const y=155+row*235;
+ label(row?'02  AEROSOL FILTER SAMPLING':'01  GAS-PHASE SORBENT SAMPLING',30,y-109,16,'#8de0ce');
+ label('Sample air',30,y-44);label(row?'Filter holder':'Sorbent tube',260,y-64);label('Mass flow controller',535,y-64);label('Vacuum pump',768,y-64);label('Exhaust',914,y-44,12);
+ el('path',{d:`M35 ${y}H950`,stroke:'#385865','stroke-width':30,fill:'none'},hardware);
+ for(const x of [175,470,708,917])el('path',{d:`M${x} ${y-29}h35`,stroke:'#75b5bc','stroke-width':2,'marker-end':'url(#sampling-arrow)'},hardware);
+ el('rect',{x:250,y:y-35,width:180,height:70,rx:row?28:10,fill:'#163746',stroke:'#90bdc7','stroke-width':2},hardware);
+ if(row){el('rect',{x:328,y:y-33,width:12,height:66,fill:'#e1e5d9',stroke:'#aac2b4'},hardware);for(let k=0;k<10;k++)el('path',{d:`M329 ${y-29+k*6}h10`,stroke:'#91aaa4'},hardware)}
+ el('rect',{x:550,y:y-40,width:130,height:80,rx:9,fill:'#204550',stroke:'#90bdc7'},hardware);
+ el('rect',{x:562,y:y-26,width:106,height:28,rx:4,fill:'#08242a'},hardware);label('1.00 SLPM',575,y-7,14,'#8de0ce');label('FLOW CONTROL',565,y+25,10);
+ el('circle',{cx:823,cy:y,r:40,fill:'#204550',stroke:'#90bdc7','stroke-width':2},hardware);
+ const rotor=el('g',{},hardware);for(let k=0;k<3;k++)el('path',{d:`M823 ${y}q-28 -34 3 -29q25 7 -3 29`,fill:'#75b5bc',transform:`rotate(${k*120} 823 ${y})`},rotor);rotors.push([rotor,y]);
+ label(row?'Particles retained on the filter':'Compounds retained on sorbent surfaces',250,y+67,12,'#bdd3d8');
+}
+for(let i=0;i<65;i++)el('circle',{cx:269+(i%13)*12,cy:133+Math.floor(i/13)*11,r:4,fill:i%2?'#68867e':'#8aa497'},byId('sampling-grains'));
+const air=[],targets=[],deposits=[];
+for(let row=0;row<2;row++){
+ for(let i=0;i<23;i++)air.push({n:el('path',{stroke:'#75b5bc','stroke-width':1.5,opacity:.65},byId('sampling-air')),row,i});
+ for(let i=0;i<24;i++){
+  const n=el('g',{},byId('sampling-targets')),color=colors[i%colors.length];
+  el('circle',{r:row?4+i%3:2.8,fill:color},n);
+  if(!row){el('path',{d:'M0 0L6 -3',stroke:color,'stroke-width':1.5},n);el('circle',{cx:6,cy:-3,r:2,fill:color},n)}
+  targets.push({n,row,i});
+ }
+ for(let i=0;i<48;i++)deposits.push({n:el('circle',{cx:row?322-(i%3)*3:270+(i%13)*12,cy:row?365+(i%12)*4.4:133+Math.floor(i/13)*11,r:row?2.5:2,fill:colors[i%6]},byId('sampling-deposits')),row,i});
+}
+let t=0,last=0,raf=0,paused=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+function draw(){
+ const phase=t%20;
+ for(const {n,row,i} of air){const x=35+((i*41+t*65)%915),y=155+row*235+Math.sin(i*9)*9;n.setAttribute('d',`M${x} ${y}h7`)}
+ for(const {n,row,i} of targets){const age=(phase+i*.173)%4,stop=row?319:273+(i%12)*12,x=35+age/4*(stop-35),y=155+row*235+Math.sin(i*7.1)*(row?23:19);n.setAttribute('transform',`translate(${x} ${y})`)}
+ for(const {n,i} of deposits)n.setAttribute('opacity',i<Math.floor(phase*3)?'.95':'0');
+ for(const [n,y] of rotors)n.setAttribute('transform',`rotate(${t*180} 823 ${y})`);
+ play.textContent=paused?'Play':'Pause';
+}
+function frame(now){raf=0;if(!dialog.open||paused||document.hidden){last=0;return}if(last)t+=Math.min((now-last)/1000,.05);last=now;draw();raf=requestAnimationFrame(frame)}
+function sync(){cancelAnimationFrame(raf);last=0;draw();if(dialog.open&&!paused&&!document.hidden)raf=requestAnimationFrame(frame)}
+opener.addEventListener('click',()=>{dialog.showModal();sync()});byId('sampling-close').onclick=()=>dialog.close();dialog.addEventListener('close',()=>{cancelAnimationFrame(raf);last=0;opener.focus()});
+dialog.addEventListener('click',e=>{if(e.target===dialog){const r=dialog.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)dialog.close()}});
+play.onclick=()=>{paused=!paused;sync()};byId('sampling-reset').onclick=()=>{t=0;sync()};document.addEventListener('visibilitychange',sync);draw();
+})();
+</script>
+
 </body></html>
