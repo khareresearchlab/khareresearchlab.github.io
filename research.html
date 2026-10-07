@@ -344,8 +344,8 @@ for(const m of ['quad','tof'])document.getElementById('ms-'+m).onclick=()=>{mode
 </style>
 <dialog id="sampling-dialog" aria-labelledby="sampling-title" aria-describedby="sampling-description">
 <div class="sampling-head"><div><span style="font:600 10px system-ui;letter-spacing:.17em">FROM AIR TO SAMPLE</span><h2 id="sampling-title">How we collect gases and particles.</h2></div><button id="sampling-close" type="button" aria-label="Close sampling animation">Close ×</button></div>
-<p id="sampling-description">A downstream vacuum pump draws air through each sampling train. Gas-phase organic compounds adsorb onto sorbent grains; aerosol particles collect on a filter. A mass flow controller (MFC) regulates the flow in each line.</p>
-<div class="sampling-stage"><svg id="sampling-svg" viewBox="0 0 1000 540" role="img" aria-labelledby="sampling-svg-title sampling-svg-desc"><title id="sampling-svg-title">Gas and aerosol sampling with downstream flow control and vacuum pumps</title><desc id="sampling-svg-desc">Two independent sampling lines run left to right: sample air, sorbent tube or filter, mass flow controller, vacuum pump, and exhaust. Colored molecules and particles accumulate in the collection media while air continues downstream.</desc>
+<p id="sampling-description">A downstream vacuum pump draws air through each sampling train. In the gas-sampling line, mixed sample air first passes through an ozone and particle filter: particles are trapped and ozone is removed, while the sampled organic gases continue to the sorbent tube. In the aerosol line, particles collect on a filter. A mass flow controller (MFC) regulates the flow in each line.</p>
+<div class="sampling-stage"><svg id="sampling-svg" viewBox="0 0 1000 540" role="img" aria-labelledby="sampling-svg-title sampling-svg-desc"><title id="sampling-svg-title">Gas and aerosol sampling with downstream flow control and vacuum pumps</title><desc id="sampling-svg-desc">Two independent sampling lines run left to right: sample air, sorbent tube or filter, mass flow controller, vacuum pump, and exhaust. In the gas line, an upstream ozone and particle filter traps incoming particles while organic gas molecules pass through to the sorbent. Colored molecules and particles accumulate in the collection media while air continues downstream.</desc>
 <defs><marker id="sampling-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10" fill="#75b5bc"/></marker></defs>
 <g id="sampling-hardware"></g><g id="sampling-grains"></g><g id="sampling-air"></g><g id="sampling-deposits"></g><g id="sampling-targets"></g>
 <g font-size="12" fill="#bdd3d8"><circle cx="35" cy="504" r="4" fill="#ffcb71"/><text x="47" y="509">Organic molecules</text><circle cx="235" cy="504" r="6" fill="#c699ef"/><text x="249" y="509">Aerosol particles</text><path d="M420 504h19" stroke="#75b5bc" stroke-width="2"/><text x="450" y="509">Air continues downstream</text></g>
@@ -367,7 +367,15 @@ for(let row=0;row<2;row++){
  label(row?'02  AEROSOL FILTER SAMPLING':'01  GAS-PHASE SORBENT SAMPLING',30,y-109,16,'#8de0ce');
  label('Sample air',30,y-44);label(row?'Filter holder':'Sorbent tube',260,y-64);label('Mass flow controller',535,y-64);label('Vacuum pump',768,y-64);label('Exhaust',914,y-44,12);
  el('path',{d:`M35 ${y}H950`,stroke:'#385865','stroke-width':30,fill:'none'},hardware);
- for(const x of [175,470,708,917])el('path',{d:`M${x} ${y-29}h35`,stroke:'#75b5bc','stroke-width':2,'marker-end':'url(#sampling-arrow)'},hardware);
+ for(const x of [row?175:205,470,708,917])el('path',{d:`M${x} ${y-29}h35`,stroke:'#75b5bc','stroke-width':2,'marker-end':'url(#sampling-arrow)'},hardware);
+ if(!row){
+  label('Ozone and',119,y-78,12);label('particle filter',112,y-62,12);
+  el('rect',{x:136,y:y-32,width:51,height:64,rx:10,fill:'#294853',stroke:'#90bdc7','stroke-width':2},hardware);
+  el('rect',{x:143,y:y-28,width:9,height:56,fill:'#dce3d4'},hardware);
+  for(let k=0;k<9;k++)el('path',{d:`M143 ${y-24+k*6}h9`,stroke:'#90aaa0'},hardware);
+  for(let k=0;k<12;k++)el('circle',{cx:162+k%3*7,cy:y-21+Math.floor(k/3)*14,r:3,fill:'#78a899'},hardware);
+  label('Particles trapped',96,y+52,11,'#bdd3d8');label('Ozone removed',99,y+67,11,'#bdd3d8');
+ }
  el('rect',{x:250,y:y-35,width:180,height:70,rx:row?28:10,fill:'#163746',stroke:'#90bdc7','stroke-width':2},hardware);
  if(row){el('rect',{x:328,y:y-33,width:12,height:66,fill:'#e1e5d9',stroke:'#aac2b4'},hardware);for(let k=0;k<10;k++)el('path',{d:`M329 ${y-29+k*6}h10`,stroke:'#91aaa4'},hardware)}
  el('rect',{x:550,y:y-40,width:130,height:80,rx:9,fill:'#204550',stroke:'#90bdc7'},hardware);
@@ -388,11 +396,18 @@ for(let row=0;row<2;row++){
  }
  for(let i=0;i<48;i++)deposits.push({n:el('circle',{cx:row?322-(i%3)*3:270+(i%13)*12,cy:row?365+(i%12)*4.4:133+Math.floor(i/13)*11,r:row?2.5:2,fill:colors[i%6]},byId('sampling-deposits')),row,i});
 }
+const inletParticles=[],inletDeposits=[];
+for(let i=0;i<16;i++){
+ inletParticles.push({n:el('circle',{r:3+i%3,fill:colors[(i+4)%6]},byId('sampling-targets')),i});
+}
+for(let i=0;i<30;i++)inletDeposits.push({n:el('circle',{cx:139-(i%3)*3,cy:131+Math.floor(i/3)*5.2,r:2.5,fill:colors[(i+4)%6]},byId('sampling-deposits')),i});
 let t=0,last=0,raf=0,paused=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 function draw(){
  const phase=t%20;
  for(const {n,row,i} of air){const x=35+((i*41+t*65)%915),y=155+row*235+Math.sin(i*9)*9;n.setAttribute('d',`M${x} ${y}h7`)}
  for(const {n,row,i} of targets){const age=(phase+i*.173)%4,stop=row?319:273+(i%12)*12,x=35+age/4*(stop-35),y=155+row*235+Math.sin(i*7.1)*(row?23:19);n.setAttribute('transform',`translate(${x} ${y})`)}
+ for(const {n,i} of inletParticles){const progress=(phase*.45+i/16)%1;n.setAttribute('cx',35+progress*100);n.setAttribute('cy',155+Math.sin(i*7.1)*22)}
+ for(const {n,i} of inletDeposits)n.setAttribute('opacity',i<Math.floor(phase*2)?'.95':'0');
  for(const {n,i} of deposits)n.setAttribute('opacity',i<Math.floor(phase*3)?'.95':'0');
  for(const [n,y] of rotors)n.setAttribute('transform',`rotate(${t*180} 823 ${y})`);
  play.textContent=paused?'Play':'Pause';
