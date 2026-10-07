@@ -49,15 +49,25 @@ jobs:
               "iopscience.iop.org", "sciencenews.org", "newscientist.com", "sciencedaily.com", "phys.org", "eurekalert.org",
               "nasa.gov", "noaa.gov", "esa.int", "usgs.gov", "nih.gov", "who.int", "royalsociety.org"
           )
-          def science_source(url):
-              host = urlparse(url).hostname or ""
-              return any(host == domain or host.endswith("." + domain) for domain in SCIENCE_HOSTS)
+          def science_source(url, source):
+              host = (urlparse(url).hostname or "").lower()
+              label = str(source).lower()
+              if any(host == domain or host.endswith("." + domain) for domain in SCIENCE_HOSTS):
+                  return True
+              # Google News wraps the original link; use its RSS source label.
+              source_terms = (
+                  "science", "nature", "scientific", "phys.org", "eurekalert", "new scientist", "sciencedaily",
+                  "nasa", "noaa", "esa", "usgs", "nih", "who", "royal society", "acs", "agu", "wiley",
+                  "springer", "copernicus", "elsevier", "rsc", "pnas", "frontiers", "iop", "cell press"
+              )
+              return host == "news.google.com" and any(term in label for term in source_terms)
 
           def keep(item):
               title = str(item.get("title", ""))
               url = str(item.get("url", ""))
+              source = str(item.get("source", ""))
               content = " ".join(str(item.get(k, "")) for k in ("title", "source", "summary", "description"))
-              if not title.strip() or not science_source(url) or political.search(content) or not science.search(title):
+              if not title.strip() or not science_source(url, source) or political.search(content) or not science.search(title):
                   return False
               return not any(ent.label_ == "PERSON" for ent in nlp(content.title()).ents)
 
