@@ -429,7 +429,7 @@ play.onclick=()=>{paused=!paused;sync()};byId('sampling-reset').onclick=()=>{t=0
 <p id="treatment-description"></p>
 <div class="treatment-stage"><svg id="treatment-svg" viewBox="0 0 1040 440" role="img" aria-labelledby="treatment-svg-title treatment-svg-description"><title id="treatment-svg-title">Animated sample preparation, chromatography and ionization</title><desc id="treatment-svg-description">Choose thermal desorption into GC–MS or filter extraction into LC–MS. Colored neutral analytes leave the sample, separate in the column, acquire positive charge inside the ionization region, and enter the mass spectrometer.</desc><g id="treatment-hardware"></g><g id="treatment-motion"></g></svg></div>
 <div class="treatment-controls"><button id="treatment-play" type="button">Pause</button><button id="treatment-reset" type="button">Restart</button></div>
-<p class="treatment-note">Conceptual sequence; timing, sizes and retention order are illustrative. Colors distinguish analyte families. Separation reflects different interactions with the stationary phase, not molecular mass alone. Charge appears inside the ionization region before ions enter the mass analyzer. The GC–MS ionization source is shown generically; source-specific processes and fragmentation are omitted. The filter example uses LC–MS with positive electrospray ionization; the downward spray and analyte interaction are schematic, with droplet formation and desolvation simplified. Actual extraction, cleanup and ionization methods depend on the analytical protocol.</p>
+<p class="treatment-note">Conceptual sequence; timing, sizes and retention order are illustrative. Colors distinguish analyte families. Separation reflects different interactions with the stationary phase, not molecular mass alone. Charge appears inside the ionization region before ions enter the mass analyzer. Colored illustrative peaks build only as their matching ion groups enter the analyzer and clear at the start of each cycle; peak positions and heights are not a predicted mass spectrum. The GC–MS ionization source is shown generically; source-specific processes and fragmentation are omitted. The filter example uses LC–MS with positive electrospray ionization; the downward spray and analyte interaction are schematic, with droplet formation and desolvation simplified. Actual extraction, cleanup and ionization methods depend on the analytical protocol.</p>
 </dialog>
 <script>
 (() => {
@@ -440,12 +440,12 @@ function el(tag,a,parent=hw){const n=document.createElementNS(ns,tag);for(const 
 function text(s,x,y,size=13,color='#deeaec',parent=hw){const n=el('text',{x,y,'font-size':size,fill:color},parent);n.textContent=s;return n}
 function rect(x,y,w,h,fill='#204550',stroke='#90bdc7'){return el('rect',{x,y,width:w,height:h,rx:9,fill,stroke})}
 function line(path,stroke='#75b5bc',width=3){return el('path',{d:path,fill:'none',stroke,'stroke-width':width})}
-let mode='gas',t=0,last=0,raf=0,paused=window.matchMedia('(prefers-reduced-motion: reduce)').matches,particles=[],waves=[],spray=[],status,heater,plunger;
+let mode='gas',t=0,last=0,raf=0,paused=window.matchMedia('(prefers-reduced-motion: reduce)').matches,particles=[],waves=[],spray=[],peaks=[],status,heater,plunger;
 const gc=[[430,205],[452,205]],lc=[[430,205],[650,205]];
 for(let i=0;i<=480;i++){const u=i/480,a=u*Math.PI*8;gc.push([452+155*u+24*(1-Math.cos(a)),205+65*Math.sin(a)])}gc.push([650,205]);
 function along(points,p){const lens=points.slice(1).map((a,i)=>Math.hypot(a[0]-points[i][0],a[1]-points[i][1]));let dist=p*lens.reduce((a,b)=>a+b,0);for(let i=0;i<lens.length;i++){if(dist<=lens[i]){const q=dist/lens[i];return [points[i][0]+q*(points[i+1][0]-points[i][0]),points[i][1]+q*(points[i+1][1]-points[i][1])]}dist-=lens[i]}return points[points.length-1]}
 function build(){
- hw.replaceChildren();motion.replaceChildren();particles=[];waves=[];spray=[];heater=null;plunger=null;
+ hw.replaceChildren();motion.replaceChildren();particles=[];waves=[];spray=[];peaks=[];heater=null;plunger=null;
  get('gas').setAttribute('aria-pressed',mode==='gas');get('filter').setAttribute('aria-pressed',mode==='filter');
  get('description').textContent=mode==='gas'?'Clean carrier gas flows through a heated sorbent tube, releasing retained organic compounds. A focused sample pulse enters the GC column, where analytes separate before ionization and transfer into the mass spectrometer.':'A collected filter is sonicated in solvent to extract organic compounds. An aliquot of the extract is injected into an LC column. Separated analytes reach an electrospray ionization region, and the resulting ions enter the mass spectrometer.';
  text(mode==='gas'?'THERMAL DESORPTION → GC–MS':'SOLVENT EXTRACTION → LC–MS',28,35,16,'#8de0ce');
@@ -478,7 +478,8 @@ function build(){
   for(let i=0;i<32;i++){const n=el('circle',{r:1.4+(i%3)*.35,fill:i%2?'#c699ef':'#8ad8ee'},motion);spray.push({n,i})}
  }
 
- rect(882,143,130,124,'#204550');text('MASS',928,181,13);text('ANALYZER',910,198,13);for(let i=0;i<4;i++)line(`M${901+i*27} 252v-${13+(i*17)%44}`,'#8de0ce',4);
+ rect(882,143,130,124,'#204550');text('MASS',928,181,13);text('ANALYZER',910,198,13);line('M895 253H999','#6c8d96',1);
+ for(let k=0;k<6;k++){const n=line(`M${902+k*17} 252v0`,colors[k],4);n.setAttribute('data-analyte',k);peaks.push(n)}
  text('Neutral analytes',474,360,12,'#bdd3d8');text('Positive ions →',788,303,12,'#bdd3d8');
  status=text('',28,410,14,'#8de0ce');
  for(let k=0;k<6;k++)for(let j=0;j<5;j++){
@@ -488,6 +489,14 @@ function build(){
 }
 function draw(){
  const phase=t%24;
+ // Each of the five ions contributes only after crossing the analyzer inlet (x=882).
+ for(let k=0;k<6;k++){
+  let arrived=0;for(let j=0;j<5;j++){const arrival=7+j*.09+3+k*.95+(882-650)/145;if(phase>=arrival)arrived++;}
+  const height=arrived/5*(22+(k*11)%24);
+  peaks[k].setAttribute('d',`M${902+k*17} 252v-${height}`);
+  peaks[k].setAttribute('visibility',arrived?'visible':'hidden');
+ }
+
  for(const {n,i} of spray){const q=(t*.7+i/32)%1;n.setAttribute("cx",765+Math.sin(i*12.3)*q*23);n.setAttribute("cy",178+q*49);n.setAttribute("opacity",1-q*.7)}
  if(heater)heater.setAttribute('fill',phase<5?`rgb(${105+Math.round(20*Math.sin(t*3))},58,42)`:'#703d2c');
  for(let i=0;i<waves.length;i++)waves[i].setAttribute('opacity',phase<5?.35+.65*(.5+.5*Math.sin(t*5+i)):'.15');
