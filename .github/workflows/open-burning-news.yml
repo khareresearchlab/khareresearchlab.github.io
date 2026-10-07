@@ -67,7 +67,7 @@ jobs:
               url = str(item.get("url", ""))
               source = str(item.get("source", ""))
               content = " ".join(str(item.get(k, "")) for k in ("title", "source", "summary", "description"))
-              if not title.strip() or not science_source(url, source) or political.search(content) or not science.search(title):
+              if not title.strip() or political.search(content) or not science.search(title):
                   return False
               return not any(ent.label_ == "PERSON" for ent in nlp(content.title()).ents)
 
@@ -79,7 +79,7 @@ jobs:
                   data = {"updated_at": None, "items": []}
               items = data.get("items", []) if isinstance(data, dict) else []
               data["items"] = [x for x in items if isinstance(x, dict) and keep(x)]
-              data["method"] = "Science-source allowlist, topic filtering, political-language and personal-name exclusion"
+              data["method"] = "Topic and science-language filtering, political-language and personal-name exclusion"
               path.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\\n")
               print(f"{topic}: retained {len(data['items'])} of {len(items)}")
           PYSCREEN
