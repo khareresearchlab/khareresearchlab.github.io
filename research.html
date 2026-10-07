@@ -379,7 +379,7 @@ for(let row=0;row<2;row++){
  el('rect',{x:250,y:y-35,width:180,height:70,rx:row?28:10,fill:'#163746',stroke:'#90bdc7','stroke-width':2},hardware);
  if(row){el('rect',{x:328,y:y-33,width:12,height:66,fill:'#e1e5d9',stroke:'#aac2b4'},hardware);for(let k=0;k<10;k++)el('path',{d:`M329 ${y-29+k*6}h10`,stroke:'#91aaa4'},hardware)}
  el('rect',{x:550,y:y-40,width:130,height:80,rx:9,fill:'#204550',stroke:'#90bdc7'},hardware);
- el('rect',{x:562,y:y-26,width:106,height:28,rx:4,fill:'#08242a'},hardware);label('1.00 SLPM',575,y-7,14,'#8de0ce');label('FLOW CONTROL',565,y+25,10);
+ el('rect',{x:562,y:y-26,width:106,height:28,rx:4,fill:'#08242a'},hardware);label('X.X SLPM',575,y-7,14,'#8de0ce');label('FLOW CONTROL',565,y+25,10);
  el('circle',{cx:823,cy:y,r:40,fill:'#204550',stroke:'#90bdc7','stroke-width':2},hardware);
  const rotor=el('g',{},hardware);for(let k=0;k<3;k++)el('path',{d:`M823 ${y}q-28 -34 3 -29q25 7 -3 29`,fill:'#75b5bc',transform:`rotate(${k*120} 823 ${y})`},rotor);rotors.push([rotor,y]);
  label(row?'Particles retained on the filter':'Compounds retained on sorbent surfaces',250,y+67,12,'#bdd3d8');
