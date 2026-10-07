@@ -246,64 +246,91 @@
  <div class="ms-tabs" role="group" aria-label="Mass analyzer"><button id="ms-quad" type="button" aria-pressed="true">01 · Quadrupole</button><button id="ms-tof" type="button" aria-pressed="false">02 · V-type time of flight</button></div>
  <div class="ms-body"><p id="ms-description" class="ms-description"></p>
  <div class="ms-stage"><canvas id="ms-canvas" width="1920" height="820" role="img" aria-label="Animated schematic of ions moving from an ion source through a mass analyzer to a detector"></canvas></div>
- <div class="ms-legend"><span style="--ion:#55d8c4">m/z 50</span><span style="--ion:#ffc16a">m/z 100</span><span style="--ion:#aeabff">m/z 200</span></div>
- <div class="ms-controls"><button id="ms-play" type="button">Pause</button><button id="ms-reset" type="button">Restart</button><label>Playback <select id="ms-speed"><option value="0.5">0.5×</option><option value="1" selected>1×</option><option value="2">2×</option></select></label><label id="ms-mass-label">Transmit m/z <select id="ms-mass"><option>50</option><option selected>100</option><option>200</option></select></label></div>
- <p id="ms-explanation" class="ms-note"></p><p class="ms-note">Conceptual animation, slowed for visibility. Symbols represent positively charged ions, not neutral molecules; sizes and trajectories are illustrative. The quadrupole view is a projection of four rods, not a numerical trajectory simulation. TOF shows a single-reflection V-type analyzer with singly charged ions and negligible initial kinetic energy. Reflectron motion is schematic; energy-spread focusing is not numerically simulated.</p>
+ <div class="ms-legend"><span style="--ion:#58dbc2">m/z 43</span><span style="--ion:#84cf72">m/z 57</span><span style="--ion:#d4dd74">m/z 71</span><span style="--ion:#ffcb71">m/z 91</span><span style="--ion:#fa9e75">m/z 121</span><span style="--ion:#f782a9">m/z 149</span><span style="--ion:#c699ef">m/z 191</span><span style="--ion:#8caeff">m/z 259</span><span style="--ion:#65cde8">m/z 355</span></div>
+ <div class="ms-controls"><button id="ms-play" type="button">Pause</button><button id="ms-reset" type="button">Restart</button><label>Playback <select id="ms-speed"><option value="0.5">0.5×</option><option value="1" selected>1×</option><option value="2">2×</option></select></label><label id="ms-mass-label">Transmit m/z <select id="ms-mass"><option>43</option><option>57</option><option>71</option><option>91</option><option selected>121</option><option>149</option><option>191</option><option>259</option><option>355</option></select></label></div>
+ <p id="ms-explanation" class="ms-note"></p><p class="ms-note">Conceptual animation, slowed for visibility. Colored dots after the ion source represent positive ions; upstream bonded symbols represent sample molecules. Nine illustrative m/z values span 43–355 and are not assignments to specific compounds. Sizes and trajectories are illustrative. The quadrupole view is a projection of four rods, not a numerical trajectory simulation. TOF shows a single-reflection V-type analyzer with singly charged ions and negligible initial kinetic energy. Reflectron motion is schematic; energy-spread focusing is not numerically simulated.</p>
  </div>
 </dialog>
 <script>
 (()=>{'use strict';
 const d=document.getElementById('ms-dialog'),cv=document.getElementById('ms-canvas'),c=cv.getContext('2d'),play=document.getElementById('ms-play');
-const masses=[50,100,200],colors=['#55d8c4','#ffc16a','#aeabff'];let mode='quad',t=0,last=0,raf=0,paused=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const masses=[43, 57, 71, 91, 121, 149, 191, 259, 355],colors=['#58dbc2', '#84cf72', '#d4dd74', '#ffcb71', '#fa9e75', '#f782a9', '#c699ef', '#8caeff', '#65cde8'];let mode='quad',t=0,last=0,raf=0,paused=matchMedia('(prefers-reduced-motion: reduce)').matches;
 function text(s,x,y,color='#dbeae9',size=13){c.fillStyle=color;c.font=`${size}px system-ui`;c.fillText(s,x,y)}
 function line(x,y,a,b,color='#476675',width=1){c.strokeStyle=color;c.lineWidth=width;c.beginPath();c.moveTo(x,y);c.lineTo(a,b);c.stroke()}
 function box(x,y,w,h,color){c.fillStyle=color;c.fillRect(x,y,w,h)}
-function ion(x,y,k,alpha=1){c.save();c.globalAlpha=alpha;c.shadowColor=colors[k];c.shadowBlur=mode==='tof'?3:8;c.fillStyle=colors[k];c.beginPath();c.arc(x,y,mode==='tof'?2.5:4,0,Math.PI*2);c.fill();c.shadowBlur=0;if(mode==='quad')text('+',x+6,y-5,colors[k],9);c.restore()}
+function ion(x,y,k,alpha=1){c.save();c.globalAlpha=alpha;c.shadowColor=colors[k];c.shadowBlur=mode==='tof'?3:8;c.fillStyle=colors[k];c.beginPath();c.arc(x,y,mode==='tof'?2.1:2.8,0,Math.PI*2);c.fill();c.shadowBlur=0;c.restore()}
 function rod(y,h,color){const g=c.createLinearGradient(0,y,0,y+h);g.addColorStop(0,'#183342');g.addColorStop(.45,color);g.addColorStop(1,'#183342');box(260,y,450,h,g)}
+// Stable pseudo-random layouts avoid jitter and geometric packet grids.
+function rnd(n){const v=Math.sin(n*127.1+311.7)*43758.5453;return v-Math.floor(v)}
+const clouds=masses.map((m,k)=>Array.from({length:13+(k*7)%9},(_,j)=>{
+ const seed=k*101+j*13+1,a=rnd(seed)*Math.PI*2,r=Math.sqrt(rnd(seed+2));
+ const lobes=1+.23*Math.sin(3*a+k)+.16*Math.cos(5*a-k*.7);
+ return {x:Math.cos(a)*r*18*lobes,y:Math.sin(a)*r*13*lobes,phase:rnd(seed+5)*6.28,brightness:.6+.4*rnd(seed+8)};
+}));
+function sample(y){
+ text('SAMPLE',23,y-44,'#dbeae9',11);text('Organic mixture',14,y+54,'#9dbac2',10);
+ // A sample reservoir and transfer line upstream of the ion source.
+ box(36,y-40,29,8,'#829b9c');box(31,y-30,39,57,'#244959');
+ line(31,y-30,31,y+27,'#8ab6be');line(70,y-30,70,y+27,'#8ab6be');line(31,y+27,70,y+27,'#8ab6be');
+ for(let j=0;j<16;j++){const x=36+rnd(j+1)*29,yy=y-22+rnd(j+29)*40;const k=j%masses.length;
+ line(x,yy,x+4,yy-3,colors[k],1);c.fillStyle=colors[k];c.beginPath();c.arc(x,yy,1.6,0,6.283);c.fill();}
+ line(70,y,115,y,'#8baeb7',2);text('→',87,y-8,'#b5d6d9',14);
+ for(let j=0;j<5;j++){const x=74+((t*.4+j/5)%1)*37;c.fillStyle=colors[j];c.beginPath();c.arc(x,y,1.8,0,6.283);c.fill();}
+ box(115,y-31,99,62,'#214653');text('ION SOURCE',122,y-12,'#dbeae9',11);text('Ionization →',122,y+11,'#9dbac2',11);
+}
 function draw(){c.setTransform(2,0,0,2,0,0);c.clearRect(0,0,960,410);box(0,0,960,410,'#0b2330');
 for(let x=30;x<960;x+=35)line(x,65,x,270,'#ffffff06');
 text(mode==='quad'?'QUADRUPOLE · SELECT A MASS-TO-CHARGE RATIO':'V-TYPE TIME OF FLIGHT · SINGLE REFLECTION',30,35,'#b8d5d7',14);
-if(mode==='quad'){box(35,140,125,95,'#214653');text('ION SOURCE',46,165);text('Positive ions',46,187,'#9dbac2',12);line(165,195,840,195,'#5d7c8655');
-box(845,108,16,153,'#a5c5cc');text('DETECTOR',811,88);}let selected=Number(document.getElementById('ms-mass').value);
+if(mode==='quad'){sample(195);line(218,195,840,195,'#5d7c8655');box(845,108,16,153,'#a5c5cc');text('DETECTOR',811,88);}let selected=Number(document.getElementById('ms-mass').value);
 if(mode==='quad'){
 rod(100,23,'#719999');rod(139,15,'#3e737e');rod(235,15,'#3e737e');rod(269,23,'#719999');
 text('Four rods · opposing pairs: ±(U + V cos ωt)',274,77,'#a9cbd0',12);
 text(`Stable transmission: m/z ${selected}`,310,320,colors[masses.indexOf(selected)],16);
-for(let k=0;k<3;k++)for(let j=0;j<24;j++){
-const age=(t*.24+j/24+k*.021)%1,x=160+age*720;let y=195+(k-1)*9;
-if(x>=260&&x<=710){const u=(x-260)/450,amp=masses[k]===selected?9:8+180*u*u;y+=Math.sin(u*33+j)*amp;if(masses[k]!==selected&&u>.52)continue;}
-if(x>710&&masses[k]!==selected)continue;ion(x,y,k);}
+for(let k=0;k<masses.length;k++)for(let j=0;j<18;j++){
+ const age=(t*.19+j/18+rnd(k*31+j)*.042+k*.013)%1,x=218+age*630;
+ let y=195+(rnd(k*71+j*11)-.5)*23;
+ if(x>=260&&x<=710){const u=(x-260)/450,stable=masses[k]===selected;
+ const cutoff=.30+.35*rnd(k+9),amp=stable?7:8+85*(u/cutoff)**2;
+ y+=Math.sin(u*30+k+j*.9)*amp;
+ if(!stable&&(u>cutoff||y<126||y>269))continue;}
+ if(x>710&&masses[k]!==selected)continue;ion(x,y,k,.8);}
 text('Other m/z: unstable motion → rod collision / loss',265,348,'#b0c5cd',12);
-box(782,310,130,65,'#14303c');line(794,361,901,361);line(800+(masses.indexOf(selected))*42,359,800+(masses.indexOf(selected))*42,328,colors[masses.indexOf(selected)],4);text('Selected-ion signal',779,395,'#aac4cb',11);
+box(782,310,130,65,'#14303c');line(794,361,901,361);line(800+(masses.indexOf(selected))*12,359,800+(masses.indexOf(selected))*12,328,colors[masses.indexOf(selected)],4);text('Selected-ion signal',779,395,'#aac4cb',11);
 }else{
 // A single ion mirror folds the flight path back toward the source side.
-box(35,72,136,55,'#214653');text('PULSED ION SOURCE',43,94,'#dbeae9',11);text('Same potential ΔV',43,113,'#a9cbd0',11);
-box(181,75,6,51,'#b7794f');box(207,75,6,51,'#b7794f');
+sample(100);box(227,77,5,46,'#b7794f');box(243,77,5,46,'#b7794f');text('Pulsed extraction',261,76,'#d1b593',10);
 box(211,262,12,42,'#a5c5cc');text('DETECTOR',51,282,'#dbeae9',13);
 box(737,126,159,140,'#704f302b');for(let x=744;x<891;x+=16)line(x,130,x,261,'#b7794f88',2);
 text('REFLECTRON',756,90,'#ffc16a',14);text('Electrostatic ion mirror',738,110,'#d1b593',11);
 text('Retarding field',769,285,'#d1b593',11);text('←',794,198,'#ffc16a',24);
-line(220,100,740,168,'#769aa055',2);line(740,220,225,285,'#769aa055',2);
+line(254,100,740,168,'#769aa055',2);line(740,220,225,285,'#769aa055',2);
 c.strokeStyle='#769aa055';c.lineWidth=2;c.beginPath();c.moveTo(740,168);c.quadraticCurveTo(885,194,740,220);c.stroke();
-text('FIELD-FREE OUTBOUND PATH →',325,93,'#a9cbd0',11);text('← FIELD-FREE RETURN PATH',336,289,'#a9cbd0',11);
+text('FIELD-FREE OUTBOUND PATH →',325,93,'#a9cbd0',11);text('← FIELD-FREE RETURN PATH',336,255,'#a9cbd0',11);
 text('Decelerate · reverse · reaccelerate',394,192,'#aac4cb',12);
 text('Lower m/z arrives first',428,214,'#aac4cb',12);
 // Constant-speed drift legs and a parabolic turn inside a uniform-field mirror.
-function position(u){if(u<.43){const v=u/.43;return [220+520*v,100+68*v]}
+function position(u){if(u<.43){const v=u/.43;return [254+486*v,100+68*v]}
  if(u<.57){const v=(u-.43)/.14;return [740+290*v*(1-v),168+52*v]}
  const v=(u-.57)/.43;return [740-515*v,220+65*v]}
-const cycle=t%6.2;
-for(let k=0;k<3;k++){
-const arrival=2*Math.sqrt(masses[k]/50);
-for(let j=0;j<24;j++){
- const u=cycle/arrival;if(u<1){const [x,y]=position(u),spreadX=((j%6)-2.5)*6,spreadY=(Math.floor(j/6)-1.5)*6+(k-1)*2;
- ion(x+spreadX,y+spreadY,k,.65+(j%3)*.15);}}
-if(cycle>=arrival){box(211,266+k*11,12,9,colors[k]);text(`m/z ${masses[k]} detected`,35,310+k*16,colors[k],11);}
-const px=330+arrival*105;if(cycle>=arrival)line(px,365,px,328,colors[k],4);text(`${masses[k]}`,px-10,386,colors[k],11);}
-line(320,365,780,365);text('Arrival-time signal',335,316,'#c4dade',12);text('Earlier',319,402,'#a9cbd0',10);text('Later →',739,402,'#a9cbd0',10);
+const cycle=t%7.4;let detected=0;
+for(let k=0;k<masses.length;k++){
+ const arrival=1.8*Math.sqrt(masses[k]/43),u=cycle/arrival;
+ if(u<1){const [x,y]=position(u);
+ // Smooth lopsided clouds: visual spread only, not ion-ion attraction.
+ for(const q of clouds[k]){
+ const breathing=1+.07*Math.sin(t*1.3+q.phase),spread=Math.min(1,cycle/.3);
+ ion(x+q.x*breathing*spread,y+(q.y+1.4*Math.sin(t*.8+q.phase))*spread,k,q.brightness);}}
+ else{detected++;if(cycle-arrival<.22)box(211,264,12,40,colors[k]);}
+ const px=320+(arrival-1.8)*135;
+ if(cycle>=arrival){const height=17+clouds[k].length*1.1;line(px,360,px,360-height,colors[k],3);}
+ text(`${masses[k]}`,px-8,k%2?396:380,colors[k],10);
+}
+text(`${detected} / ${masses.length} mass groups detected`,32,321,'#aac4cb',11);
+line(310,360,820,360);text('Arrival-time signal · illustrative abundances',310,308,'#c4dade',12);
+text('Earlier arrivals → later arrivals',548,408,'#a9cbd0',10);
 
 }}
-function labels(){document.getElementById('ms-quad').setAttribute('aria-pressed',mode==='quad');document.getElementById('ms-tof').setAttribute('aria-pressed',mode==='tof');document.getElementById('ms-mass-label').hidden=mode!=='quad';document.getElementById('ms-description').textContent=mode==='quad'?'A quadrupole uses combined radio-frequency (RF) and direct-current (DC) voltages to transmit ions within a selected m/z window. Choose an ion below and watch which trajectories remain stable.':'A packet of ions travels into an electrostatic reflectron, reverses direction, and returns to an offset detector along a V-shaped path. Lower-m/z ions complete the flight sooner.';document.getElementById('ms-explanation').textContent=mode==='quad'?'Changing the selected m/z represents adjusting RF and DC together. A real mass spectrum is built by scanning these settings; this view holds one setting at a time.':'The reflectron slows ions, reverses their forward motion and accelerates them back out. It can compensate for kinetic-energy spread because higher-energy ions of the same m/z penetrate farther. Here all ions have the same charge and idealized energy; m/z 50, 100 and 200 arrive in the time ratio 1 : √2 : 2. Each colored packet contains 24 ions.';play.textContent=paused?'Play':'Pause';draw()}
+function labels(){document.getElementById('ms-quad').setAttribute('aria-pressed',mode==='quad');document.getElementById('ms-tof').setAttribute('aria-pressed',mode==='tof');document.getElementById('ms-mass-label').hidden=mode!=='quad';document.getElementById('ms-description').textContent=mode==='quad'?'A quadrupole uses combined radio-frequency (RF) and direct-current (DC) voltages to transmit ions within a selected m/z window. A complex organic sample produces many ion masses; choose an m/z below and watch which trajectories remain stable.':'A complex organic sample is ionized and extracted as a mixed packet. Nine example m/z groups separate along the V-shaped reflectron path, with lower-m/z ions arriving earlier.';document.getElementById('ms-explanation').textContent=mode==='quad'?'Changing the selected m/z represents adjusting RF and DC together. A real mass spectrum is built by scanning these settings; this view holds one setting at a time.':'The reflectron slows ions, reverses their forward motion and accelerates them back out. It can compensate for kinetic-energy spread because higher-energy ions of the same m/z penetrate farther. Arrival time scales with √(m/z) for the idealized equal-energy, singly charged ions shown. Irregular clouds illustrate packet spread, not bound aggregates; their gentle shape changes are visual only.';play.textContent=paused?'Play':'Pause';draw()}
 function tick(now){raf=0;if(!d.open||paused||document.hidden){last=0;return;}if(last)t+=Math.min((now-last)/1000,.05)*Number(document.getElementById('ms-speed').value);last=now;draw();raf=requestAnimationFrame(tick)}
 function sync(){cancelAnimationFrame(raf);raf=0;last=0;labels();if(d.open&&!paused&&!document.hidden)raf=requestAnimationFrame(tick)}
 document.getElementById('ms-open').addEventListener('click',()=>{d.showModal();sync()});document.getElementById('ms-close').onclick=()=>d.close();d.addEventListener('close',()=>{cancelAnimationFrame(raf);last=0;document.getElementById('ms-open').focus()});d.addEventListener('click',e=>{if(e.target===d){const r=d.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)d.close()}});
