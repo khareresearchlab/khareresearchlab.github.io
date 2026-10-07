@@ -26,50 +26,13 @@ jobs:
           python-version: '3.12'
       - name: Refresh news
         run: python scripts/update_news.py
-      - name: Install headline screening
-        run: |
-          python -m pip install "spacy>=3.8,<3.9"
-          python -m spacy download en_core_web_sm
-      - name: Remove political and person-focused headlines
+      - name: Remove political headlines
         run: |
           python - <<'PYSCREEN'
           import json, re
           from pathlib import Path
-          from urllib.parse import urlparse
-          import spacy
 
-          nlp = spacy.load("en_core_web_sm")
-          political = re.compile(r"\b(?:politic\w*|government\w*|minister\w*|chief\s+minister|prime\s+minister|cm|pm|mp|mla|president|governor|mayor|senator|congress\w*|parliament\w*|legislat\w*|election\w*|electoral|ballot|vote\w*|party|parties|opposition|coalition|bjp|aap|inc|nda|upa|democrat\w*|republican\w*|labour|tory|tories|modi|kejriwal|gupta|mann|slams?|blames?|critic\w*|accus\w*|lashes|hits\s+out|row|spat|protest\w*|activist\w*|scandal\w*|corrupt\w*|resign\w*)\b", re.I)
-          science = re.compile(r"\b(?:stud\w*|research\w*|scien\w*|measure\w*|monitor\w*|emission\w*|pollut\w*|air\s+quality|aerosol\w*|chem\w*|particle\w*|particulate\w*|voc\w*|smoke|smog|ozone|exposure|concentration\w*|satellite\w*|experiment\w*|health|climate|atmospher\w*|pm2(?:\.5)?)\b", re.I)
-
-          SCIENCE_HOSTS = (
-              "nature.com", "sciencedirect.com", "springer.com", "wiley.com", "onlinelibrary.wiley.com",
-              "acs.org", "pubs.acs.org", "copernicus.org", "acp.copernicus.org", "agu.org", "agupubs.onlinelibrary.wiley.com",
-              "rsc.org", "pnas.org", "science.org", "sciencemag.org", "cell.com", "frontiersin.org", "tandfonline.com",
-              "iopscience.iop.org", "sciencenews.org", "newscientist.com", "sciencedaily.com", "phys.org", "eurekalert.org",
-              "nasa.gov", "noaa.gov", "esa.int", "usgs.gov", "nih.gov", "who.int", "royalsociety.org"
-          )
-          def science_source(url, source):
-              host = (urlparse(url).hostname or "").lower()
-              label = str(source).lower()
-              if any(host == domain or host.endswith("." + domain) for domain in SCIENCE_HOSTS):
-                  return True
-              # Google News wraps the original link; use its RSS source label.
-              source_terms = (
-                  "science", "nature", "scientific", "phys.org", "eurekalert", "new scientist", "sciencedaily",
-                  "nasa", "noaa", "esa", "usgs", "nih", "who", "royal society", "acs", "agu", "wiley",
-                  "springer", "copernicus", "elsevier", "rsc", "pnas", "frontiers", "iop", "cell press"
-              )
-              return host == "news.google.com" and any(term in label for term in source_terms)
-
-          def keep(item):
-              title = str(item.get("title", ""))
-              url = str(item.get("url", ""))
-              source = str(item.get("source", ""))
-              content = " ".join(str(item.get(k, "")) for k in ("title", "source", "summary", "description"))
-              if not title.strip() or political.search(content) or not science.search(title):
-                  return False
-              return not any(ent.label_ == "PERSON" for ent in nlp(content.title()).ents)
+          political = re.compile(r"\b(?:politic\w*|government\w*|minister\w*|chief\s+minister|prime\s+minister|cm|pm|mp|mla|president|governor|mayor|senator|congress\w*|parliament\w*|legislat\w*|election\w*|electoral|ballot|vote\w*|party|parties|opposition|coalition|bjp|aap|inc|nda|upa|democrat\w*|republican\w*|labour|tory|tories|modi|kejriwal|gupta|mann|slams?|blames?|critic\w*|accus\w*|lashes|hits\s+out|row|spat|protest\w*|activist\w*|scandal|corrupt\w*|resign\w*)\b", re.I)
 
           for topic in ("open-burning", "vcp"):
               path = Path(f"assets/{topic}-news.json")
@@ -78,10 +41,15 @@ jobs:
               except Exception:
                   data = {"updated_at": None, "items": []}
               items = data.get("items", []) if isinstance(data, dict) else []
-              data["items"] = [x for x in items if isinstance(x, dict) and keep(x)]
-              data["method"] = "Topic and science-language filtering, political-language and personal-name exclusion"
-              path.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\\n")
-              print(f"{topic}: retained {len(data['items'])} of {len(items)}")
+              kept = []
+              for item in items:
+                  text = " ".join(str(item.get(k, "")) for k in ("title", "source", "summary", "description"))
+                  if not political.search(text):
+                      kept.append(item)
+              data["items"] = kept
+              data["method"] = "Topic RSS filtering with political-headline exclusion"
+              path.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n")
+              print(f"{topic}: retained {len(kept)} of {len(items)}")
           PYSCREEN
       - uses: actions/configure-pages@v5
       - name: Stage existing static website
