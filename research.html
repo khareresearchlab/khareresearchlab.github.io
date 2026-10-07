@@ -429,7 +429,7 @@ play.onclick=()=>{paused=!paused;sync()};byId('sampling-reset').onclick=()=>{t=0
 <p id="treatment-description"></p>
 <div class="treatment-stage"><svg id="treatment-svg" viewBox="0 0 1040 440" role="img" aria-labelledby="treatment-svg-title treatment-svg-description"><title id="treatment-svg-title">Animated sample preparation, chromatography and ionization</title><desc id="treatment-svg-description">Choose thermal desorption into GC–MS or filter extraction into LC–MS. Colored neutral analytes leave the sample, separate in the column, acquire positive charge inside the ionization region, and enter the mass spectrometer.</desc><g id="treatment-hardware"></g><g id="treatment-motion"></g></svg></div>
 <div class="treatment-controls"><button id="treatment-play" type="button">Pause</button><button id="treatment-reset" type="button">Restart</button></div>
-<p class="treatment-note">Conceptual sequence; timing, sizes and retention order are illustrative. Colors distinguish analyte families. Separation reflects different interactions with the stationary phase, not molecular mass alone. Charge appears inside the ionization region before ions enter the mass analyzer. GC–MS shows simplified electron ionization; fragmentation is omitted. The filter example uses LC–MS with positive electrospray ionization; droplet formation and desolvation are simplified. Actual extraction, cleanup and ionization methods depend on the analytical protocol.</p>
+<p class="treatment-note">Conceptual sequence; timing, sizes and retention order are illustrative. Colors distinguish analyte families. Separation reflects different interactions with the stationary phase, not molecular mass alone. Charge appears inside the ionization region before ions enter the mass analyzer. The GC–MS ionization source is shown generically; source-specific processes and fragmentation are omitted. The filter example uses LC–MS with positive electrospray ionization; the downward spray and analyte interaction are schematic, with droplet formation and desolvation simplified. Actual extraction, cleanup and ionization methods depend on the analytical protocol.</p>
 </dialog>
 <script>
 (() => {
@@ -440,15 +440,16 @@ function el(tag,a,parent=hw){const n=document.createElementNS(ns,tag);for(const 
 function text(s,x,y,size=13,color='#deeaec',parent=hw){const n=el('text',{x,y,'font-size':size,fill:color},parent);n.textContent=s;return n}
 function rect(x,y,w,h,fill='#204550',stroke='#90bdc7'){return el('rect',{x,y,width:w,height:h,rx:9,fill,stroke})}
 function line(path,stroke='#75b5bc',width=3){return el('path',{d:path,fill:'none',stroke,'stroke-width':width})}
-let mode='gas',t=0,last=0,raf=0,paused=window.matchMedia('(prefers-reduced-motion: reduce)').matches,particles=[],waves=[],status,heater,plunger;
-const gc=[[430,205],[453,205],[453,135],[482,135],[482,275],[511,275],[511,135],[540,135],[540,275],[569,275],[569,135],[598,135],[598,205],[650,205]],lc=[[430,205],[650,205]];
+let mode='gas',t=0,last=0,raf=0,paused=window.matchMedia('(prefers-reduced-motion: reduce)').matches,particles=[],waves=[],spray=[],status,heater,plunger;
+const gc=[[430,205],[452,205]],lc=[[430,205],[650,205]];
+for(let i=0;i<=480;i++){const u=i/480,a=u*Math.PI*8;gc.push([452+155*u+24*(1-Math.cos(a)),205+65*Math.sin(a)])}gc.push([650,205]);
 function along(points,p){const lens=points.slice(1).map((a,i)=>Math.hypot(a[0]-points[i][0],a[1]-points[i][1]));let dist=p*lens.reduce((a,b)=>a+b,0);for(let i=0;i<lens.length;i++){if(dist<=lens[i]){const q=dist/lens[i];return [points[i][0]+q*(points[i+1][0]-points[i][0]),points[i][1]+q*(points[i+1][1]-points[i][1])]}dist-=lens[i]}return points[points.length-1]}
 function build(){
- hw.replaceChildren();motion.replaceChildren();particles=[];waves=[];heater=null;plunger=null;
+ hw.replaceChildren();motion.replaceChildren();particles=[];waves=[];spray=[];heater=null;plunger=null;
  get('gas').setAttribute('aria-pressed',mode==='gas');get('filter').setAttribute('aria-pressed',mode==='filter');
  get('description').textContent=mode==='gas'?'Clean carrier gas flows through a heated sorbent tube, releasing retained organic compounds. A focused sample pulse enters the GC column, where analytes separate before ionization and transfer into the mass spectrometer.':'A collected filter is sonicated in solvent to extract organic compounds. An aliquot of the extract is injected into an LC column. Separated analytes reach an electrospray ionization region, and the resulting ions enter the mass spectrometer.';
  text(mode==='gas'?'THERMAL DESORPTION → GC–MS':'SOLVENT EXTRACTION → LC–MS',28,35,16,'#8de0ce');
- text(mode==='gas'?'Heat & desorb':'Sonicate in solvent',30,78,15);text('Inject sample',280,78,15);text(mode==='gas'?'GC separation':'LC separation',465,78,15);text('Ionization',706,78,15);text('Mass spectrometer',881,78,14);
+ text(mode==='gas'?'Heat & desorb':'Sample preparation procedures',30,78,mode==='gas'?15:13);text('Inject sample',280,78,15);text(mode==='gas'?'GC separation':'LC separation',465,78,15);text('Ionization',706,78,15);text('Mass spectrometer',881,78,14);
  line('M205 205H970','#385865',15);
  if(mode==='gas'){
   text('Clean carrier gas',26,120,12);line('M28 205H220');text('→',34,191,22,'#8de0ce');
@@ -457,7 +458,7 @@ function build(){
   for(let i=0;i<3;i++)waves.push(line(`M${93+i*40} 173q-10 -12 0 -22q10 -12 0 -22`,'#fa9e75',2));
   text('Heated sorbent tube',77,291,12);rect(290,178,70,54);text('Focus /',302,199,11);text('inject',309,217,11);
  }else{
-  rect(30,241,186,52,'#204550');text('Ultrasonic bath',65,318,12);rect(68,134,112,135,'#163746');rect(73,175,102,88,'#245f70','#245f70');
+  rect(30,241,186,52,'#204550');text('Analytical methods',60,318,12);rect(68,134,112,135,'#163746');rect(73,175,102,88,'#245f70','#245f70');
   el('ellipse',{cx:125,cy:235,rx:37,ry:10,fill:'#dce3d4',stroke:'#90aaa0'});text('Filter + solvent',70,119,12);
   for(let i=0;i<3;i++)waves.push(line(`M${45+i*68} 281q-13 -14 0 -28q13 -14 0 -28`,'#65cde8',2));
   line('M182 205H280','#75b5bc',2);text('Extract aliquot →',189,161,11);rect(306,122,30,66,'#b5cfd4');plunger=line('M321 109V151M307 109H335','#e3eded',3);line('M321 188V205','#e3eded',2);text('Injection',292,253,12);text('Mobile phase →',263,291,12,'#8de0ce');
@@ -468,7 +469,15 @@ function build(){
  }
  line('M'+(mode==='gas'?gc:lc).map(p=>p.join(' ')).join('L'),'#90bdc7',9);line('M'+(mode==='gas'?gc:lc).map(p=>p.join(' ')).join('L'),'#193c48',5);
  text('Different retention times',441,329,12,'#bdd3d8');
- rect(695,143,139,124,'#3e354f','#c699ef');text(mode==='gas'?'Electron':'Electrospray',711,166,12);text('ionization',717,182,12);text(mode==='gas'?'e⁻ ↓':'spray → ions',723,241,12,'#c699ef');
+ rect(695,143,139,124,'#3e354f','#c699ef');
+ if(mode==='gas'){text('Ionization source',703,166,13);}else{
+  text('Electrospray',707,130,12,'#c699ef');
+  el('path',{d:'M758 143V166L765 178L772 166V143',fill:'#a8c8d1',stroke:'#e0eeef'});
+  el('path',{d:'M765 178L741 224Q765 234 789 224Z',fill:'#c699ef',opacity:.13});
+  text('Analytes + spray',704,247,11,'#d6bdf1');
+  for(let i=0;i<32;i++){const n=el('circle',{r:1.4+(i%3)*.35,fill:i%2?'#c699ef':'#8ad8ee'},motion);spray.push({n,i})}
+ }
+
  rect(882,143,130,124,'#204550');text('MASS',928,181,13);text('ANALYZER',910,198,13);for(let i=0;i<4;i++)line(`M${901+i*27} 252v-${13+(i*17)%44}`,'#8de0ce',4);
  text('Neutral analytes',474,360,12,'#bdd3d8');text('Positive ions →',788,303,12,'#bdd3d8');
  status=text('',28,410,14,'#8de0ce');
@@ -479,6 +488,7 @@ function build(){
 }
 function draw(){
  const phase=t%24;
+ for(const {n,i} of spray){const q=(t*.7+i/32)%1;n.setAttribute("cx",765+Math.sin(i*12.3)*q*23);n.setAttribute("cy",178+q*49);n.setAttribute("opacity",1-q*.7)}
  if(heater)heater.setAttribute('fill',phase<5?`rgb(${105+Math.round(20*Math.sin(t*3))},58,42)`:'#703d2c');
  for(let i=0;i<waves.length;i++)waves[i].setAttribute('opacity',phase<5?.35+.65*(.5+.5*Math.sin(t*5+i)):'.15');
  if(plunger)plunger.setAttribute('transform',`translate(0 ${phase>=5&&phase<7?(phase-5)*12:0})`);
