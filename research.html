@@ -67,7 +67,7 @@
     </li>
     <li class="method-step">
       <div class="method-top"><span class="method-icon" aria-hidden="true"><svg viewBox="0 0 28 28"><path d="M4 3v21h21M8 19l5-7 5 3 6-9"/><circle cx="8" cy="19" r="1"/><circle cx="13" cy="12" r="1"/><circle cx="18" cy="15" r="1"/><circle cx="24" cy="6" r="1"/></svg></span><span class="method-number" aria-hidden="true">04</span></div>
-      <h3>Data processing & analysis</h3><p>Process and visualize measurements to interpret sources, transformations and environmental implications.</p>
+      <h3>Data processing & analysis</h3><p class="ms-hint"><button type="button" id="analysis-open" aria-haspopup="dialog">See how it works!</button></p><p>Process and visualize measurements to interpret sources, transformations and environmental implications.</p>
       <div class="method-tags"><span>Processing & visualization</span><span>Analysis & interpretation</span></div>
     </li>
   </ol>
@@ -527,6 +527,64 @@ function frame(now){raf=0;if(!d.open||paused||document.hidden){last=0;return}if(
 function sync(){cancelAnimationFrame(raf);last=0;draw();if(d.open&&!paused&&!document.hidden)raf=requestAnimationFrame(frame)}
 open.addEventListener('click',()=>{d.showModal();sync()});get('close').onclick=()=>d.close();d.addEventListener('close',()=>{cancelAnimationFrame(raf);last=0;open.focus()});d.addEventListener('click',e=>{if(e.target===d){const r=d.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)d.close()}});
 for(const m of ['gas','filter'])get(m).onclick=()=>{mode=m;t=0;build();sync()};play.onclick=()=>{paused=!paused;sync()};get('reset').onclick=()=>{t=0;sync()};document.addEventListener('visibilitychange',sync);build();
+})();
+</script>
+
+<style>
+#analysis-open{font:inherit;color:inherit;background:none;border:0;padding:2px 0;cursor:pointer;font-weight:600;text-align:left}#analysis-open:hover{color:#b7794f}#analysis-dialog{box-sizing:border-box;width:min(1100px,96vw);max-height:94dvh;padding:24px;border:1px solid #b4cec4;border-radius:18px;background:#fafaf7;color:#145c58;box-shadow:0 24px 100px #001e2860;overflow:auto}#analysis-dialog::backdrop{background:#062b32b5;backdrop-filter:blur(5px)}#analysis-dialog .analysis-head{display:flex;justify-content:space-between;gap:18px;align-items:start}#analysis-dialog h2{font:500 clamp(24px,4vw,34px)/1.2 Georgia,serif;margin:5px 0 12px}#analysis-dialog p{font:14px/1.65 system-ui}#analysis-dialog button{font:600 13px system-ui;border:1px solid #abc9be;border-radius:8px;padding:10px 14px;background:white;color:#145c58;cursor:pointer}#analysis-dialog button:focus-visible,#analysis-open:focus-visible{outline:3px solid #b7794f;outline-offset:3px}#analysis-dialog .analysis-controls{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0}#analysis-dialog .analysis-stage{overflow-x:auto;background:#0b2330;border-radius:12px}#analysis-canvas{display:block;width:100%;min-width:700px;height:auto}#analysis-dialog .analysis-note{font-size:12px;color:#56736c}@media(max-width:650px){#analysis-dialog{padding:16px}}
+</style>
+<dialog id="analysis-dialog" aria-labelledby="analysis-title" aria-describedby="analysis-description">
+<div class="analysis-head"><div><span style="font:600 10px system-ui;letter-spacing:.17em">FINDING PATTERNS IN COMPLEX MIXTURES</span><h2 id="analysis-title">From molecular measurements to insight.</h2></div><button id="analysis-close" type="button" aria-label="Close data analysis animation">Close ×</button></div>
+<p id="analysis-description">Follow a complex organic mixture through signal processing, a sample-by-feature data matrix, statistical and AI techniques, and visual interpretation. The sequence illustrates how chemical patterns and predictive relationships can be explored.</p>
+<div class="analysis-stage"><canvas id="analysis-canvas" width="2000" height="1200" role="img" aria-label="Four animated panels: molecular signals become a feature matrix; statistical and AI model nodes activate; sample points form clusters; observed and predicted trends appear with an illustrative uncertainty band."></canvas></div>
+<p id="analysis-status" aria-live="polite"></p>
+<div class="analysis-controls"><button id="analysis-play" type="button">Pause</button><button id="analysis-reset" type="button">Restart</button></div>
+<p class="analysis-note">Illustrative synthetic data, not laboratory results or a fitted model. Features represent measured signals, not automatically identified compounds. The network symbolizes machine learning; the grouping and predictions are scripted demonstrations. PCA, clustering, source apportionment and supervised learning are complementary options, not mandatory sequential steps. Real predictions require held-out validation and uncertainty assessment; patterns alone do not establish sources or causation.</p>
+</dialog>
+<script>
+(() => {
+'use strict';
+const get=id=>document.getElementById('analysis-'+id),d=get('dialog'),cv=get('canvas'),c=cv.getContext('2d'),play=get('play');
+const palette=['#58dbc2','#ffcb71','#c699ef','#f782a9','#8caeff','#fa9e75'];
+let t=0,last=0,raf=0,stage=-1,paused=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const clamp=x=>Math.max(0,Math.min(1,x)),rand=n=>{const v=Math.sin(n*127.1+311.7)*43758.5453;return v-Math.floor(v)};
+const stages=['01 · Resolve molecular signals, check quality and assemble features.','02 · Explore statistical patterns and train candidate AI models.','03 · Visualize similarities and chemical composition across samples.','04 · Compare predictions with observations and assess uncertainty.'];
+function txt(s,x,y,size=13,color='#deeaec'){c.fillStyle=color;c.font=`${size}px system-ui, sans-serif`;c.fillText(s,x,y)}
+function line(x,y,a,b,color='#557886',width=1){c.strokeStyle=color;c.lineWidth=width;c.beginPath();c.moveTo(x,y);c.lineTo(a,b);c.stroke()}
+function dot(x,y,r,color){c.fillStyle=color;c.beginPath();c.arc(x,y,r,0,Math.PI*2);c.fill()}
+function panel(x,y,title,subtitle){c.fillStyle='#12333f';c.fillRect(x,y,460,232);txt(title,x+16,y+26,16,'#8de0ce');txt(subtitle,x+16,y+47,11,'#abc7ce')}
+function draw(){
+ const p=t%24,a=clamp(p/5),b=clamp((p-5)/5),g=clamp((p-10)/5),v=clamp((p-15)/5);
+ c.setTransform(2,0,0,2,0,0);c.clearRect(0,0,1000,600);c.fillStyle='#0b2330';c.fillRect(0,0,1000,600);
+ txt('COMPLEX ORGANIC MIXTURES • DATA → PATTERNS → INTERPRETATION',24,30,16,'#8de0ce');
+ for(let i=0;i<4;i++){c.fillStyle=i<=Math.min(3,Math.floor(p/5))?'#58dbc2':'#294b58';c.fillRect(24+i*241,46,228,4)}
+ panel(24,69,'01  Molecular data → feature matrix','Peak detection • blank correction • alignment • scaling');
+ panel(516,69,'02  Statistical & AI analysis','PCA / clustering • source apportionment • supervised ML');
+ panel(24,319,'03  Visualize mixture patterns','Each point is a sample; colors show illustrative groups');
+ panel(516,319,'04  Evaluate predictive relationships','Observed and predicted response across held-out samples');
+ // Complex molecular signal with many overlapping peaks.
+ line(44,267,213,267);for(let i=0;i<36;i++){const x=47+i*4.5,h=12+rand(i+2)*84;line(x,265,x,265-h*a,palette[i%6],2)}
+ txt('Retention time / m/z',43,285,10,'#abc7ce');txt('→',219,220,24,'#8de0ce');
+ for(let r=0;r<9;r++)for(let k=0;k<15;k++){const idx=r*15+k,x=260+k*13.4,y=155+r*11.5;c.globalAlpha=idx<Math.floor(a*135)?.25+.75*rand(idx+17):.08;c.fillStyle=palette[Math.floor(k/3)%6];c.fillRect(x,y,11,9)}c.globalAlpha=1;txt('Samples × molecular features',261,140,11);txt('Abundance (relative)',281,279,10,'#abc7ce');
+ // A deliberately conceptual model graph; not a training-performance claim.
+ const layers=[5,7,5,3],nodes=layers.map((n,l)=>Array.from({length:n},(_,i)=>[552+l*119,171+i*14+(7-n)*7]));
+ for(let l=0;l<3;l++)for(let i=0;i<nodes[l].length;i++)for(let j=0;j<nodes[l+1].length;j++){const q=(t*.6+i*.17+j*.11)%1;line(...nodes[l][i],...nodes[l+1][j],b>l/3?'#3f707e':'#223e49');if(b>l/3){const from=nodes[l][i],to=nodes[l+1][j];dot(from[0]+q*(to[0]-from[0]),from[1]+q*(to[1]-from[1]),1.5,palette[i%6])}}
+ nodes.forEach((layer,l)=>layer.forEach(([x,y],i)=>dot(x,y,4.2,b>l/4?palette[i%6]:'#45616b')));txt('Features',534,278,11);txt('Learned relationships',649,278,11);txt('Outputs',886,278,11);
+ // Smoothly rearrange sample points from a mixed cloud into three groups.
+ line(60,510,288,510);line(60,510,60,386);txt('Component 1',127,531,10,'#abc7ce');txt('Component 2',62,381,10,'#abc7ce');
+ for(let i=0;i<66;i++){const group=i%3,sx=76+rand(i+90)*197,sy=397+rand(i+180)*103,cx=[112,228,185][group],cy=[422,429,479][group],ex=cx+(rand(i+300)-.5)*51,ey=cy+(rand(i+420)-.5)*36;dot(sx+(ex-sx)*g,sy+(ey-sy)*g,3,g?palette[group]:'#789aa5')}
+ txt('Relative composition',309,386,11);for(let k=0;k<3;k++){let x=317;for(let j=0;j<3;j++){const widths=[[68,29,16],[22,66,25],[28,20,65]][k];c.fillStyle=palette[j];c.fillRect(x,403+k*29,widths[j]*g,13);x+=widths[j]*g}txt(String.fromCharCode(65+k),300,414+k*29,10)}
+ // Reveal an illustrative uncertainty band, prediction curve and observations together.
+ line(554,508,943,508);line(554,508,554,386);txt('Sample / time',706,534,10,'#abc7ce');txt('Response',556,381,10,'#abc7ce');
+ const prediction=i=>452-25*Math.sin(i*.21)-i*.6,limit=Math.floor(v*40);
+ if(limit>0){c.fillStyle='#58dbc225';c.beginPath();for(let i=0;i<=limit;i++){const x=562+i*9.2,y=prediction(i)-13;i?c.lineTo(x,y):c.moveTo(x,y)}for(let i=limit;i>=0;i--)c.lineTo(562+i*9.2,prediction(i)+13);c.closePath();c.fill();for(let i=1;i<=limit;i++)line(562+(i-1)*9.2,prediction(i-1),562+i*9.2,prediction(i),'#58dbc2',2);for(let i=0;i<=limit;i+=2)dot(562+i*9.2,prediction(i)+(rand(i+850)-.5)*25,3,'#ffcb71')}
+ dot(577,565,3,'#ffcb71');txt('Observed',587,569,11);line(661,565,681,565,'#58dbc2',2);txt('Predicted',688,569,11);txt('Shading: illustrative uncertainty',787,569,10,'#abc7ce');
+ txt('SYNTHETIC DATA • CONCEPTUAL METHODS',25,578,11,'#91afb8');
+ const next=Math.min(3,Math.floor(p/5));if(next!==stage){stage=next;get('status').textContent=stages[stage]}play.textContent=paused?'Play':'Pause';
+}
+function frame(now){raf=0;if(!d.open||paused||document.hidden){last=0;return}if(last)t+=Math.min((now-last)/1000,.05);last=now;draw();raf=requestAnimationFrame(frame)}
+function sync(){cancelAnimationFrame(raf);last=0;draw();if(d.open&&!paused&&!document.hidden)raf=requestAnimationFrame(frame)}
+get('open').addEventListener('click',()=>{d.showModal();sync()});get('close').onclick=()=>d.close();d.addEventListener('close',()=>{cancelAnimationFrame(raf);last=0;get('open').focus()});d.addEventListener('click',e=>{if(e.target===d){const r=d.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)d.close()}});play.onclick=()=>{paused=!paused;sync()};get('reset').onclick=()=>{t=0;stage=-1;sync()};document.addEventListener('visibilitychange',sync);draw();
 })();
 </script>
 
