@@ -539,7 +539,7 @@ for(const m of ['gas','filter'])get(m).onclick=()=>{mode=m;t=0;build();sync()};p
 <div class="analysis-stage"><canvas id="analysis-canvas" width="2000" height="1200" role="img" aria-label="Four animated panels: molecular signals become a feature matrix; statistical and AI model nodes activate; sample points form clusters; observed and predicted trends appear with an illustrative uncertainty band."></canvas></div>
 <p id="analysis-status" aria-live="polite"></p>
 <div class="analysis-controls"><button id="analysis-play" type="button">Pause</button><button id="analysis-reset" type="button">Restart</button></div>
-<p class="analysis-note">Illustrative synthetic data, not laboratory results or a fitted model. Features represent measured signals, not automatically identified compounds. The network symbolizes machine learning; the grouping and predictions are scripted demonstrations. PCA, clustering, source apportionment and supervised learning are complementary options, not mandatory sequential steps. Real predictions require held-out validation and uncertainty assessment; patterns alone do not establish sources or causation.</p>
+<p class="analysis-note">The data used in these illustrations is synthetic, not laboratory results or a fitted model. Features represent measured signals, not automatically identified compounds. The network symbolizes machine learning; the grouping and predictions are scripted demonstrations. Real predictions require validation and uncertainty assessment; patterns alone do not establish sources or causation.</p>
 </dialog>
 <script>
 (() => {
@@ -559,7 +559,7 @@ function draw(){
  txt('COMPLEX ORGANIC MIXTURES • DATA → PATTERNS → INTERPRETATION',24,30,16,'#8de0ce');
  for(let i=0;i<4;i++){c.fillStyle=i<=Math.min(3,Math.floor(p/5))?'#58dbc2':'#294b58';c.fillRect(24+i*241,46,228,4)}
  panel(24,69,'01  Molecular data → feature matrix','Peak detection • blank correction • alignment • scaling');
- panel(516,69,'02  Statistical & AI analysis','PCA / clustering • source apportionment • supervised ML');
+ panel(516,69,'02  Statistical & AI analysis','Supervised and unsupervised techniques');
  panel(24,319,'03  Visualize mixture patterns','Each point is a sample; colors show illustrative groups');
  panel(516,319,'04  Evaluate predictive relationships','Observed and predicted response across held-out samples');
  // Complex molecular signal with many overlapping peaks.
