@@ -113,7 +113,39 @@ section.ap-burden > .ap-grid {
 <style>
 /* Evidence-linked atmospheric chemistry explorer — isolated homepage component */
 .chem-launch{display:inline-flex;align-items:center;gap:9px;margin-top:18px;border:1px solid #145c5860;border-radius:999px;background:#eaf3ee;padding:12px 18px;color:#145c58;font:650 13px system-ui;cursor:pointer}.chem-launch:hover{background:#d9eae1}.chem-dialog{width:min(1120px,96vw);max-height:94dvh;border:1px solid #abc8bc;border-radius:19px;padding:0;background:#fafaf7;color:#143e41;box-shadow:0 25px 100px #00262d70;overflow:auto}.chem-dialog::backdrop{background:#062b32b8;backdrop-filter:blur(5px)}.chem-dialog *{box-sizing:border-box}.chem-head{display:flex;align-items:start;justify-content:space-between;gap:12px;padding:23px 26px 12px}.chem-head h2{font:500 clamp(23px,3vw,32px)/1.2 Georgia,serif;margin:5px 0}.chem-kicker{font:700 10px system-ui;letter-spacing:.15em;color:#547b72}.chem-dialog button,.chem-dialog select{cursor:pointer;font:600 13px system-ui;border:1px solid #b6cfc4;border-radius:9px;padding:9px 13px;background:white;color:#145c58}.chem-dialog button:focus-visible,.chem-launch:focus-visible{outline:3px solid #b7794f;outline-offset:2px}.chem-dialog button[aria-pressed=true]{background:#145c58;color:white}.chem-tabs{display:flex;gap:8px;flex-wrap:wrap;padding:8px 26px}.chem-inner{padding:10px 26px 25px}.chem-stage{background:#0b2330;border-radius:14px;overflow:hidden}.chem-stage svg{display:block;width:100%;height:auto;min-height:450px}.chem-stage{max-height:68vh;overflow:auto}.chem-stage .tree-node{cursor:pointer}.chem-stage .tree-node:focus{outline:none}.chem-toolbar{display:flex;align-items:center;flex-wrap:wrap;gap:9px;margin:10px 0 15px}.chem-toolbar .chem-step{font:600 12px system-ui;color:#54736e}.chem-caption{background:#edf4ef;border:1px solid #cdded5;border-radius:12px;padding:15px 17px;font:13px/1.65 system-ui}.chem-caption strong{font-size:15px}.chem-bibliography{border-top:1px solid #c5d9d0;margin-top:13px;padding-top:10px}.chem-bibliography summary{font-weight:700;cursor:pointer;color:#145c58}.chem-bibliography ol{padding-left:22px;margin:9px 0 0}.chem-bibliography li{margin:5px 0}.chem-launch{margin-top:14px;text-align:left}.chem-caption p{margin:7px 0}.chem-caption a{color:#126e69;text-decoration:underline;text-underline-offset:2px}.chem-legend{font:12px/1.6 system-ui;color:#526e69;margin:9px 0}.chem-legend span{display:inline-block;margin-right:13px}.chem-dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:5px}.chem-footnote{font:12px/1.65 system-ui;color:#617a75;margin:12px 0 0}@media(max-width:650px){.chem-head{padding:17px 15px 8px}.chem-tabs{padding:6px 15px}.chem-inner{padding:8px 15px 20px}.chem-stage{overflow-x:auto}.chem-stage svg{min-width:850px}.chem-dialog button{padding:8px 10px}}
-</style></head>
+</style>
+<style>
+/* Homepage vertical rhythm: compact but breathable, without changing shared site CSS. */
+.atmosphere-home main > .hero {
+  min-height: 0 !important;
+  height: auto !important;
+  padding-top: clamp(26px, 4vw, 58px) !important;
+  padding-bottom: clamp(28px, 4vw, 54px) !important;
+  align-items: center;
+}
+.atmosphere-home .hero-copy { padding-top: 0 !important; padding-bottom: 0 !important; }
+.atmosphere-home .hero-copy .eyebrow { margin-top: 0; }
+.atmosphere-home .hero-visual-column { top: 0; }
+.atmosphere-home .hero-visual-column .lab-updates { margin-top: 12px; padding-top: 12px; }
+.atmosphere-home main > .section {
+  padding-top: clamp(36px, 4.5vw, 66px) !important;
+  padding-bottom: clamp(36px, 4.5vw, 66px) !important;
+}
+.atmosphere-home main > .ticker { margin-top: 0 !important; margin-bottom: 0 !important; }
+.atmosphere-home main > .ap-burden { row-gap: 10px; }
+.atmosphere-home .ap-burden .ap-grid { margin-top: 0 !important; margin-bottom: 0 !important; }
+.atmosphere-home .intro-grid h2 { margin-top: 8px; margin-bottom: 12px; }
+.atmosphere-home .intro-grid .chem-launch { margin-top: 4px; }
+.atmosphere-home .focus-section .section-heading { margin-bottom: clamp(16px, 2.5vw, 30px); }
+.atmosphere-home main > .quote-band { padding-top: clamp(32px, 4vw, 54px) !important; padding-bottom: clamp(32px, 4vw, 54px) !important; }
+.atmosphere-home main > .join-row { min-height: 0 !important; }
+@media (max-width: 700px) {
+  .atmosphere-home main > .hero { padding-top: 24px !important; padding-bottom: 30px !important; }
+  .atmosphere-home main > .section { padding-top: 34px !important; padding-bottom: 34px !important; }
+  .atmosphere-home .hero-visual-column { top: 0; }
+}
+</style>
+</head>
   
 <body class="atmosphere-home"><header class="site-header"><a class="brand" href="index.html">
   <span class="molecule-logo" aria-label="Rotating limonene molecule">
