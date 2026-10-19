@@ -317,7 +317,106 @@ function arrow(x,y,dx,dy,color,opacity=1){c.save();c.globalAlpha=opacity;c.strok
    text('No magnetic-sector field is used in this analyzer',30,392,'#aac4cb',11);
   }
  }
- function draw(){c.setTransform(2,0,0,2,0,0);c.clearRect(0,0,960,410);box(0,0,960,410,'#0b2330');
+ // Interactive perspective-projected 3D teaching model (no external library).
+ let yaw=-0.42,pitch=0.28,zoom=1,drag=null;
+ const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+ function project(x,y,z){
+   const cy=Math.cos(yaw),sy=Math.sin(yaw),cp=Math.cos(pitch),sp=Math.sin(pitch);
+   const X=x*cy-z*sy,Z=x*sy+z*cy,Y=y*cp-Z*sp,D=y*sp+Z*cp;
+   const scale=zoom*740/(850+D*.48);
+   return [480+X*scale,205+Y*scale,scale];
+ }
+ function segment3(a,b,color='#70b7c2',width=1.5,alpha=1){const A=project(...a),B=project(...b);c.save();c.globalAlpha=alpha;line(A[0],A[1],B[0],B[1],color,width);c.restore()}
+ function point3(a,color,r=3){const P=project(...a);c.fillStyle=color;c.beginPath();c.arc(P[0],P[1],Math.max(1.2,r*P[2]),0,Math.PI*2);c.fill()}
+ function label3(s,a,color='#dceced',size=11){const P=project(...a);text(s,P[0]+6,P[1]-7,color,size)}
+ function arrow3(a,b,color='#8de4f1',alpha=.85){segment3(a,b,color,1.6,alpha);const B=project(...b),A=project(...a),ang=Math.atan2(B[1]-A[1],B[0]-A[0]);c.save();c.globalAlpha=alpha;c.fillStyle=color;c.beginPath();c.moveTo(B[0],B[1]);c.lineTo(B[0]-7*Math.cos(ang-.48),B[1]-7*Math.sin(ang-.48));c.lineTo(B[0]-7*Math.cos(ang+.48),B[1]-7*Math.sin(ang+.48));c.fill();c.restore()}
+ function tube3(x1,x2,y,z,r,color){
+  // Longitudinal cylindrical rod with wireframe cross-sections.
+  for(let j=0;j<12;j++){const a=j*Math.PI/6,b=(j+1)*Math.PI/6;
+   segment3([x1,y+r*Math.cos(a),z+r*Math.sin(a)],[x2,y+r*Math.cos(a),z+r*Math.sin(a)],color,1.8,.75);
+   for(const x of [x1,x2])segment3([x,y+r*Math.cos(a),z+r*Math.sin(a)],[x,y+r*Math.cos(b),z+r*Math.sin(b)],color,1,.75);
+  }
+ }
+ function render3D(){
+  c.setTransform(2,0,0,2,0,0);c.clearRect(0,0,960,410);box(0,0,960,410,'#0b2330');
+  const combined=view==='combined',amp=Number(strength.value)/100,phase=t*3.2+Number(rfPhase.value)*Math.PI/180;
+  text(mode==='quad'?'QUADRUPOLE · 3D RF/DC FIELD':'V-TYPE TOF · 3D ELECTROSTATIC FIELD',22,27,'#d6eceb',14);
+  text(combined?'FIELDS + MOVING IONS':'FIELDS & ELECTRODES · NO IONS',22,47,combined?'#ffce89':'#8de4f1',11);
+  text('Drag to rotate · scroll to zoom · double-click to reset view',525,27,'#a7c2c9',11);
+  if(mode==='quad'){
+   const v=Math.cos(phase),dc=.24,voltage=dc+v;
+   // Four rods arranged around the ion-optical x-axis.
+   for(const [y,z,sign] of [[-65,0,1],[65,0,1],[0,-65,-1],[0,65,-1]]){
+    const val=sign*voltage;
+    tube3(-310,310,y,z,15,val>=0?'#f8b46e':'#6ad3ed');
+    label3(val>=0?'+ potential':'− potential',[320,y,z],val>=0?'#ffc38a':'#83e2f6',10);
+   }
+   segment3([-350,0,0],[355,0,0],'#587b89',1,0.8);
+   // RF quadrupole transverse field in both transverse directions.
+   for(let x=-260;x<=260;x+=85)for(let y=-32;y<=32;y+=32)for(let z=-32;z<=32;z+=32){
+    if(!y&&!z)continue;
+    const factor=amp*voltage*.34;
+    arrow3([x,y,z],[x,y-1.2*y*factor,z+1.2*z*factor],'#8de4f1',.65);
+   }
+   if(combined){
+    const selected=Number(document.getElementById('ms-mass').value),sel=masses.indexOf(selected);
+    for(let k=0;k<masses.length;k++)for(let j=0;j<6;j++){
+     const u=(t*.16+j/6+k*.017)%1,x=-330+u*660,stable=k===sel;
+     if(!stable&&u>.40+.10*(k%3))continue;
+     const phase0=j*2.4+k*.73;
+     const growth=stable?12:12+100*u*u;
+     const y=Math.sin(u*42+phase0)*growth*.5,z=Math.cos(u*35+phase0)*growth*.5;
+     if(Math.hypot(y,z)>50)continue;
+     point3([x,y,z],colors[k],stable?4:2.8);
+    }
+    label3('Transmitted m/z '+selected,[85,-103,0],colors[sel],12);
+   }
+   text('RF: ±(U + V cos ωt) · opposite rod pairs',22,357,'#d4e8e9',12);
+   text('Orange: positive potential   Cyan: negative potential   Arrows: instantaneous E',22,378,'#a9c5cb',11);
+  }else{
+   // Source and extraction electrodes, two field-free drift legs, and a mirror.
+   const source=[-330,-70,-70],out=[190,-70,-70],turn=[290,0,0],ret=[190,70,70],det=[-330,70,70];
+   for(const x of [-325,-290])for(let a=0;a<12;a++){
+    const q=a*Math.PI/6,r=(a+1)*Math.PI/6;
+    segment3([x,-70+32*Math.cos(q),-70+32*Math.sin(q)],[x,-70+32*Math.cos(r),-70+32*Math.sin(r)],'#ffc16a',1.5);
+   }
+   label3('Pulsed extraction',[-335,-115,-70],'#ffc16a');
+   for(let y=-92;y<=-48;y+=22)for(let z=-92;z<=-48;z+=22)arrow3([-319,y,z],[-282,y,z],'#ffd18a',.9);
+   segment3([-280,-70,-70],out,'#6d98a5',2,.65);
+   segment3(ret,det,'#6d98a5',2,.65);
+   label3('Field-free drift',[-80,-105,-70],'#b7d6d8');
+   for(let x=210;x<=330;x+=24){
+    for(let a=0;a<12;a++){const q=a*Math.PI/6,r=(a+1)*Math.PI/6;
+     segment3([x,64*Math.cos(q),64*Math.sin(q)],[x,64*Math.cos(r),64*Math.sin(r)],'#b98955',1.2,.8);
+    }
+    for(let y=-32;y<=32;y+=32)arrow3([x,y,0],[x-18*amp,y,0],'#ffc16a',.85);
+   }
+   label3('Reflectron · retarding E',[220,-100,0],'#ffc16a');
+   label3('Detector',det,'#d7e9eb');
+   if(combined){
+    const cycle=t%7.4;
+    for(let k=0;k<masses.length;k++){
+     const arrival=1.8*Math.sqrt(masses[k]/43),u=cycle/arrival;
+     if(u>=1)continue;
+     let a;
+     if(u<.43){const f=u/.43;a=[-280+470*f,-70,-70]}
+     else if(u<.57){const f=(u-.43)/.14;a=[190+100*4*f*(1-f),-70+140*f,-70+140*f]}
+     else{const f=(u-.57)/.43;a=[190-520*f,70,70]}
+     for(let j=0;j<7;j++)point3([a[0]+(j-3)*2,a[1]+Math.sin(j*2+k)*5,a[2]+Math.cos(j*3+k)*5],colors[k],2.6);
+    }
+   }
+   text('Extraction accelerates ions; the reflectron decelerates and reverses them',22,357,'#d4e8e9',12);
+   text('Arrows indicate E direction for positive ions; no magnetic-sector field',22,378,'#a9c5cb',11);
+  }
+  text('3D teaching schematic · geometry and trajectories are illustrative',22,402,'#7e9fa9',10);
+ }
+ cv.style.touchAction='pan-y';
+ cv.addEventListener('pointerdown',e=>{if(view==='ions')return;drag={x:e.clientX,y:e.clientY};cv.setPointerCapture(e.pointerId);cv.style.cursor='grabbing'});
+ cv.addEventListener('pointermove',e=>{if(!drag)return;yaw+=(e.clientX-drag.x)*.009;pitch=clamp(pitch+(e.clientY-drag.y)*.009,-1.35,1.35);drag={x:e.clientX,y:e.clientY};draw()});
+ const stopDrag=()=>{drag=null;cv.style.cursor='grab'};cv.addEventListener('pointerup',stopDrag);cv.addEventListener('pointercancel',stopDrag);
+ cv.addEventListener('wheel',e=>{if(view==='ions')return;e.preventDefault();zoom=clamp(zoom*Math.exp(-e.deltaY*.001),.55,2.5);draw()},{passive:false});
+ cv.addEventListener('dblclick',()=>{yaw=-.42;pitch=.28;zoom=1;draw()});
+ function draw(){c.setTransform(2,0,0,2,0,0);if(view!=='ions'){render3D();return;}c.clearRect(0,0,960,410);box(0,0,960,410,'#0b2330');
 for(let x=30;x<960;x+=35)line(x,65,x,270,'#ffffff06');
 text(mode==='quad'?'QUADRUPOLE · SELECT A MASS-TO-CHARGE RATIO':'V-TYPE TIME OF FLIGHT · SINGLE REFLECTION',30,35,'#b8d5d7',14);
 if(mode==='quad'){sample(195);line(218,195,840,195,'#5d7c8655');box(845,108,16,153,'#a5c5cc');text('DETECTOR',811,88);}let selected=Number(document.getElementById('ms-mass').value);
@@ -368,12 +467,12 @@ text(`${detected} / ${masses.length} mass groups detected`,32,321,'#aac4cb',11);
 line(310,360,820,360);text('Arrival-time signal · illustrative abundances',310,308,'#c4dade',12);
 text('Earlier arrivals → later arrivals',548,408,'#a9cbd0',10);
 
-} if(view!=='ions')fieldOverlay();}
+} }
 function labels(){document.querySelectorAll('[data-ms-view]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.msView===view)));document.getElementById('ms-rf-control').hidden=mode!=='quad'||view==='ions';document.getElementById('ms-field-strength-control').hidden=view==='ions';document.getElementById('ms-field-status').textContent=view==='ions'?'':(mode==='quad'?'RF phase cycles during playback; slider adds a phase offset.':'Extraction pulses; reflectron field points against the incoming ions.');document.getElementById('ms-quad').setAttribute('aria-pressed',mode==='quad');document.getElementById('ms-tof').setAttribute('aria-pressed',mode==='tof');document.getElementById('ms-mass-label').hidden=mode!=='quad';document.getElementById('ms-description').textContent=mode==='quad'?'A quadrupole uses combined radio-frequency (RF) and direct-current (DC) voltages to transmit ions within a selected m/z window. A complex organic sample produces many ion masses; choose an m/z below and watch which trajectories remain stable.':'A complex organic sample is ionized and extracted as a mixed packet. Nine example m/z groups separate along the V-shaped reflectron path, with lower-m/z ions arriving earlier.';document.getElementById('ms-explanation').textContent=mode==='quad'?'Changing the selected m/z represents adjusting RF and DC together. A real mass spectrum is built by scanning these settings; this view holds one setting at a time.':'The reflectron slows ions, reverses their forward motion and accelerates them back out. It can compensate for kinetic-energy spread because higher-energy ions of the same m/z penetrate farther. Arrival time scales with √(m/z) for the idealized equal-energy, singly charged ions shown. Irregular clouds illustrate packet spread, not bound aggregates; their gentle shape changes are visual only.';play.textContent=paused?'Play':'Pause';draw()}
 function tick(now){raf=0;if(!d.open||paused||document.hidden){last=0;return;}if(last)t+=Math.min((now-last)/1000,.05)*Number(document.getElementById('ms-speed').value);last=now;draw();raf=requestAnimationFrame(tick)}
 function sync(){cancelAnimationFrame(raf);raf=0;last=0;labels();if(d.open&&!paused&&!document.hidden)raf=requestAnimationFrame(tick)}
 document.getElementById('ms-open').addEventListener('click',()=>{d.showModal();sync()});document.getElementById('ms-close').onclick=()=>d.close();d.addEventListener('close',()=>{cancelAnimationFrame(raf);last=0;document.getElementById('ms-open').focus()});d.addEventListener('click',e=>{if(e.target===d){const r=d.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)d.close()}});
-document.querySelectorAll('[data-ms-view]').forEach(b=>b.addEventListener('click',()=>{view=b.dataset.msView;sync()}));[rfPhase,strength].forEach(el=>el.addEventListener('input',()=>{document.getElementById('ms-rf-value').textContent=rfPhase.value+'°';document.getElementById('ms-field-value').textContent=strength.value+'%';draw()}));
+document.querySelectorAll('[data-ms-view]').forEach(b=>b.addEventListener('click',()=>{view=b.dataset.msView;cv.style.cursor=view==='ions'?'default':'grab';sync()}));[rfPhase,strength].forEach(el=>el.addEventListener('input',()=>{document.getElementById('ms-rf-value').textContent=rfPhase.value+'°';document.getElementById('ms-field-value').textContent=strength.value+'%';draw()}));
  for(const m of ['quad','tof'])document.getElementById('ms-'+m).onclick=()=>{mode=m;t=0;sync()};play.onclick=()=>{paused=!paused;sync()};document.getElementById('ms-reset').onclick=()=>{t=0;sync()};document.getElementById('ms-mass').onchange=()=>{t=0;draw()};document.addEventListener('visibilitychange',sync);labels();
 })();
 </script>
