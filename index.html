@@ -157,7 +157,7 @@ section.ap-burden > .ap-grid {
 <article class="ap-card"><h3 class="ap-region">India</h3><span class="ap-number" id="ap-india">—</span><span class="ap-label">Estimated deaths this year through yesterday</span><p class="ap-daily">≈ <strong id="ap-india-daily">5,480</strong> deaths per day on average</p></article>
 <article class="ap-card"><h3 class="ap-region">Worldwide</h3><span class="ap-number" id="ap-world">—</span><span class="ap-label">Estimated deaths this year through yesterday</span><p class="ap-daily">≈ <strong id="ap-world-daily">21,640</strong> deaths per day on average</p></article>
 </div>
-</section><section class="section intro-grid"><div><p class="eyebrow">OUR APPROACH</p><h2>From emissions to impacts<br><span style="font-size:32px;">Why air chemistry matters?</span></h2></div><div><p class="body-large">The atmosphere is a complex reactor in which hundreds of thousands of precursors transform via different oxidation processes. Gases form airborne particles - particles can form clouds, deposit in our lungs or impact the broader ecosystem. We combine field measurements, laboratory experiments and advanced data wrangling and analysis methods to trace reactive organic emissions from their sources through chemical transformation to effects on air quality.</p><a class="under-link" href="research.html">See what we study <span>↗</span></a><div><button class="chem-launch" type="button" id="chem-open" aria-haspopup="dialog">Examples of how air chemistry unfolds <span aria-hidden="true">↗</span></button></div></div></section><section class="section focus-section"><div class="section-heading"><div><p class="eyebrow">RESEARCH DIRECTIONS</p><h2>Questions in the air</h2></div><a class="under-link" href="research.html">All research <span>↗</span></a></div><div class="focus-grid" id="research-image-cards"><a class="focus-card card-dark" href="research.html#organic-aerosol" style="background-image: url('images/openburningcard.png');"><span class="card-index">01 / CURRENT</span><h3>Unregulated<br>burning in developing regions</h3><span class="card-arrow">↗</span></a><a class="focus-card card-blue" href="research.html#emissions" style="background-image: url('images/futurescenarioscard.png');"><span class="card-index">02 / NEAR-FUTURE</span><h3>Emerging sources<br>& future scenarios</h3><span class="card-arrow">↗</span></a><a class="focus-card card-ochre" href="research.html#measurements" style="background-image: url('images/pollutioncard.png');"><span class="card-index">03 / FATE & CONSEQUENCES</span><h3>Air pollution, human<br>health & climate</h3><span class="card-arrow">↗</span></a></div></section><section class="quote-band"><p>“Quality measurements help us find effective solutions to environmental challenges.”</p><span>— KHARE RESEARCH LAB, IIT KANPUR</span></section><section class="section join-row"><div><p class="eyebrow">BE PART OF THE WORK</p><h2>Curious about the atmosphere?</h2></div><a class="button button-light" href="contact.html">Get in touch <span>↗</span></a></section></main><footer class="footer"><a class="brand footer-brand" href="index.html"><span class="brand-mark">K</span><span>KHARE RESEARCH LAB<small>IIT KANPUR</small></span></a><span>Atmospheric chemistry for a changing world.</span><span>© <span data-year></span> Khare Research Lab</span></footer><canvas id="atmosphere-canvas" aria-hidden="true"></canvas>
+</section><section class="section intro-grid"><div><p class="eyebrow">OUR APPROACH</p><h2>From emissions to impacts<br><span style="font-size:32px;">Why air chemistry matters?</span></h2></div><div><p class="body-large">The atmosphere is a complex reactor in which hundreds of thousands of precursors transform via different oxidation processes. Gases form airborne particles - particles can form clouds, deposit in our lungs or impact the broader ecosystem. We combine field measurements, laboratory experiments and advanced data wrangling and analysis methods to trace reactive organic emissions from their sources through chemical transformation to effects on air quality.</p><a class="under-link" href="research.html">See what we study <span>↗</span></a><div><button class="chem-launch" type="button" id="chem-open" aria-haspopup="dialog">Explore how air chemistry unfolds <span aria-hidden="true">↗</span></button></div></div></section><section class="section focus-section"><div class="section-heading"><div><p class="eyebrow">RESEARCH DIRECTIONS</p><h2>Questions in the air</h2></div><a class="under-link" href="research.html">All research <span>↗</span></a></div><div class="focus-grid" id="research-image-cards"><a class="focus-card card-dark" href="research.html#organic-aerosol" style="background-image: url('images/openburningcard.png');"><span class="card-index">01 / CURRENT</span><h3>Unregulated<br>burning in developing regions</h3><span class="card-arrow">↗</span></a><a class="focus-card card-blue" href="research.html#emissions" style="background-image: url('images/futurescenarioscard.png');"><span class="card-index">02 / NEAR-FUTURE</span><h3>Emerging sources<br>& future scenarios</h3><span class="card-arrow">↗</span></a><a class="focus-card card-ochre" href="research.html#measurements" style="background-image: url('images/pollutioncard.png');"><span class="card-index">03 / FATE & CONSEQUENCES</span><h3>Air pollution, human<br>health & climate</h3><span class="card-arrow">↗</span></a></div></section><section class="quote-band"><p>“Quality measurements help us find effective solutions to environmental challenges.”</p><span>— KHARE RESEARCH LAB, IIT KANPUR</span></section><section class="section join-row"><div><p class="eyebrow">BE PART OF THE WORK</p><h2>Curious about the atmosphere?</h2></div><a class="button button-light" href="contact.html">Get in touch <span>↗</span></a></section></main><footer class="footer"><a class="brand footer-brand" href="index.html"><span class="brand-mark">K</span><span>KHARE RESEARCH LAB<small>IIT KANPUR</small></span></a><span>Atmospheric chemistry for a changing world.</span><span>© <span data-year></span> Khare Research Lab</span></footer><canvas id="atmosphere-canvas" aria-hidden="true"></canvas>
 <button class="atmosphere-toggle" type="button" aria-pressed="false">Pause atmosphere</button>
 <script>
 /* Decorative chemistry-inspired animation, not a chemical mechanism simulation. */
@@ -334,126 +334,108 @@ section.ap-burden > .ap-grid {
 })();
 </script>
 <dialog id="chem-dialog" class="chem-dialog" aria-labelledby="chem-title">
- <div class="chem-head"><div><div class="chem-kicker">INTERACTIVE · PEER-REVIEWED ATMOSPHERIC CHEMISTRY</div><h2 id="chem-title">How air chemistry unfolds</h2></div><button id="chem-close" type="button">Close ×</button></div>
- <div class="chem-tabs" aria-label="Choose precursor"><button type="button" data-precursor="isoprene" aria-pressed="true">Isoprene · C₅H₈</button><button type="button" data-precursor="benzene" aria-pressed="false">Benzene · C₆H₆</button></div>
- <div class="chem-tabs" aria-label="Choose oxidant"><button type="button" data-oxidant="OH" aria-pressed="true">OH radical</button><button type="button" data-oxidant="NO3" aria-pressed="false">NO₃ radical</button><button type="button" data-oxidant="O3" aria-pressed="false">Ozone · O₃</button></div>
- <div class="chem-inner">
-  <div class="chem-toolbar"><button id="chem-prev" type="button">← Previous</button><button id="chem-play" type="button">Pause</button><button id="chem-next" type="button">Next →</button><button id="chem-restart" type="button">Restart</button><span id="chem-step-label" class="chem-step" aria-live="polite"></span></div>
-  <div class="chem-stage"><svg id="chem-svg" viewBox="0 0 1200 900" role="img" aria-label="Animated literature-supported reaction network showing gas and particle phase fates"></svg></div>
-  <div class="chem-legend"><span><i class="chem-dot" style="background:#70dbc5"></i>Gas-phase products</span><span><i class="chem-dot" style="background:#ffc77e"></i>Peroxy radicals / intermediates</span><span><i class="chem-dot" style="background:#c49af5"></i>Particle-phase products</span><span>Dashed arrows: multistep / condition-dependent</span><span>Click a node for pathway evidence and yield notes</span></div>
-  <div id="chem-caption" class="chem-caption" aria-live="polite"></div>
-  <p class="chem-footnote">Literature-grounded branching tree, not a kinetic simulation. Branch yields are marked “not quantified” where the cited references do not establish a transferable numerical branching fraction. Do not interpret visual branch widths as yield. Product examples are representative, not exhaustive; branches depend on NOₓ, HO₂, RO₂, humidity, acidity, temperature and aerosol loading. Particle uptake is conditional, not an assertion that all molecules shown are particulate. Radical H-shifts are not automatically equivalent to multi-step autoxidation. References accompany each pathway.</p>
- </div>
+ <div class="chem-head"><div><div class="chem-kicker">INTERACTIVE · LITERATURE-GROUNDED CHEMICAL SCHEMATIC</div><h2 id="chem-title">How atmospheric oxidation unfolds</h2></div><button id="chem-close" type="button">Close ×</button></div>
+ <div class="chem-tabs" aria-label="Oxidant scenario"><button type="button" data-oxidant="OH" aria-pressed="true">OH · daytime oxidation</button><button type="button" data-oxidant="NO3" aria-pressed="false">NO₃ · often nighttime</button><button type="button" data-oxidant="O3" aria-pressed="false">O₃ · alkene ozonolysis</button></div>
+ <div class="chem-tabs" aria-label="Nitrogen oxide environment"><button type="button" data-nox="low" aria-pressed="true">Lower NOₓ / low NO</button><button type="button" data-nox="high" aria-pressed="false">Higher NOₓ / elevated NO</button></div>
+ <div class="chem-inner"><div class="chem-toolbar"><button id="chem-prev" type="button">← Previous</button><button id="chem-play" type="button">Pause</button><button id="chem-next" type="button">Next →</button><button id="chem-restart" type="button">Restart</button><span id="chem-step-label" class="chem-step" aria-live="polite"></span></div>
+ <div class="chem-stage" id="chem-stage"><svg id="chem-svg" viewBox="0 0 1540 1090" role="img" aria-label="Top-down atmospheric reaction network; click nodes to read literature-grounded pathway descriptions"></svg></div>
+ <div class="chem-legend"><span><i class="chem-dot" style="background:#70dbc5"></i>Gas-phase organics</span><span><i class="chem-dot" style="background:#ffc77e"></i>Radicals / reactive intermediates</span><span><i class="chem-dot" style="background:#c49af5"></i>Particle-phase organic material</span><span><i class="chem-dot" style="background:#a2bbfa"></i>NOₓ / ozone chemistry</span><span>Dashed edges = conditional / multistep</span></div>
+ <div id="chem-caption" class="chem-caption" aria-live="polite"></div><p class="chem-footnote">Conceptual, non-quantitative mechanism map; not a kinetic simulation. Node positions and edge thickness do not indicate branching fractions or product yields. R denotes a generic organic group, not a single compound. Scenarios illustrate competing pathways, not exclusive or universal chemistry. NOₓ labels are qualitative; actual RO₂ branching depends on NO, HO₂, RO₂, structure, temperature, and other conditions. Condensation depends on volatility, aerosol loading, temperature and composition; heterogeneous/aqueous pathways are additional possibilities. Click any visible node for explanation and peer-reviewed sources.</p></div>
 </dialog>
 <script>
-(()=>{'use strict';
-const $=id=>document.getElementById(id),d=$('chem-dialog'),svg=$('chem-svg'),caption=$('chem-caption');
+(() => {
+'use strict';
+const $=id=>document.getElementById(id), dlg=$('chem-dialog'), svg=$('chem-svg'), caption=$('chem-caption');
+if(!dlg||!svg)return;
+const NS='http://www.w3.org/2000/svg';
 const papers={
- paulot:['Paulot et al. (2009), Science','10.1126/science.1172910'],
- teng:['Teng et al. (2017), JACS','10.1021/jacs.6b12838'],
- moller:['Møller et al. (2019), J. Phys. Chem. A','10.1021/acs.jpca.8b10432'],
- ng:['Ng et al. (2008), Atmos. Chem. Phys.','10.5194/acp-8-4117-2008'],
- no3hom:['Isoprene + NO₃ HOM study (2021), ACP','10.5194/acp-21-9681-2021'],
- nguyen:['Nguyen et al. (2016), PCCP','10.1039/C6CP00053C'],
- berndt:['Berndt & Böge (2006), PCCP','10.1039/B514148F'],
- choi:['Choi et al. (2024), Atmos. Chem. Phys.','10.5194/acp-24-6567-2024']};
-// Each node is a literature-supported chemical class/product. Layout is a conceptual branching map.
-const networks={
- 'isoprene|OH':{title:'OH-initiated isoprene oxidation',steps:[
- ['Initiation · functionalization','OH adds to an isoprene double bond; O₂ addition produces several hydroxy-peroxy radical (ISOPOO) isomers.','isoprene','OH + O₂','ISOPOO isomers','Addition / O₂ capture','gas',['teng']],
- ['Competing RO₂ fates','ISOPOO + HO₂ forms hydroperoxides; reactions involving NO lead to alkoxy chemistry and carbonyl products including MVK and MACR.','ISOPOO','HO₂ / NO','Hydroperoxides · MVK · MACR','Branching chemistry','gas',['teng','paulot']],
- ['Isomerization','Some ISOPOO isomers undergo intramolecular H shifts, changing radical structure and competing with bimolecular termination.','ISOPOO','intramolecular H shift','Isomerized RO₂ / products','Isomerization','gas',['teng','moller']],
- ['Further oxygenation','Sequential RO₂ H shifts and O₂ additions can generate more oxygenated products; this is condition- and isomer-dependent, not a universal fate.','Isomerized RO₂','O₂ / further oxidation','More oxygenated products','Autoxidation-related chemistry','gas',['moller']],
- ['Particle formation · conditional','Under low-NO conditions, IEPOX is produced through multistep gas-phase chemistry; its reactive uptake on acidic sulfate-containing aerosol yields particulate organosulfates and related products.','Gas-phase IEPOX','acidic wet aerosol','IEPOX-derived SOA','Reactive uptake','particle',['paulot']]]},
- 'isoprene|NO3':{title:'Nighttime isoprene oxidation by NO₃',steps:[
- ['Initiation · nitrate addition','NO₃ adds to a double bond and O₂ adds to the radical, yielding nitrooxy peroxy radicals.','Isoprene','NO₃ + O₂','Nitrooxy-RO₂','Functionalization','gas',['ng','no3hom']],
- ['RO₂ competition','Nitrooxy-RO₂ reacts through RO₂ + RO₂, RO₂ + HO₂ and other channels, yielding nitrates, peroxides and alkoxy radicals.','Nitrooxy-RO₂','RO₂ / HO₂','Organic nitrates · peroxides','Branching','gas',['ng','no3hom']],
- ['Fragmentation','Alkoxy-radical pathways can cleave carbon bonds, forming smaller, more volatile oxygenated compounds.','Alkoxy radicals','β-scission','Smaller carbonyl products','Fragmentation','gas',['no3hom']],
- ['H shifts / further oxidation','Some nitrooxy-RO₂ pathways undergo H shifts and further O₂ additions to form highly oxygenated molecules.','Nitrooxy-RO₂','H shift + O₂','Highly oxygenated nitrates','Autoxidation','gas',['no3hom']],
- ['Gas–particle partitioning','Lower-volatility organic nitrates, peroxides and accretion products can contribute to SOA; the partitioned fraction depends on conditions.','Low-volatility products','partition / accretion','Nitrate-containing SOA','Particle formation','particle',['ng','no3hom']]]},
- 'isoprene|O3':{title:'Ozonolysis of isoprene',steps:[
- ['Ozone attack','O₃ reacts at an isoprene C=C bond, forming a short-lived primary ozonide.','Isoprene','O₃','Primary ozonide','Ozone addition','gas',['nguyen']],
- ['Ozonide cleavage','The primary ozonide fragments to carbonyls and Criegee intermediates; measured products include formaldehyde, MVK and MACR.','Primary ozonide','cleavage','HCHO · MVK · MACR + Criegee','Fragmentation','gas',['nguyen']],
- ['Criegee fates','Criegee intermediates can undergo unimolecular decay, stabilization or reactions with other atmospheric species; OH formation is observed.','Criegee intermediates','decay / stabilization','OH · secondary products','Rearrangement / decay','gas',['nguyen']],
- ['Further oxidation','Carbonyl products remain reactive and can undergo subsequent OH-driven chemistry. This step is secondary oxidation, not a direct ozonolysis product.','MVK · MACR','subsequent OH','Further oxygenated gases','Multigeneration','gas',['nguyen']],
- ['Particle fate · qualified','The principal measured first-generation products shown are gases. This pathway alone does not establish a specific direct isoprene-ozonolysis SOA yield.','First-generation products','further chemistry','Potential later SOA precursors','Not directly quantified here','conditional',['nguyen']]]},
- 'benzene|OH':{title:'OH oxidation of benzene',steps:[
- ['OH addition','OH adds to the aromatic ring, forming an OH–benzene adduct; O₂ participates in subsequent chemistry.','Benzene','OH / O₂','OH–benzene adduct','Initiation','gas',['berndt']],
- ['Ring-retaining pathway','A well-characterized route yields phenol; further OH oxidation can yield catechol and other oxygenated aromatics.','OH–benzene adduct','oxidation','Phenol → catechol','Functionalization','gas',['berndt','choi']],
- ['Ring opening','Competing OH/O₂ chemistry opens the ring and forms smaller carbonyl-containing products, including glyoxal.','OH–benzene adduct','oxidation / cleavage','Glyoxal + carbonyls','Fragmentation','gas',['berndt']],
- ['Multigeneration','Phenolic oxidation can yield more oxygenated, lower-volatility molecules; pathways and yields depend on conditions.','Phenol / catechol','further OH','Oxygenated aromatics','Further functionalization','gas',['choi']],
- ['SOA formation','Lower-volatility oxidation products partition into particles; aqueous-phase chemistry can additionally modify benzene/phenol-derived SOA.','Oxygenated products','partition / aqueous chemistry','Benzene-derived SOA','Particle phase','particle',['choi']]]},
- 'benzene|NO3':{title:'Benzene + NO₃: no supported major direct route',steps:[['Atmospheric selectivity','Unlike isoprene, benzene is not efficiently oxidized by direct NO₃ attack under ordinary tropospheric conditions. A detailed product network would misrepresent established chemistry.','Benzene','NO₃','No major direct route','Very slow / negligible','none',['berndt']],['Indirect chemistry is different','NO₃ chemistry can affect the oxidant environment, but that does not justify drawing a direct benzene → organic nitrate pathway.','Benzene','NO₃ environment','No assigned products','No speculative chemistry','none',['berndt']]]},
- 'benzene|O3':{title:'Benzene + O₃: no supported major direct route',steps:[['Atmospheric selectivity','Benzene does not undergo appreciable direct ozonolysis under typical tropospheric conditions: the aromatic ring is unlike an isolated alkene double bond.','Benzene','O₃','No major direct route','Very slow / negligible','none',['berndt']],['Contrast with isoprene','Isoprene reacts readily with ozone at its alkene bonds; benzene atmospheric oxidation is instead dominated by OH initiation.','Benzene','O₃','No assigned products','No speculative chemistry','none',['berndt','nguyen']]]}
+ atkinson:['Atkinson & Arey (2003), gas-phase tropospheric BVOC chemistry','https://doi.org/10.1016/S1352-2310(03)00391-1'],
+ chemistry:['Atkinson (2000), atmospheric VOC and NOₓ chemistry','https://doi.org/10.1016/S1352-2310(99)00460-4'],
+ radicals:['Stone et al. (2012), tropospheric OH and HO₂ radicals','https://doi.org/10.1039/C2CS35140D'],
+ ozone:['Tropospheric Ozone Assessment Report (2020), ozone chemical processes','https://doi.org/10.1525/elementa.2020.034'],
+ criegee:['Johnson & Marston (2008), gas-phase ozonolysis','https://doi.org/10.1039/B704260B'],
+ ci:['Criegee intermediate chemistry review (2020)','https://doi.org/10.1080/0144235X.2020.1792104'],
+ soa:['Murphy et al. (2012), functionalization, fragmentation and OA aging','https://doi.org/10.5194/acp-12-10797-2012'],
+ vbs:['Kroll & Seinfeld (2008), SOA formation and evolution','https://doi.org/10.1016/j.atmosenv.2008.01.003']
 };
-// Evidence-based taproot diagrams. Formulae describe named representative molecules,
-// not undefined mixtures; branches without published transferable yields are explicitly NQ.
-const trees={
-'isoprene|OH':{nodes:[
-['root','Isoprene','C₅H₈',null,'gas','OH addition + O₂','Not quantified here',0],
-['poo','ISOPOO (hydroxyperoxy radicals)','C₅H₉O₃','root','rad','OH + O₂; multiple regioisomers','Isomer fractions depend on conditions',0],
-['hp','ISOPOOH (hydroxyhydroperoxides)','C₅H₁₀O₃','poo','gas','RO₂ + HO₂','Not quantified here',1],
-['mkv','Methyl vinyl ketone (MVK)','C₄H₆O','poo','gas','NO-mediated chemistry; fragmentation','Not quantified here',1],
-['mac','Methacrolein (MACR)','C₄H₆O','poo','gas','NO-mediated chemistry; fragmentation','Not quantified here',1],
-['iso','Isomerized ISOPOO','C₅H₉O₃','poo','rad','Intramolecular H shift','Isomer- and condition-dependent',2],
-['iep','IEPOX (isoprene epoxydiol)','C₅H₁₀O₃','hp','gas','Multistep OH oxidation','Not quantified here',4],
-['soa','IEPOX-derived organosulfates (example)','C₅H₁₂O₇S','iep','particle','Reactive uptake; sulfate aerosol','Aerosol-dependent; not quantified here',4],
-['hom','Further oxygenated RO₂ / HOM','C₅H₉Oₙ','iso','rad','H shifts + O₂; schematic class','Not quantified here',3]]},
-'isoprene|NO3':{nodes:[
-['root','Isoprene','C₅H₈',null,'gas','NO₃ addition + O₂','Not quantified here',0],
-['nro','Nitrooxy peroxy radical','C₅H₈NO₅','root','rad','NO₃ + O₂ addition','Isomer fractions depend on conditions',0],
-['nit','Hydroxynitrate (example)','C₅H₉NO₄','nro','gas','RO₂ chemistry; representative product','Not quantified here',1],
-['per','Nitrooxy hydroperoxide','C₅H₉NO₅','nro','gas','RO₂ + HO₂','Not quantified here',1],
-['alk','Nitrooxy alkoxy radical','C₅H₈NO₄','nro','rad','RO₂ → RO','Not quantified here',2],
-['frag','Carbonyl fragments (example: HCHO)','CH₂O','alk','gas','β-scission; representative fragment','Not quantified here',2],
-['hom','Highly oxygenated nitrate class','C₅H₈NOₙ','nro','rad','H shifts and O₂ additions','Not quantified here',3],
-['soa','Nitrate-containing SOA (mixture)','variable','hom','particle','Partitioning / particle reactions','Condition-dependent; no fixed yield',4]]},
-'isoprene|O3':{nodes:[
-['root','Isoprene','C₅H₈',null,'gas','O₃ addition','Not quantified here',0],
-['oz','Primary ozonide','C₅H₈O₃','root','rad','Cycloaddition; transient','Not quantified here',0],
-['hcho','Formaldehyde','CH₂O','oz','gas','Ozonide cleavage','Not quantified here',1],
-['mkv','Methyl vinyl ketone','C₄H₆O','oz','gas','Ozonide cleavage / subsequent steps','Not quantified here',1],
-['mac','Methacrolein','C₄H₆O','oz','gas','Ozonide cleavage / subsequent steps','Not quantified here',1],
-['ci','Criegee intermediates (isomers)','CₙHₘO₂','oz','rad','Ozonide cleavage; multiple species','Not quantified here',2],
-['oh','OH radical','OH','ci','gas','Criegee decomposition','Not quantified here',2],
-['later','Secondary oxygenated gases','variable','mkv','gas','Further oxidation; not direct O₃ yield','Not quantified here',3]]},
-'benzene|OH':{nodes:[
-['root','Benzene','C₆H₆',null,'gas','OH addition','Not quantified here',0],
-['ad','OH–benzene adduct','C₆H₇O','root','rad','OH addition to aromatic ring','Not quantified here',0],
-['phe','Phenol','C₆H₆O','ad','gas','O₂-mediated ring retention','Not quantified here',1],
-['gly','Glyoxal','C₂H₂O₂','ad','gas','Oxidative ring opening; multistep','Not quantified here',2],
-['cat','Catechol','C₆H₆O₂','phe','gas','Further OH oxidation','Not quantified here',3],
-['low','Lower-volatility oxidation products','variable','cat','gas','Multigeneration functionalization','Not quantified here',3],
-['soa','Benzene-derived SOA (mixture)','variable','low','particle','Partitioning / particle reactions','Depends on conditions; no fixed yield',4]]},
-'benzene|NO3':{nodes:[['root','Benzene','C₆H₆',null,'gas','NO₃ exposure','No established major direct route',0],['no','No appreciable direct oxidation','—','root','none','Direct NO₃ attack is very slow','No defensible product yield',0]]},
-'benzene|O3':{nodes:[['root','Benzene','C₆H₆',null,'gas','O₃ exposure','No established major direct route',0],['no','No appreciable direct ozonolysis','—','root','none','Direct O₃ reaction is very slow','No defensible product yield',0]]}
-};
-let precursor='isoprene',oxidant='OH',step=0,paused=matchMedia('(prefers-reduced-motion: reduce)').matches,elapsed=0,last=0,raf=0;
-const NS='http://www.w3.org/2000/svg';function el(tag,attrs,parent=svg){let e=document.createElementNS(NS,tag);Object.entries(attrs).forEach(([k,v])=>e.setAttribute(k,v));parent.append(e);return e}
-function label(str,x,y,size=15,color='#dcebed',anchor='middle',weight='500',parent=svg){let e=el('text',{x,y,fill:color,'font-size':size,'font-family':'system-ui,sans-serif','text-anchor':anchor,'font-weight':weight},parent);e.textContent=str;return e}
-const colors={gas:'#70dbc5',rad:'#ffc77e',particle:'#c49af5',none:'#b2bec5'};
-let chosen=null;
-function refs(keys){const wrap=document.createElement('div');wrap.textContent='Research: ';keys.forEach((key,i)=>{if(i)wrap.append(document.createTextNode(' · '));let a=document.createElement('a');a.href='https://doi.org/'+papers[key][1];a.target='_blank';a.rel='noopener noreferrer';a.textContent=papers[key][0];wrap.append(a)});return wrap}
-function info(n){let net=networks[precursor+'|'+oxidant], st=net.steps[Math.min(n[7],net.steps.length-1)];caption.replaceChildren();let h=document.createElement('strong');h.textContent=n[1]+' · '+n[2];caption.append(h);let p=document.createElement('p');p.textContent='Reaction: '+n[5]+'. Pathway yield: '+n[6]+'. '+st[1];caption.append(p,refs(st[7]));}
-function draw(){const tree=trees[precursor+'|'+oxidant],net=networks[precursor+'|'+oxidant],nodes=tree.nodes.map(a=>({id:a[0],name:a[1],formula:a[2],parent:a[3],phase:a[4],reaction:a[5],yield:a[6],evidence:a[7]}));
-const byId=Object.fromEntries(nodes.map(n=>[n.id,n]));let kids={};nodes.forEach(n=>{kids[n.id]=[]});nodes.forEach(n=>{if(n.parent)kids[n.parent].push(n.id)});
-// Hierarchical tidy layout: leaves are evenly spaced; parents centered over children.
-let leaf=0;function position(id,depth){let n=byId[id];n.depth=depth;if(!kids[id].length)n.slot=leaf++;else{kids[id].forEach(c=>position(c,depth+1));n.slot=(byId[kids[id][0]].slot+byId[kids[id][kids[id].length-1]].slot)/2}}position('root',0);
-let maxDepth=Math.max(...nodes.map(n=>n.depth));const width=Math.max(1200,leaf*205+90),height=Math.max(580,(maxDepth+1)*155+110);svg.setAttribute('viewBox',`0 0 ${width} ${height}`);svg.replaceChildren();el('rect',{width,height,fill:'#0b2330'});
-for(let x=0;x<width;x+=55)el('path',{d:`M${x} 0V${height}`,stroke:'#345566',opacity:.11});
-label(net.title,25,36,20,'#e4f1ee','start','600');label('TAPROOT · TOP → DOWN',width-25,36,12,'#9bb9c0','end');
-const xpos=n=>width/2+(n.slot-(leaf-1)/2)*Math.min(205,(width-100)/Math.max(1,leaf));const ypos=n=>100+n.depth*155;
-nodes.forEach(n=>{if(!n.parent)return;let p=byId[n.parent],x1=xpos(p),y1=ypos(p)+42,x2=xpos(n),y2=ypos(n)-42;let path=el('path',{d:`M${x1} ${y1} C${x1} ${(y1+y2)/2} ${x2} ${(y1+y2)/2} ${x2} ${y2}`,stroke:colors[n.phase],fill:'none','stroke-width':2.4,'stroke-dasharray':n.depth>2?'7 5':'none',opacity:n.evidence<=step?.95:.24});if(n.evidence===step){path.setAttribute('stroke-width','4');}label(n.yield==='No defensible product yield'?'Yield: not established':'Yield: NQ',x2,(y1+y2)/2-4,10,'#afc4c8');});
-nodes.forEach(n=>{let x=xpos(n),y=ypos(n),active=n.evidence<=step;let g=el('g',{class:'tree-node',tabindex:'0',role:'button','aria-label':n.name+', '+n.formula+', '+n.reaction});let r=el('rect',{x:x-91,y:y-43,width:182,height:86,rx:12,fill:active?'#173747':'#122b37',stroke:colors[n.phase],'stroke-width':chosen===n.id?3:1.5,opacity:active?1:.55},g);label(n.name.length>27?n.name.slice(0,25)+'…':n.name,x,y-12,12,'#e9f3f0','middle','600',g);label(n.formula,x,y+10,16,colors[n.phase],'middle','700',g);label(n.phase==='particle'?'PARTICLE':n.phase==='rad'?'INTERMEDIATE':n.phase==='none'?'NO DIRECT ROUTE':'GAS',x,y+29,9,'#b1c7c9','middle','500',g);g.addEventListener('click',()=>{chosen=n.id;info([n.id,n.name,n.formula,n.parent,n.phase,n.reaction,n.yield,n.evidence]);draw()});g.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();g.dispatchEvent(new Event('click'))}})});
-$('chem-step-label').textContent=`Branch ${step+1} of ${net.steps.length} · ${net.steps[step][0]}`;
-if(!chosen||!byId[chosen]){const highlight=nodes.find(n=>n.evidence===step&&n.id!=='root')||nodes[0];info([highlight.id,highlight.name,highlight.formula,highlight.parent,highlight.phase,highlight.reaction,highlight.yield,highlight.evidence])}
-$('chem-play').textContent=paused?'Play':'Pause';$('chem-prev').disabled=step===0;$('chem-next').disabled=step===net.steps.length-1;
+// Every edge is a representative chemical class of reaction, not a quantitative yield.
+const root=(name,detail)=>({id:'start',name,formula:'VOC / organic precursor',detail,kind:'gas',refs:['atkinson','chemistry']});
+const n=(id,name,formula,parent,edge,kind,detail,refs,dash=false)=>({id,name,formula,parent,edge,kind,detail,refs,dash});
+function build(oxidant,nox){
+let a=[];
+if(oxidant==='OH'){
+ a=[root('OH-initiated oxidation','OH reacts with many VOC classes by H abstraction or addition to unsaturation. The resulting carbon-centered or oxygenated radicals often add O₂ to produce RO₂.'),
+ n('rad','Organic radical','R• / OH adduct','start','OH addition / H abstraction','rad','Initiation chemistry depends on precursor structure. An OH adduct is not interchangeable with a simple alkyl radical.',['atkinson','chemistry']),
+ n('ro2','Organic peroxy radical','RO₂•','rad','+ O₂ (typical)','rad','O₂ addition yields RO₂ radicals, central intermediates controlling subsequent oxidation and ozone chemistry.',['radicals','chemistry'])];
+}else if(oxidant==='NO3'){
+ a=[root('NO₃-initiated oxidation','NO₃ reacts efficiently with many unsaturated organics and selected other reactive VOCs, often at night; direct reaction rates depend strongly on VOC structure.'),
+ n('rad','Nitrooxy organic radical','R(ONO₂)•','start','NO₃ addition to C=C','rad','For suitable alkenes, NO₃ adds to a double bond, introducing a nitrate functionality; H abstraction is possible for some classes.',['atkinson','chemistry']),
+ n('ro2','Nitrooxy peroxy radical','Nitrooxy–RO₂•','rad','+ O₂','rad','Nitrooxy-substituted RO₂ can undergo reactions with HO₂, RO₂, NO, or intramolecular processes.',['atkinson','chemistry'])];
+}else{
+ a=[root('O₃ + unsaturated VOC','Ozonolysis applies to molecules with ozone-reactive unsaturation, especially alkenes. It is not a generic pathway for saturated VOCs or benzene.'),
+ n('po','Primary ozonide','1,2,3-trioxolane','start','O₃ cycloaddition to C=C','rad','A short-lived primary ozonide decomposes, commonly generating a carbonyl and a Criegee intermediate.',['criegee']),
+ n('carbonyl','Carbonyl coproduct','R–C(=O)–R′','po','Ozonide cleavage','gas','Carbonyl products form alongside carbonyl oxide intermediates; their subsequent oxidation can generate peroxy radicals.',['criegee']),
+ n('ci','Criegee intermediate','R₂COO','po','Ozonide cleavage','rad','Excited carbonyl oxides may decompose or stabilize by collisions. Not every ozonolysis event yields a stabilized Criegee intermediate.',['criegee','ci']),
+ n('sci','Stabilized Criegee','sCI · R₂COO','ci','Collisional stabilization','rad','Stabilized Criegee intermediates react with H₂O/(H₂O)₂, SO₂, organic acids and other partners; rates depend on substituents and conditions.',['ci']),
+ n('oh','OH / radical formation','OH• + radical products','ci','Unimolecular chemistry','rad','Some Criegee decomposition pathways generate OH radicals, linking ozonolysis to subsequent OH-initiated oxidation.',['criegee']),
+ n('acid','Acids / peroxides','Oxygenated products','sci','H₂O, acids, other partners','gas','sCI reactions produce oxygenated products; specific distributions are structure- and humidity-dependent.',['ci']),
+ n('sulf','SO₂ oxidation → H₂SO₄','Inorganic aerosol precursor','sci','+ SO₂, then chemistry','particle','Criegee + SO₂ can contribute to sulfuric-acid formation, supporting new particle formation or growth under suitable conditions. This is inorganic aerosol chemistry, not SOA by itself.',['ci']),
+ n('ro2','Organic peroxy radical','RO₂•','carbonyl','Subsequent OH / O₂','rad','Further oxidation of carbonyl coproducts may produce RO₂. This is a multistep secondary route, not a direct product of ozonide cleavage.',['criegee','radicals'],true)];
 }
-function sync(){document.querySelectorAll('[data-precursor]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.precursor===precursor)));document.querySelectorAll('[data-oxidant]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.oxidant===oxidant)));draw()}
-function tick(now){raf=0;if(!d.open||document.hidden||paused){last=0;return}if(last){let dt=Math.min(.06,(now-last)/1000);elapsed+=dt;if(elapsed>=3.8){elapsed=0;step=(step+1)%networks[precursor+'|'+oxidant].steps.length;chosen=null}}last=now;draw();raf=requestAnimationFrame(tick)}
-function schedule(){cancelAnimationFrame(raf);raf=0;last=0;sync();if(d.open&&!paused&&!document.hidden)raf=requestAnimationFrame(tick)}
-document.querySelectorAll('[data-precursor]').forEach(b=>b.onclick=()=>{precursor=b.dataset.precursor;step=0;chosen=null;elapsed=0;schedule()});document.querySelectorAll('[data-oxidant]').forEach(b=>b.onclick=()=>{oxidant=b.dataset.oxidant;step=0;chosen=null;elapsed=0;schedule()});
-$('chem-prev').onclick=()=>{step=Math.max(0,step-1);chosen=null;elapsed=0;schedule()};$('chem-next').onclick=()=>{step=Math.min(networks[precursor+'|'+oxidant].steps.length-1,step+1);chosen=null;elapsed=0;schedule()};$('chem-restart').onclick=()=>{step=0;chosen=null;elapsed=0;schedule()};$('chem-play').onclick=()=>{paused=!paused;schedule()};$('chem-open').onclick=()=>{d.showModal();schedule()};$('chem-close').onclick=()=>d.close();d.addEventListener('close',()=>{cancelAnimationFrame(raf);last=0;$('chem-open').focus()});document.addEventListener('visibilitychange',schedule);sync();
+if(nox==='high'){
+ a.push(n('no','RO₂ + NO','RO• + NO₂','ro2','Propagation (common)','rad','RO₂ + NO commonly forms an alkoxy radical and NO₂; a competing association channel produces organic nitrates.',['radicals','ozone']));
+ a.push(n('ron','Organic nitrate','RONO₂ / nitrate products','ro2','Competing nitrate channel','gas','Organic nitrate formation terminates the peroxy radical; nitrates can remain gaseous or contribute to aerosol depending on volatility and uptake.',['ozone','chemistry']));
+ a.push(n('ro','Alkoxy radical','RO•','no','RO₂ + NO','rad','Alkoxy radicals undergo O₂ reaction, fragmentation, or intramolecular H shifts depending on structure.',['chemistry']));
+ a.push(n('no2','Nitrogen dioxide','NO₂','no','NO → NO₂','inorg','Conversion of NO to NO₂ by RO₂ (or HO₂) can support photochemical ozone production without directly consuming ozone.',['ozone']));
+ a.push(n('o3','Photochemical ozone','O₃','no2','NO₂ + hν → O; O + O₂ + M → O₃','inorg','Sunlight photolyzes NO₂ and subsequent O + O₂ + M forms ozone. Net ozone production depends on competing loss reactions and chemical regime; NO₂ formation alone is not a net ozone yield.',['ozone']));
+ a.push(n('frag','Carbonyls / fragments','Smaller OVOCs + HO₂','ro','C–C scission / + O₂','gas','Fragmentation can yield smaller, often more volatile oxygenated molecules; RO + O₂ can also yield carbonyls and HO₂.',['chemistry','soa']));
+ a.push(n('func','Functionalized organics','Oxygenated VOCs','ro','Isomerization / oxygenation','gas','Some alkoxy radical reactions retain the carbon skeleton and form functionalized products, which may undergo further oxidation.',['chemistry','soa']));
+ a.push(n('nsoa','Nitrate-containing SOA','Low-volatility organic nitrates','ron','Further oxidation / partition','particle','Some organic nitrates are sufficiently low-volatility or reactive to contribute to SOA. The extent depends on VOC structure and aerosol conditions.',['vbs','soa'],true));
+}else{
+ a.push(n('ho2','Organic hydroperoxides','ROOH','ro2','RO₂ + HO₂','gas','RO₂ + HO₂ frequently forms organic hydroperoxides; additional channels exist and are precursor-dependent.',['radicals']));
+ a.push(n('cross','RO₂ cross-reactions','ROOR / RO / carbonyls','ro2','RO₂ + R′O₂','rad','Peroxy self- and cross-reactions can yield alkoxy radicals, carbonyl/alcohol products, or accretion products for suitable radicals.',['radicals','vbs']));
+ a.push(n('shift','Intramolecular H shift','Isomerized RO₂','ro2','RO₂ H-shift (when feasible)','rad','Some RO₂ structures undergo intramolecular H shifts. Rates and accessibility vary widely; this is not universal.',['vbs','soa']));
+ a.push(n('hom','Highly oxygenated products','HOM / low-volatility OVOCs','shift','Repeated H-shifts + O₂','gas','Autoxidation can produce highly oxygenated molecules for suitable structures under competing-reaction conditions. Not all isomerizations lead to HOM.',['vbs','soa'],true));
+ a.push(n('dimer','Accretion products','ROOR-type products','cross','Suitable RO₂ + RO₂','gas','Some peroxy radical combinations generate low-volatility accretion products; these compete with other RO₂ + RO₂ channels.',['vbs'],true));
+ a.push(n('hprod','Further oxidation','Carbonyls / oxygenated VOCs','ho2','Photolysis / OH oxidation','gas','Hydroperoxides can undergo further oxidation or photochemistry, creating additional functionalized or fragmented products.',['radicals','soa'],true));
+}
+// Common, explicitly conditional gas-particle outcomes and chemical aging.
+a.push(n('aging','Multigeneration oxidation','More oxygenated organics',nox==='high'?'func':'hprod','Further OH / NO₃ / O₃ (as applicable)','gas','Repeated oxidation can both lower volatility through functionalization and raise volatility through carbon–carbon fragmentation.',['soa','vbs'],true));
+a.push(n('lvoc','Low-volatility organics','SVOC / LVOC / ELVOC',nox==='high'?'aging':'hom','Functionalization / oxygenation','gas','Lower-volatility organic products can undergo absorptive partitioning or condensation; they are not automatically particles.',['soa','vbs'],true));
+a.push(n('soa','Secondary organic aerosol','Particle-phase organics','lvoc','Gas–particle partitioning','particle','SVOCs partition reversibly according to volatility, temperature, organic aerosol mass and activity; LVOCs/ELVOCs more readily condense.',['soa','vbs'],true));
+a.push(n('aqueous','Aqueous / multiphase SOA','Particle-phase products','aging','Reactive uptake / aq. chemistry','particle','Water-soluble and reactive organics may form SOA by heterogeneous or aqueous chemistry, depending on aerosol water, pH, and composition.',['soa'],true));
+return a;
+}
+const colors={gas:'#70dbc5',rad:'#ffc77e',particle:'#c49af5',inorg:'#a2bbfa'};
+let oxidant='OH',nox='low',step=0,paused=false,raf=0,last=0,elapsed=0,selected=null;
+const esc=t=>String(t).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function node(tag,attrs={},txt){const e=document.createElementNS(NS,tag);for(const [k,v] of Object.entries(attrs))e.setAttribute(k,v);if(txt!==undefined)e.textContent=txt;return e;}
+function layout(a){
+ const by=new Map(a.map(x=>[x.id,x]));const children=new Map(a.map(x=>[x.id,[]]));a.forEach(x=>{if(x.parent&&children.has(x.parent))children.get(x.parent).push(x.id)});
+ const depths=new Map([['start',0]]);for(const x of a){if(x.parent)depths.set(x.id,(depths.get(x.parent)||0)+1)};
+ const layers=new Map();for(const x of a){const d=depths.get(x.id)||0;if(!layers.has(d))layers.set(d,[]);layers.get(d).push(x)};
+ const maxDepth=Math.max(...layers.keys());const maxN=Math.max(...[...layers.values()].map(x=>x.length));
+ const W=Math.max(1540,maxN*205+100),H=Math.max(890,(maxDepth+1)*153+90);svg.setAttribute('viewBox',`0 0 ${W} ${H}`);
+ // Position layer-by-layer; tree ancestry is encoded by connectors. Avoid text overlap with fixed node width.
+ for(const [d,items] of layers){const pitch=W/(items.length+1);items.forEach((x,i)=>{x.x=pitch*(i+1);x.y=60+d*153})}
+ return {by,W,H};
+}
+function paint(){const a=build(oxidant,nox),{by,W,H}=layout(a),visible=a.slice(0,step+1);svg.replaceChildren();
+ const defs=node('defs');const glow=node('filter',{id:'chemGlow',x:'-50%',y:'-50%',width:'200%',height:'200%'});glow.append(node('feGaussianBlur',{stdDeviation:'3'}));defs.append(glow);svg.append(defs);
+ for(let y=0;y<H;y+=50)svg.append(node('line',{x1:0,y1:y,x2:W,y2:y,stroke:'#ffffff', 'stroke-opacity':'.035'}));
+ for(const x of visible){if(!x.parent||!by.has(x.parent))continue;const p=by.get(x.parent);const line=node('path',{d:`M ${p.x} ${p.y+39} C ${p.x} ${(p.y+x.y)/2}, ${x.x} ${(p.y+x.y)/2}, ${x.x} ${x.y-40}`,fill:'none',stroke:colors[x.kind], 'stroke-opacity':'.65','stroke-width':'2.3', 'stroke-dasharray':x.dash?'6 6':'none'});svg.append(line);
+ const cx=(p.x+x.x)/2,cy=(p.y+x.y)/2-3;const text=node('text',{x:cx,y:cy,fill:'#c6d8da','font-size':'11','text-anchor':'middle','paint-order':'stroke',stroke:'#0b2330','stroke-width':'5'},x.edge);svg.append(text);
+ }
+ for(const x of visible){const g=node('g',{class:'tree-node',role:'button',tabindex:'0','aria-label':`${x.name}, ${x.formula}`});const sel=selected===x.id;g.append(node('rect',{x:x.x-91,y:x.y-38,width:182,height:76,rx:12,fill:sel?'#204c55':'#173744',stroke:colors[x.kind],'stroke-width':sel?3:1.5}));g.append(node('text',{x:x.x,y:x.y-9,fill:colors[x.kind],'font-size':'13','font-weight':'700','text-anchor':'middle'},x.name));g.append(node('text',{x:x.x,y:x.y+15,fill:'#f0f5f5','font-size':'12','text-anchor':'middle'},x.formula));g.append(node('text',{x:x.x,y:x.y+30,fill:'#9dbbbd','font-size':'9','text-anchor':'middle'},x.kind==='particle'?'PARTICLE':x.kind==='inorg'?'INORGANIC':'GAS / REACTIVE'));g.addEventListener('click',()=>{selected=x.id;paint()});g.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();selected=x.id;paint()}});svg.append(g)}
+ const x=by.get(selected)||visible[visible.length-1];const refs=x.refs.map(k=>papers[k]).filter(Boolean);caption.innerHTML=`<strong>${esc(x.name)}</strong> <span style="color:#58746d">· ${esc(x.formula)}</span><p>${esc(x.detail)}</p><p><b>Pathway:</b> ${esc(x.edge||'Initial VOC oxidation')} · <b>Fate:</b> ${x.kind==='particle'?'Particle-phase / aerosol-associated':x.kind==='inorg'?'Inorganic oxidant / nitrogen chemistry':'Gas-phase or reactive intermediate'} · <b>Yield:</b> not assigned (generic mechanism)</p><p><b>Supporting literature:</b> ${refs.map(([title,url])=>`<a href="${url}" target="_blank" rel="noopener noreferrer">${esc(title)}</a>`).join(' · ')}</p>`;
+ $('chem-step-label').textContent=`${visible.length} of ${a.length} nodes · ${oxidant} · ${nox==='low'?'lower NOₓ':'higher NOₓ'}`;$('chem-prev').disabled=step===0;$('chem-next').disabled=step===a.length-1;$('chem-play').textContent=paused?'Play':'Pause';
+}
+function reset(){step=0;selected=null;elapsed=0;last=0;paint()}
+function tick(now){raf=0;if(paused||!dlg.open||document.hidden)return;elapsed+=last?Math.min(now-last,100):0;last=now;if(elapsed>1350){elapsed=0;const count=build(oxidant,nox).length;if(step<count-1){step++;selected=null;paint()}else{paused=true;paint();return}}raf=requestAnimationFrame(tick)}
+function schedule(){cancelAnimationFrame(raf);raf=0;last=0;paint();if(!paused&&dlg.open&&!document.hidden)raf=requestAnimationFrame(tick)}
+document.querySelectorAll('#chem-dialog [data-oxidant]').forEach(b=>b.addEventListener('click',()=>{oxidant=b.dataset.oxidant;document.querySelectorAll('#chem-dialog [data-oxidant]').forEach(z=>z.setAttribute('aria-pressed',String(z===b)));reset();schedule()}));
+document.querySelectorAll('#chem-dialog [data-nox]').forEach(b=>b.addEventListener('click',()=>{nox=b.dataset.nox;document.querySelectorAll('#chem-dialog [data-nox]').forEach(z=>z.setAttribute('aria-pressed',String(z===b)));reset();schedule()}));
+$('chem-open').onclick=()=>{dlg.showModal();schedule()};$('chem-close').onclick=()=>dlg.close();dlg.addEventListener('close',()=>{cancelAnimationFrame(raf);raf=0;$('chem-open').focus()});$('chem-play').onclick=()=>{paused=!paused;schedule()};$('chem-prev').onclick=()=>{step=Math.max(0,step-1);selected=null;schedule()};$('chem-next').onclick=()=>{step=Math.min(build(oxidant,nox).length-1,step+1);selected=null;schedule()};$('chem-restart').onclick=()=>{paused=false;reset();schedule()};document.addEventListener('visibilitychange',schedule);paint();
 })();
 </script>
 </body></html>
