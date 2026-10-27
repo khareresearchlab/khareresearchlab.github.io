@@ -6,33 +6,45 @@
 .group-atmosphere-toggle{position:absolute;right:7vw;bottom:24px;z-index:3;border:1px solid #145c5840;border-radius:24px;padding:9px 14px;background:rgba(250,250,247,.9);color:#145c58;font:600 11px/1.3 system-ui,sans-serif;letter-spacing:.06em;cursor:pointer;}
 .group-atmosphere-toggle:focus-visible{outline:3px solid #268d89;outline-offset:3px;}
 @media(max-width:600px){.group-atmosphere-toggle{right:7vw;bottom:16px;}}
-/* Fixed portrait frame for student cards; image cannot enlarge its container. */
-.person-card .student-portrait {
-  position: relative !important;
+/* Adarsh Maurya: frameless photograph with text aligned to its width. */
+.person-card.adarsh-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.person-card.adarsh-card .student-portrait {
   display: block !important;
+  position: static !important;
   width: 100% !important;
   height: auto !important;
-  aspect-ratio: 4 / 5;
-  max-height: 340px;
-  overflow: hidden !important;
-  border-radius: 14px;
-  background: #e4eeeb;
-  box-sizing: border-box;
-}
-.person-card .student-portrait > img {
-  position: absolute !important;
-  inset: 0 !important;
-  display: block !important;
-  width: 100% !important;
-  height: 100% !important;
-  max-width: 100% !important;
-  max-height: 100% !important;
-  object-fit: contain !important;
-  object-position: center center !important;
+  max-height: none !important;
+  aspect-ratio: auto !important;
+  overflow: visible !important;
+  padding: 0 !important;
+  margin: 0 0 16px !important;
+  border: 0 !important;
   border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
 }
-.person-card .student-qualifications { margin: 10px 0 12px; font-size: .9rem; line-height: 1.55; }
-.person-card .student-qualifications p { margin: 0 0 5px; }
+.person-card.adarsh-card .student-portrait img {
+  display: block !important;
+  position: static !important;
+  width: 100% !important;
+  height: auto !important;
+  max-width: 100% !important;
+  max-height: none !important;
+  object-fit: contain !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+.person-card.adarsh-card .student-qualifications {
+  margin: 8px 0 12px;
+  font-size: .9rem;
+  line-height: 1.55;
+}
+.person-card.adarsh-card .student-qualifications p { margin: 0 0 5px; }
 </style></head>
 
   <body><header class="site-header"><a class="brand" href="index.html">
@@ -71,7 +83,7 @@
     <p class="eyebrow">STUDENTS & COLLABORATORS</p>
     <h2>Team members</h2></div></div>
   <div class="people-grid">
-    <article class="person-card">
+    <article class="person-card adarsh-card">
       <div class="student-portrait">
         <img src="assets/Adarsh_Maurya.jpg" alt="Adarsh Maurya" loading="lazy"></div>
       <p class="student-qualifications">Ph.D. STUDENT · 2026–ongoing</p>
